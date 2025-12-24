@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Klinik Mata - Template</title>
+  <meta name="description" content="Klinik Mata - template responsif plug-and-play. Ganti teks dan gambar sesuai kebutuhan.">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --white:#ffffff;
+      --muted:#6b7280;
+      --primary:#0f6bff;
+      --accent:#00b894;
+      --card-shadow: 0 8px 22px rgba(16,24,40,0.06);
+      --radius:14px;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: light;
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      font-size:16px;
+    }
+
+    /* Container */
+    .container{max-width:1200px;margin:0 auto;padding:24px;}
+
+    /* Header */
+    header{
+      background:linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+      backdrop-filter: blur(6px);
+      position:sticky;top:0;z-index:50;
+      border-bottom:1px solid rgba(15,23,36,0.04);
+    }
+    .nav-row{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:-0.2px}
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .cta{
+      background:linear-gradient(90deg,var(--primary),#3b82f6);
+      color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;
+      box-shadow: 0 6px 18px rgba(15,99,255,0.12);
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:56px 0;
+    }
+    .hero .intro h2{font-size:34px;margin:0 0 12px 0}
+    .hero .intro p{margin:0 0 18px;color:var(--muted)}
+    .search-card{
+      background:var(--white);padding:18px;border-radius:14px;box-shadow:var(--card-shadow);
+      display:flex;gap:8px;align-items:center;
+    }
+    .search-card input{flex:1;border:0;outline:none;font-size:15px;padding:8px}
+    .search-card button{background:var(--primary);color:white;border:0;padding:10px 14px;border-radius:10px;font-weight:700}
+
+     /* Testimonials title */
+    .section-title{color:var(--blue);font-size:24px;margin:14px 0 18px}
+
+    /* Testimonial carousel (3 columns visible) */
+    .testi-wrap{padding:20px 0}
+    .carousel{position:relative;overflow:hidden}
+    .track{display:flex;gap:18px;transition:transform 0.6s ease}
+    .card{background:var(--white);padding:12px;border-radius:8px;flex:0 0 calc(33.333% - 12px);box-shadow:0 8px 22px rgba(16,24,40,0.06)}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:6px}
+    .card h4{color:var(--lightblue);margin:10px 0 6px;font-size:15px}
+    .card p{font-size:13px;color:#334155}
+
+    .dots{display:flex;gap:8px;margin-top:12px;justify-content:flex-start}
+    .dot{width:10px;height:10px;border-radius:50%;background:#dbeafe;cursor:pointer}
+    .dot.active{background:var(--lightblue)}
+
+   
+    /* Services */
+    .section{padding:40px 0}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service{
+      background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
+      border-radius:12px;padding:18px;box-shadow:var(--card-shadow);
+    }
+    .service h3{margin:0 0 8px 0;font-size:18px}
+    .service p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+    .gallery img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+
+    /* Contact/footer */
+    .contact{
+      display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:start;
+    }
+    form{background:var(--white);padding:18px;border-radius:12px;box-shadow:var(--card-shadow)}
+    input,textarea,select{
+      width:100%;padding:10px;border-radius:8px;border:1px solid rgba(15,23,36,0.06);margin-bottom:10px;font-size:15px;
+    }
+    button[type="submit"]{background:var(--accent);color:white;padding:10px 16px;border-radius:10px;border:0;font-weight:700}
+
+    footer{padding:28px 0;color:var(--muted);font-size:14px}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero,.contact{grid-template-columns:1fr}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:640px){
+      nav ul{display:none}
+      .hero .intro h2{font-size:26px}
+      .cards{grid-template-columns:1fr}
+      .services-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 768px) {
+  #welcome .col-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.testimoni-section {
+    width: 100%;
+    padding: 40px 5%;
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    color: #003b73;
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.slider {
+    width: 100%;
+    max-width: 1050px;
+    position: relative;
+}
+
+.slider input {
+    display: none;
+}
+
+.slides {
+    display: flex;
+    width: 300%;
+    transition: 0.6s ease;
+}
+
+.slide {
+    width: 33.333%;
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+.slide h3 {
+    margin: 10px 0;
+    color: #2d5ea8;
+}
+
+.slide p {
+    font-size: 14px;
+    color: #333;
+}
+
+.img-box img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+/* Slider movement */
+#t1:checked ~ .slides { margin-left: 0; }
+#t2:checked ~ .slides { margin-left: -33.333%; }
+#t3:checked ~ .slides { margin-left: -66.666%; }
+
+/* Dots */
+.dots {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
+}
+
+.dots label {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #b5d5f5;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Active Dot */
+#t1:checked ~ .dots label:nth-child(1),
+#t2:checked ~ .dots label:nth-child(2),
+#t3:checked ~ .dots label:nth-child(3) {
+    background: #005bbb;
+}
+
+.hubungi-wrap {display:flex; flex-wrap:wrap;}
+.hubungi-left {background:#5ec9f5; color:#fff; padding:60px 50px; flex:1 1 400px; box-sizing:border-box;}
+.hubungi-left h2 {font-size:38px; margin:0 0 20px; font-weight:700;}
+.hubungi-left p {font-size:18px; line-height:1.6; margin:0 0 30px;}
+.hubungi-btn {display:inline-block; background:#fff; color:#5ec9f5; padding:14px 28px; border-radius:6px; font-weight:700; text-decoration:none; font-size:16px;}
+.hubungi-right {flex:1 1 400px; min-height:380px; background:url('https://www.klinikmatanusantara.com/image/home/KMNBookApp.jpg') center/cover no-repeat;}
+
+
+/* footer */
+footer {background:#1e1e1e; color:#cfcfcf; padding:60px 40px; display:flex; flex-wrap:wrap; box-sizing:border-box;}
+.f-col {flex:1 1 260px; padding:10px 20px;}
+footer h3 {color:#fff; font-size:20px; margin-bottom:18px; font-weight:700;}
+footer ul {list-style:none; padding:0; margin:0;}
+footer ul li {margin-bottom:10px; font-size:16px;}
+footer ul li a {color:#cfcfcf; text-decoration:none;}
+.newsletter input {width:100%; padding:12px; border-radius:6px; border:1px solid #444; background:#2a2a2a; color:#fff; margin-bottom:12px;}
+.newsletter button {width:100%; padding:12px; border:none; background:#5ec9f5; color:#fff; border-radius:6px; font-weight:700; font-size:16px; cursor:pointer;}
+
+
+.copyright {background:#111; color:#bbb; text-align:center; padding:18px; font-size:14px;}
+
+.bior-section {
+    width: 100%;
+    padding: 60px 20px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bior-title h3 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.bior-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+}
+
+.bior-text {
+    flex: 1 1 450px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+}
+
+.bior-video {
+    flex: 1 1 450px;
+    display: flex;
+    justify-content: center;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-container img {
+    width: 100%;
+    display: block;
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.play-btn::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 22px;
+    width: 0;
+    height: 0;
+    border-left: 22px solid #3498db;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+
+@media(max-width: 768px) {
+    .bior-title h3 {
+        font-size: 22px;
+    }
+
+    .bior-row {
+        flex-direction: column;
+    }
+
+    .bior-text {
+        text-align: center;
+    }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-row">
+      <div class="brand">
+        <img src="https://tritya.space/img/logo.png" alt="Logo Klinik">
+        <div>
+          <h1>Nama Klinik Mata</h1>
+          <div style="font-size:13px;color:var(--muted)">Perawatan & pemeriksaan profesional</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#home">Beranda</a></li>
+          <li><a href="#layanan">Layanan</a></li>
+          <li><a href="#dokter">Dokter</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+          <li><a class="cta" href="#booking">Booking</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+        <!-- SECTION: SELAMAT DATANG -->
+<section id="welcome" style="padding:60px 0">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <h2 style="font-size:40px;margin:0;color:#0E4C8F;font-weight:700;letter-spacing:1px;">
+      SELAMAT DATANG DI Tritya Maya
+    </h2>
+
+    <p style="margin-top:20px;font-size:17px;line-height:1.6;color:#1e293b;text-align:left;">
+      Di Tritya Maya yang hadir di Jakarta dan Semarang, 
+      <strong>pasien adalah prioritas utama kami.</strong>  
+      Dokter kami adalah para dokter mata terbaik di Indonesia dengan pengalaman bertahun-tahun 
+      dalam bidang keahliannya masing-masing untuk menangani berbagai gangguan mata seperti masalah di 
+      <a href="#" style="color:#0f6bff;font-weight:600;text-decoration:none;">retina</a>, 
+      <a href="#" style="color:#0f6bff;font-weight:600;text-decoration:none;">katarak</a>, 
+      <a href="#" style="color:#0f6bff;font-weight:600;text-decoration:none;">LASIK</a>, 
+      <a href="#" style="color:#0f6bff;font-weight:600;text-decoration:none;">mata kering (dry eye)</a>, 
+      <a href="#" style="color:#0f6bff;font-weight:600;text-decoration:none;">glaukoma</a>, 
+      <a href="#" style="color:#0f6bff;font-weight:600;text-decoration:none;">mata juling (strabismus)</a>, 
+      dan lain-lain.  
+      Dilengkapi dengan teknologi terdepan dalam layanan kesehatan mata di Indonesia, kami akan 
+      melayani dan menangani masalah kesehatan mata Anda dengan layanan sepenuh hati.
+    </p>
+  </div>
+
+  <section class="hero" id="home">
+      <div class="intro">
+        <h2>Perawatan Mata Profesional untuk seluruh keluarga</h2>
+        <p>Kami memberikan pemeriksaan mata lengkap, operasi katarak, pemeriksaan retina, serta layanan lasik dan konsultasi.</p>
+
+        <div class="cards" aria-hidden="false">
+          <div class="card">
+            <div class="icon">✓</div>
+            <div>
+              <strong>Dokter Spesialis</strong>
+              <div style="color:var(--muted);font-size:14px">Tersedia jadwal konsultasi</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="icon">🔬</div>
+            <div>
+              <strong>Alat Modern</strong>
+              <div style="color:var(--muted);font-size:14px">OCT, Fundus, & phoropter</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="icon">🏥</div>
+            <div>
+              <strong>Perawatan Aman</strong>
+              <div style="color:var(--muted);font-size:14px">Prosedur steril & terstandarisasi</div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <aside>
+        <div style="background:linear-gradient(180deg,#ffffff,#f3f8ff);padding:20px;border-radius:14px;box-shadow:var(--card-shadow)">
+          <h3 style="margin-top:0">Jadwalkan Janji</h3>
+          <p style="color:var(--muted);margin-bottom:12px">Pilih tanggal dan dokter. Kami akan menghubungi Anda untuk konfirmasi.</p>
+          <div style="display:flex;gap:8px;margin-bottom:10px">
+            <input type="date" style="flex:1" />
+            <select style="width:140px">
+              <option>Dokter A</option>
+              <option>Dokter B</option>
+            </select>
+          </div>
+          <button class="cta" style="width:100%">Minta Konfirmasi</button>
+        </div>
+      </aside>
+    </section>
+  <!-- 2 COLUMN AREA -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:40px;">
+    
+    <!-- LEFT: CALL TO ACTION -->
+    <div style="text-align:center;">
+      <h3 style="color:#38A3EB;font-size:26px;margin-bottom:20px;font-weight:700;">
+        Klik di bawah ini untuk <br>
+        mengetahui Asuransi Kesehatan <br>
+        lainnya yang telah menjadi <br>
+        mitra Tritya Maya.
+      </h3>
+
+      <a 
+        href="#" 
+        style="
+          display:inline-block;
+          background:#38A3EB;
+          color:white;
+          padding:14px 26px;
+          border-radius:8px;
+          font-weight:700;
+          font-size:16px;
+          text-decoration:none;
+        ">
+        Info Lebih Lanjut
+      </a>
+    </div>
+
+    <!-- RIGHT: IMAGE + BOX -->
+    <div style="position:relative;">
+      <img src="https://www.klinikmatanusantara.com/image/home/Image_Lowongan_Dokter_Website.png"
+           alt="KMN Photo"
+           style="width:100%;border-radius:12px;object-fit:cover;">
+
+ 
+    </div>
+  </div>
+</section>
+
+    
+
+
+
+
+
+
+
+    
+    <!-- SECTION AWARD -->
+<section style="padding:70px 0; background:#f5f5f5;">
+  <div style="max-width:1100px; margin:auto; display:flex; gap:40px; align-items:center;">
+    
+    <!-- Left image -->
+    <div style="flex:1;">
+      <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" 
+           style="width:100%; border-radius:8px;">
+    </div>
+    
+    <!-- Right text -->
+    <div style="flex:1; font-size:16px; line-height:1.6; color:#1e293b;">
+      <p style="margin:0;">
+        Terima kasih atas kepercayaan Anda, sehingga Tritya Maya terpilih menjadi 
+        Rumah Sakit Mata terbaik dalam Survei Produk dan Jasa Healthcare Pilihan Konsumen 
+        selama 3 tahun berturut-turut*
+      </p>
+      <p style="margin-top:10px; font-size:14px; color:#475569;">
+        *Diselenggarakan oleh Majalah SWA dan Business Digest berdasarkan hasil 
+        survei terhadap 5.000 responden di 6 kota besar di Indonesia, dengan menilai 
+        kepuasan pelanggan dari berbagai aspek
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SECTION SURVEI KEPUASAN -->
+<section style="padding:70px 0;">
+  <div style="max-width:1100px; margin:auto; display:flex; gap:40px; align-items:center;">
+    
+    <!-- Left image: Survei 99% -->
+    <div style="flex:1;">
+      <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" 
+           style="width:100%; border-radius:8px;">
+    </div>
+
+    <!-- Right text -->
+    <div style="flex:1; font-size:16px; line-height:1.6; color:#1e293b;">
+      Dengan perlengkapan diagnostik dan perlengkapan operasi terkini, serta 
+      layanan yang profesional dengan keramahan sepenuh hati dari para Dokter 
+      dan staf kami, 99% pasien kami menyatakan bahwa mereka puas/sangat puas 
+      dengan layanan yang mereka terima di Tritya Maya (sumber: Survei Kepuasan Pasien Tritya Maya 2025).
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SECTION MENGAPA OPERASI KATARAK -->
+<section style="padding:70px 0; background:white;">
+  <div style="max-width:1100px; margin:auto; display:flex; gap:40px; align-items:center;">
+    
+    <!-- Left text -->
+    <div style="flex:1; text-align:center;">
+      <h3 style="color:#0E4C8F; font-size:22px; font-weight:700;">
+        Kenapa Anda sebaiknya memilih untuk <br>
+        menjalani operasi Katarak di Tritya Maya?
+      </h3>
+      <p style="margin-top:10px; color:#475569;">
+        Simak apa saja keunggulan operasi Katarak di Tritya Maya.
+      </p>
+    </div>
+
+    <!-- Right image -->
+    <div style="flex:1;">
+      <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" 
+           style="width:100%; border-radius:8px;">
+    </div>
+
+  </div>
+</section>
+
+<!-- LAYANAN -->
+    <section class="section" id="layanan">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <h2 style="margin:0">Layanan Kami</h2>
+          <p style="color:var(--muted);margin:6px 0 0 0">Layanan lengkap untuk pemeriksaan dan operasi mata.</p>
+        </div>
+        <div style="align-self:flex-end"><a href="#layanan" style="text-decoration:none;color:var(--primary);font-weight:700">Selengkapnya →</a></div>
+      </div>
+
+      <div class="services-grid" style="margin-top:18px">
+        <div class="service">
+          <img src="https://www.klinikmatanusantara.com/image/home/KMNRetina.jpg" alt="Logo Klinik">
+          <h3>Pemeriksaan Mata</h3>
+          <p>Pemeriksaan refraksi, pemeriksaan retina, tekanan intraokular.</p>
+        </div>
+        <div class="service">
+          <img src="https://www.klinikmatanusantara.com/image/home/katarak.jpg" alt="Logo Klinik">
+        	
+          <h3>Katarak & Bedah</h3>
+          <p>Operasi katarak dengan teknologi phaco dan lensa intraokular premium.</p>
+        </div>
+        <div class="service">
+        	<img src="https://www.klinikmatanusantara.com/image/home/katarak.jpg" alt="Logo Klinik">
+          <h3>Lasik & Refraktif</h3>
+          <p>Konsultasi lasik dan prosedur korektif lainnya.</p>
+        </div>
+        <div class="service">
+        	<img src="https://www.klinikmatanusantara.com/image/home/katarak.jpg" alt="Logo Klinik">
+          <h3>Retina</h3>
+          <p>Penanganan diabetes retinopati, deteksi dini gangguan retina.</p>
+        </div>
+        <div class="service">
+        	<img src="https://www.klinikmatanusantara.com/image/home/katarak.jpg" alt="Logo Klinik">
+          <h3>Anak & Low Vision</h3>
+          <p>Pemeriksaan anak, terapi amblyopia, layanan low vision.</p>
+        </div>
+        <div class="service">
+        	<img src="https://www.klinikmatanusantara.com/image/home/katarak.jpg" alt="Logo Klinik">
+          <h3>Konsultasi Online</h3>
+          <p>Konsultasi via chat/telemedicine untuk tindak lanjut.</p>
+        </div>
+      </div>
+    </section>
+
+
+<!-- TESTIMONIALS: Two sections (Katarak + Lasik) -->
+    <section class="testi-wrap">
+      <h3 class="section-title">TESTIMONI PASIEN KATARAK</h3>
+      <div class="carousel" id="carouselKatarak">
+        <div class="track">
+          <!-- Repeat sets to allow seamless loop -->
+          <!-- set 1 -->
+          <div class="card">
+            <img src="https://www.klinikmatanusantara.com/image/upload/andre_hehanussa.webp" alt="">
+            <h4>LETJEN TNI (PURN.) SUDI SILALAHI (ALM)</h4>
+            <p>Dari pengalaman saya, saya akan memberi tahu orang-orang yang memiliki masalah mata...</p>
+          </div>
+          <div class="card">
+            <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" alt="">
+            <h4>EKA WIRATAKUSUMAH</h4>
+            <p>Buat kami Tritya Maya itu adalah one stop solution untuk masalah mata keluarga...</p>
+          </div>
+          <div class="card">
+            <img src="https://www.klinikmatanusantara.com/image/upload/niniek.webp" alt="">
+            <h4>CONNIE SUTEDJA</h4>
+            <p>Saya himbau ya, dengan pengalaman saya. Jangan ragu-ragu kalau mau operasi katarak...</p>
+          </div>
+
+          <!-- duplicate to create continuous feel -->
+          <div class="card">
+            <img src="https://www.klinikmatanusantara.com/image/upload/slamet.webp" alt="">
+            <h4>PASIEN 4</h4>
+            <p>Contoh testimoni tambahan untuk mengisi carousel.</p>
+          </div>
+          <div class="card">
+            <img src="https://www.klinikmatanusantara.com/image/upload/aminah_shahab.webp" alt="">
+            <h4>PASIEN 5</h4>
+            <p>Contoh testimoni tambahan untuk mengisi carousel.</p>
+          </div>
+          <div class="card">
+            <img src="https://www.klinikmatanusantara.com/image/upload/damian_hoo.webp" alt="">
+            <h4>PASIEN 6</h4>
+            <p>Contoh testimoni tambahan untuk mengisi carousel.</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="dots" id="dotsKatarak"></div>
+    </section>
+
+  
+
+    <!-- GALLERY / TENTANG -->
+    <section class="section" id="dokter">
+      <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h2>Tentang Klinik</h2>
+          <p style="color:var(--muted)">Klinik mata berpengalaman dengan tim dokter spesialis mata dan staf medis terlatih. Kami berkomitmen pada perawatan yang aman, ramah, dan evidence-based.</p>
+
+          <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+            <div style="background:var(--white);padding:12px;border-radius:10px;box-shadow:var(--card-shadow);min-width:180px">
+              <strong>Jam Operasional</strong>
+              <div style="color:var(--muted);font-size:14px">Sen–Sab 08:00–16:00</div>
+            </div>
+            <div style="background:var(--white);padding:12px;border-radius:10px;box-shadow:var(--card-shadow);min-width:180px">
+              <strong>Lokasi</strong>
+              <div style="color:var(--muted);font-size:14px">Jl. Contoh No.123, Kota</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:280px">
+          <div class="gallery">
+            <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" alt="Klinik image 1">
+            <div style="display:grid;gap:12px">
+              <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" alt="Klinik image 2">
+              <img src="https://www.klinikmatanusantara.com/image/home/terimaKasih.jpg" alt="Klinik image 3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bior-section">
+    <div class="bior-title">
+        <h3>Akreditasi Disini</h3>
+    </div>
+
+    <div class="bior-row">
+        <div class="bior-text">
+            <p><strong>
+               text Akreditasi
+            </strong></p>
+
+            <p><strong>
+                Sejak awal penyelenggaraan di tahun 2008, BIOR sudah dikenal dengan kualitas,
+                keunggulan dan profesionalismenya yang sangat baik.
+            </strong></p>
+        </div>
+
+        <div class="bior-video">
+            <div class="video-container">
+                <img src="https://i.ytimg.com/vi_webp/2ouGm23NLHE/maxresdefault.webp" alt="BIOR Video">
+                <div class="play-btn"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+  </main>
+
+     <section class="hubungi-wrap">
+<div class="hubungi-left">
+<h2>Hubungi Tritya Maya</h2>
+<p>Tim kami siap membantu menjawab pertanyaan Anda dan menentukan jadwal konsultasi terbaik.</p>
+<a href="#" class="hubungi-btn">Hubungi Kami</a>
+</div>
+
+
+<div class="hubungi-right"></div>
+</section>
+
+
+<footer>
+<div class="f-col">
+<h3>Kontak</h3>
+<ul>
+<li>☎ 0800 1 555 555</li>
+<li>✉ info@kmn.id</li>
+<li>📍 Jakarta, Depok, Semarang</li>
+</ul>
+</div>
+
+
+<div class="f-col">
+<h3>Tindakan</h3>
+<ul>
+<li><a href="#">Katarak</a></li>
+<li><a href="#">LASIK</a></li>
+<li><a href="#">Retina</a></li>
+<li><a href="#">Glaukoma</a></li>
+</ul>
+</div>
+
+
+<div class="f-col newsletter">
+<h3>Newsletter</h3>
+<input type="email" placeholder="Email Anda" />
+<button>Subscribe</button>
+</div>
+</footer>
+
+
+<div class="copyright">© 2025 Tritya Maya. All rights reserved.</div>
+
+  <script>
+    // small helpers
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    function submitForm(e){
+      e.preventDefault();
+      // This is a placeholder. Replace with real submit (AJAX / Form action / backend)
+      const name = document.getElementById('name').value.trim();
+      alert('Terima kasih, ' + (name||'Pengunjung') + '! Pesan Anda telah dikirim (contoh). Ganti ini dengan pengiriman server-side.');
+      document.getElementById('contactForm').reset();
+    }
+  </script>
+   <script>
+    /* Simple autoplay carousel for 3-column view
+       Approach: shift track by card width increments. Loop when reaching end. */
+
+    function makeCarousel(containerId, dotsId) {
+      const container = document.getElementById(containerId);
+      const track = container.querySelector('.track');
+      const cards = track.children;
+      const dotsWrap = document.getElementById(dotsId);
+
+      // visible count depends on width (3 default)
+      function visibleCount() {
+        if (window.innerWidth <= 640) return 1;
+        if (window.innerWidth <= 1000) return 2;
+        return 3;
+      }
+
+      let idx = 0;
+      let timeout;
+
+      // create dots based on number of pages
+      function createDots(){
+        dotsWrap.innerHTML='';
+        const per = visibleCount();
+        const pages = Math.ceil(cards.length / per);
+        for(let i=0;i<pages;i++){
+          const d = document.createElement('div');
+          d.className='dot' + (i===0? ' active':'');
+          d.addEventListener('click',()=>{ idx=i; goto(i); reset(); });
+          dotsWrap.appendChild(d);
+        }
+      }
+
+      function goto(i){
+        const per = visibleCount();
+        const shift = (100/per) * i * per; // percentage of track
+        track.style.transform = `translateX(-${(100/ (cards.length)) * i * per}%)`;
+        // active dot
+        Array.from(dotsWrap.children).forEach((d,di)=> d.classList.toggle('active', di===i));
+      }
+
+      function tick(){
+        const per = visibleCount();
+        const pages = Math.ceil(cards.length / per);
+        idx = (idx + 1) % pages;
+        goto(idx);
+      }
+
+      function reset(){
+        clearInterval(timeout);
+        timeout = setInterval(tick, 3500);
+      }
+
+      window.addEventListener('resize', ()=>{ createDots(); goto(0); });
+
+      createDots();
+      reset();
+    }
+
+    // instantiate two carousels
+    document.addEventListener('DOMContentLoaded',()=>{
+      makeCarousel('carouselKatarak','dotsKatarak');
+      makeCarousel('carouselLasik','dotsLasik');
+    });
+  </script>
+</body>
+</html>
