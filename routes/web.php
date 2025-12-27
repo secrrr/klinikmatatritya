@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\FrontController;
+use App\Http\Controllers\Admin\PopupSettingController;
+
 use App\Models\Analytics;
 
 /*
@@ -24,15 +27,12 @@ Route::prefix('admin')->group(function () {
 
     // Protected Routes
     Route::middleware('auth.admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+       
+         Route::get('dashboard', [DashboardController::class, 'index'])
+            ->name('admin.dashboard');
 
-        Route::get('popup', [PopupSettingController::class, 'edit'])
-            ->name('popup.edit');
-
-        Route::post('popup', [PopupSettingController::class, 'update'])
-            ->name('popup.update');
+       Route::get('popup', [PopupSettingController::class, 'edit'])->name('popup.edit');
+        Route::post('popup', [PopupSettingController::class, 'update'])->name('popup.update');
             
         Route::resource('articles', App\Http\Controllers\Admin\ArticleController::class)->names('admin.articles');
         Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');
@@ -43,29 +43,15 @@ Route::prefix('admin')->group(function () {
         Route::resource('careers', App\Http\Controllers\Admin\CareerController::class)->names('admin.careers');
         Route::resource('job-applications', App\Http\Controllers\Admin\JobApplicationController::class)->except(['create', 'store', 'edit', 'update'])->names('admin.job-applications');
         Route::post('job-applications/{jobApplication}/reply', [App\Http\Controllers\Admin\JobApplicationController::class, 'reply'])->name('admin.job-applications.reply');
-        Route::get('analytics', [App\Http\Controllers\Admin\SettingsController::class, 'analytics'])->name('admin.settings.analytics');
-
+        Route::get('analytics', [App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.settings.analytics');
         // Settings Routes
         Route::get('settings/mail', [App\Http\Controllers\Admin\SettingsController::class, 'mail'])->name('admin.settings.mail');
         Route::post('settings/mail', [App\Http\Controllers\Admin\SettingsController::class, 'updateMail'])->name('admin.settings.update-mail');
     });
 });
 
-Route::get('/admin/analytics/data', function () {
-    $visitors = Analytics::selectRaw('DATE_FORMAT(date, "%a") as day, SUM(visitors) as total')
-        ->groupBy(DB::raw('DATE_FORMAT(date, "%a")'))
-        ->orderBy(DB::raw('DATE(date)'))
-        ->get();
-
-    $pageViews = Analytics::selectRaw('page, SUM(page_views) as total')
-        ->groupBy('page')
-        ->get();
-
-    return response()->json([
-        'visitors' => $visitors,
-        'pageViews' => $pageViews,
-    ]);
-});
+Route::get('/admin/analytics/data', [\App\Http\Controllers\Admin\AnalyticsController::class, 'data'])
+    ->name('admin.analytics.data');
 
 Route::get('/run-migrate/fresh', function () {
     Artisan::call('migrate:fresh');

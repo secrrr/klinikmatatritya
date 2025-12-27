@@ -175,6 +175,11 @@
                 <span>Dashboard</span>
             </a>
 
+            <a href="{{ route('popup.edit') }}" class="menu-item @if(request()->routeIs('admin.popup.*')) active @endif">
+                <i class="fas fa-user-md"></i>
+                <span>Main Popup Home</span>
+            </a>
+
             <a href="{{ route('admin.doctors.index') }}" class="menu-item @if(request()->routeIs('admin.doctors.*')) active @endif">
                 <i class="fas fa-user-md"></i>
                 <span>Dokter</span>

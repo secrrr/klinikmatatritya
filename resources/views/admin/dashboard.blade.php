@@ -5,43 +5,9 @@
 
 @section('content')
 <div class="row g-4 mb-4">
-    <!-- Stats Card 1 -->
-    <div class="col-12 col-md-6 col-xl-3">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-bold text-uppercase">Total Pasien</span>
-                    <div class="bg-light text-primary rounded p-2">
-                        <i class="fas fa-users"></i>
-                    </div>
-                </div>
-                <h3 class="fw-bold mb-1">1,250</h3>
-                <span class="badge bg-success-subtle text-success small">
-                    <i class="fas fa-arrow-up me-1"></i> +12.5%
-                </span>
-                <span class="text-muted small ms-1">Bulan ini</span>
-            </div>
-        </div>
-    </div>
+   
 
-    <!-- Stats Card 2 -->
-    <div class="col-12 col-md-6 col-xl-3">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-bold text-uppercase">Janji Temu</span>
-                    <div class="bg-light text-warning rounded p-2">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                </div>
-                <h3 class="fw-bold mb-1">45</h3>
-                <span class="badge bg-danger-subtle text-danger small">
-                    <i class="fas fa-arrow-down me-1"></i> -2.4%
-                </span>
-                <span class="text-muted small ms-1">Hari ini</span>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Stats Card 3 -->
     <div class="col-12 col-md-6 col-xl-3">
@@ -53,7 +19,7 @@
                         <i class="fas fa-user-md"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-1">12</h3>
+                <h3 class="fw-bold mb-1">{{ $doctors }}</h3>
                 <span class="text-muted small">Sedang praktek</span>
             </div>
         </div>
@@ -69,15 +35,14 @@
                         <i class="fas fa-newspaper"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-1">89</h3>
-                <span class="badge bg-success-subtle text-success small">
-                    <i class="fas fa-plus me-1"></i> 3 Baru
-                </span>
+                <h3 class="fw-bold mb-1">{{ $articles }}</h3>
+               
             </div>
         </div>
     </div>
 </div>
 
+<!--
 <div class="row">
     <div class="col-12">
         <div class="card border-0 shadow-sm">
@@ -160,4 +125,5 @@
         </div>
     </div>
 </div>
+-->
 @endsection

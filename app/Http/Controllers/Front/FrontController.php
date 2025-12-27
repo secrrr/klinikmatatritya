@@ -21,7 +21,7 @@ class FrontController extends Controller
         $services = Service::latest()->take(6)->get();
         $articles = Article::latest()->take(6)->get();
         $doctors = Doctor::with('schedules')->take(6)->get();
-        $promos = Promo::latest()->take(2)->get();
+        $promos = Promo::latest()->get();
         $popup = PopupSetting::where('is_active',1)->first();
         $testimonials = Testimonial::latest()->take(6)->get();
         return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup'));

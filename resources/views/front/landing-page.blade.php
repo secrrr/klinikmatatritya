@@ -958,10 +958,10 @@
                         khusus untuk kebutuhan Anda
                     </p>
 
-                    <div class="row justify-content-center g-4">
-                        <div class="row justify-content-center g-4">
-                            @forelse($promos as $promo)
-                                <div class="col-md-6 col-lg-5">
+                   <div class="swiper promoSwiper">
+                        <div class="swiper-wrapper">
+                          @forelse($promos as $promo)
+                             <div class="swiper-slide">
                                     <div class="promo-card text-start">
                                         <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
                                             class="promo-img" alt="{{ $promo->title }}">
@@ -984,6 +984,7 @@
                                 </div>
                             @endforelse
                         </div>
+                           
                     </div>
                 </div>
             </section>
@@ -1285,17 +1286,35 @@
             <section class="asuransi-section container" style="">
                 <div class="container text-center">
                     <h3 class="fw-bold mb-5">Pilihan Asuransi</h3>
-                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-5">
-                        <!-- Ganti dengan logo asuransi sebenarnya jika ada -->
-                        <img src="{{ asset('img/pilihan-asuransi/bpjs-kesehatan.png') }}" height="120" alt="BPJS">
-                        <img src="{{ asset('img/pilihan-asuransi/bri-life.png') }}" height="120" alt="BRI Life">
-                        <img src="{{ asset('img/pilihan-asuransi/bni-life.png') }}" height="120" alt="BNI Life">
-                        <img src="{{ asset('img/pilihan-asuransi/admedika.png') }}" height="115" alt="AdMedika">
-                        <img src="{{ asset('img/pilihan-asuransi/pertamina.png') }}" height="125" alt="Pertamina">
-                        <img src="{{ asset('img/pilihan-asuransi/bpjs-ketenagakerjaan.png') }}" height="120"
-                            alt="BPJS TK">
+                   <div class="swiper asuransiSwiper">
+                        <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="{{ asset('img/pilihan-asuransi/bpjs-kesehatan.png') }}" height="120" alt="BPJS">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="{{ asset('img/pilihan-asuransi/bri-life.png') }}" height="120" alt="BRI Life">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="{{ asset('img/pilihan-asuransi/bni-life.png') }}" height="120" alt="BNI Life">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="{{ asset('img/pilihan-asuransi/admedika.png') }}" height="115" alt="AdMedika">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="{{ asset('img/pilihan-asuransi/pertamina.png') }}" height="125" alt="Pertamina">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="{{ asset('img/pilihan-asuransi/bpjs-ketenagakerjaan.png') }}" height="120" alt="BPJS TK">
+                        </div>
                     </div>
                 </div>
+                </div>
+
             </section>
 
             <!-- 9. TESTIMONI (4 CARD VISIBLE) -->
@@ -1443,6 +1462,42 @@
     </script>
 
     <script>
+
+        var swiper = new Swiper(".promoSwiper", {
+            slidesPerView: 1.2,
+            spaceBetween: 20,
+            loop: true,
+            grabCursor: true,
+
+            breakpoints: {
+                768: {
+                    slidesPerView: 2.2
+                },
+                992: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+        var asuransiSwiper = new Swiper(".asuransiSwiper", {
+            slidesPerView: 2.5,
+            spaceBetween: 30,
+            loop: true,
+            centeredSlides: true,
+            grabCursor: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+
+            breakpoints: {
+                576: { slidesPerView: 3.5 },
+                768: { slidesPerView: 4.5 },
+                992: { slidesPerView: 5 },
+            },
+
+        });
+
         // Init Swiper Testimoni (Menampilkan 4 Card)
         const testimonialSwiper = new Swiper('.testimonialSwiper', {
             slidesPerView: 1,

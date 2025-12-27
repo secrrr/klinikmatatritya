@@ -1,7 +1,8 @@
 <?php
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\PopupSetting;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
