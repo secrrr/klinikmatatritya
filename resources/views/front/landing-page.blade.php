@@ -12,6 +12,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
     <style>
         :root {
             --tritya-navy: #19225f;
@@ -349,12 +351,12 @@
         /* --- MID WRAPPER --- */
         .mid-container {
             /* background-image: url('/img/bg-footer.png');
-                                                                                                                background-size: cover;
-                                                                                                                background-position: center;
-                                                                                                                background-repeat: no-repeat;
-                                                                                                                background-blend-mode: multiply;
-                                                                                                                background-color: rgba(255, 255, 255, 0.5);
-                                                                                                                background-blend-mode: overlay; */
+                                                                                                                                                                                                                                    background-size: cover;
+                                                                                                                                                                                                                                    background-position: center;
+                                                                                                                                                                                                                                    background-repeat: no-repeat;
+                                                                                                                                                                                                                                    background-blend-mode: multiply;
+                                                                                                                                                                                                                                    background-color: rgba(255, 255, 255, 0.5);
+                                                                                                                                                                                                                                    background-blend-mode: overlay; */
             /* background-color: #dbeafe; */
             padding-top: 100px;
         }
@@ -582,18 +584,18 @@
 
         /* Background Image Overlay (Optional, based on reference) */
         /* .testi-section::before {
-                                                                                                                                                                                                                                                                                                                                                                            content: "";
-                                                                                                                                                                                                                                                                                                                                                                            position: absolute;
-                                                                                                                                                                                                                                                                                                                                                                            top: 0;
-                                                                                                                                                                                                                                                                                                                                                                            left: 0;
-                                                                                                                                                                                                                                                                                                                                                                            right: 0;
-                                                                                                                                                                                                                                                                                                                                                                            bottom: 0;
-                                                                                                                                                                                                                                                                                                                                                                            background-image: url('https://img.freepik.com/free-photo/doctor-nurses-special-equipment_23-2148980721.jpg');
-                                                                                                                                                                                                                                                                                                                                                                            background-size: cover;
-                                                                                                                                                                                                                                                                                                                                                                            background-position: center;
-                                                                                                                                                                                                                                                                                                                                                                            opacity: 0.1;
-                                                                                                                                                                                                                                                                                                                                                                            pointer-events: none;
-                                                                                                                                                                                                                                                                                                                                                                        } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                content: "";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                position: absolute;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                top: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                left: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                right: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                bottom: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                background-image: url('https://img.freepik.com/free-photo/doctor-nurses-special-equipment_23-2148980721.jpg');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                background-size: cover;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                background-position: center;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                opacity: 0.1;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                pointer-events: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            } */
 
         .testi-bubble {
             background: white;
@@ -722,17 +724,15 @@
 
 @section('content')
 
-    @if($popup && $popup->image)
-    <div id="popupOverlay" class="popup-overlay">
-        <div class="popup-box">
+    @if ($popup && $popup->image)
+        <div id="popupOverlay" class="popup-overlay">
+            <div class="popup-box">
 
-            <div class="popup-close" id="closePopup">×</div>
+                <div class="popup-close" id="closePopup">×</div>
 
-            <img src="{{ asset('storage/'.$popup->image) }}"
-                class="popup-image"
-                alt="Popup Info">
+                <img src="{{ asset('storage/' . $popup->image) }}" class="popup-image" alt="Popup Info">
+            </div>
         </div>
-    </div>
     @endif
 
 
@@ -819,44 +819,158 @@
                     <div class="col-lg-7">
                         <div class="swiper specSwiper" style="padding-bottom: 20px;">
                             <div class="swiper-wrapper">
-                                @forelse($services as $service)
-                                    <div class="swiper-slide">
-                                       
-                                        <div class="specialist-card" data-title="{{ $service->title }}"
-                                            data-desc="{{ $service->excerpt }}">
-                                            <!-- Icon -->
-                                            <div class="spec-icon">
-                                                @if ($loop->iteration % 4 == 1)
-                                                   <i class="far fa-eye"></i>
-                                                @elseif($loop->iteration % 4 == 2)
-                                                    <i class="fas fa-glasses"></i>
-                                                @elseif($loop->iteration % 4 == 3)
-                                                    <i class="fas fa-low-vision"></i>
-                                                @else
-                                                    <i class="fas fa-user-md"></i>
-                                                @endif
-                                            </div>
+                                <div class="swiper-slide">
 
-                                            <div class="mt-auto">
-                                                <h4 class="spec-name">{{ $service->title }}</h4>
-                                                <p class="spec-desc">{{ $service->excerpt }}</p>
-                                            </div>
+                                    <div class="specialist-card" data-title="EMC"
+                                        data-desc="pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
+                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
+                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
+                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
+                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
+                                                kerusakan lebih lanjut.">
+                                        <!-- Icon -->
+                                        <div class="spec-icon">
+                                            <i class="far fa-eye"></i>
                                         </div>
-                                       
 
-                                    </div>
-                                @empty
-                                    <div class="swiper-slide">
-                                        <div class="specialist-card active" data-title="Belum ada layanan"
-                                            data-desc="Silakan tambahkan layanan di admin panel.">
-                                            <div class="spec-icon"><i class="far fa-eye"></i></div>
-                                            <div class="mt-auto">
-                                                <h4 class="spec-name">Belum ada layanan</h4>
-                                                <p class="spec-desc">Silakan tambahkan layanan di admin panel.</p>
-                                            </div>
+                                        <div class="mt-auto">
+                                            <h4 class="spec-name">EMC</h4>
+                                            <p class="spec-desc">
+                                                pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
+                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
+                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
+                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
+                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
+                                                kerusakan lebih lanjut.
+                                            </p>
                                         </div>
                                     </div>
-                                @endforelse
+
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <div class="specialist-card" data-title="Cataract Surgery"
+                                        data-desc="Operasi Katarak adalah prosedur medis untuk mengangkat lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali. Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan jelas.">
+                                        <!-- Icon -->
+                                        <div class="spec-icon">
+                                            <i class="fas fa-glasses"></i>
+                                        </div>
+
+                                        <div class="mt-auto">
+                                            <h4 class="spec-name">Cataract Surgery</h4>
+                                            <p class="spec-desc">Operasi Katarak adalah prosedur medis untuk mengangkat
+                                                lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan
+                                                (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali.
+                                                Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu
+                                                rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai
+                                                menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan
+                                                jelas.</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <div class="specialist-card" data-title="Optical Refraction"
+                                        data-desc="
+                                    Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder, serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas penglihatan sehari-hari.
+                                    ">
+                                        <!-- Icon -->
+                                        <div class="spec-icon">
+                                            <i class="fas fa-low-vision"></i>
+                                        </div>
+
+                                        <div class="mt-auto">
+                                            <h4 class="spec-name">Optical Refraction</h4>
+                                            <p class="spec-desc">Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh
+                                                Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata
+                                                atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu
+                                                mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder,
+                                                serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas
+                                                penglihatan sehari-hari.</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <div class="specialist-card" data-title="EMC"
+                                        data-desc="pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
+                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
+                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
+                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
+                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
+                                                kerusakan lebih lanjut.">
+                                        <!-- Icon -->
+                                        <div class="spec-icon">
+                                            <i class="far fa-eye"></i>
+                                        </div>
+
+                                        <div class="mt-auto">
+                                            <h4 class="spec-name">EMC</h4>
+                                            <p class="spec-desc">
+                                                pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
+                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
+                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
+                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
+                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
+                                                kerusakan lebih lanjut.
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <div class="specialist-card" data-title="Cataract Surgery"
+                                        data-desc="Operasi Katarak adalah prosedur medis untuk mengangkat lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali. Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan jelas.">
+                                        <!-- Icon -->
+                                        <div class="spec-icon">
+                                            <i class="fas fa-glasses"></i>
+                                        </div>
+
+                                        <div class="mt-auto">
+                                            <h4 class="spec-name">Cataract Surgery</h4>
+                                            <p class="spec-desc">Operasi Katarak adalah prosedur medis untuk mengangkat
+                                                lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan
+                                                (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali.
+                                                Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu
+                                                rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai
+                                                menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan
+                                                jelas.</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="swiper-slide">
+
+                                    <div class="specialist-card" data-title="Optical Refraction"
+                                        data-desc="
+                                    Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder, serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas penglihatan sehari-hari.
+                                    ">
+                                        <!-- Icon -->
+                                        <div class="spec-icon">
+                                            <i class="fas fa-low-vision"></i>
+                                        </div>
+
+                                        <div class="mt-auto">
+                                            <h4 class="spec-name">Optical Refraction</h4>
+                                            <p class="spec-desc">Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh
+                                                Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata
+                                                atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu
+                                                mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder,
+                                                serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas
+                                                penglihatan sehari-hari.</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -885,8 +999,7 @@
                         <div class="swiper-slide">
                             <div class="equip-card">
                                 <div class="equip-img-wrapper">
-                                    <img src="{{asset('img/statis/ark.png')}}"
-                                        class="equip-img" alt="ARK">
+                                    <img src="{{ asset('img/statis/ark.png') }}" class="equip-img" alt="ARK">
                                 </div>
                                 <div class="equip-body">
                                     <h5 class="equip-title">Auto Refractometer Keratometer (ARK)</h5>
@@ -898,8 +1011,7 @@
                         <div class="swiper-slide">
                             <div class="equip-card">
                                 <div class="equip-img-wrapper">
-                                    <img src="{{asset('img/statis/nct.png')}}"
-                                        class="equip-img" alt="NCT">
+                                    <img src="{{ asset('img/statis/nct.png') }}" class="equip-img" alt="NCT">
                                 </div>
                                 <div class="equip-body">
                                     <h5 class="equip-title">Non-Contact Tonometry (NCT)</h5>
@@ -911,8 +1023,7 @@
                         <div class="swiper-slide">
                             <div class="equip-card">
                                 <div class="equip-img-wrapper">
-                                    <img src="{{asset('img/statis/slit-lamp.png')}}"
-                                        class="equip-img" alt="Slit Lamp">
+                                    <img src="{{ asset('img/statis/slit-lamp.png') }}" class="equip-img" alt="Slit Lamp">
                                 </div>
                                 <div class="equip-body">
                                     <h5 class="equip-title">Slit Lamp</h5>
@@ -924,8 +1035,7 @@
                         <div class="swiper-slide">
                             <div class="equip-card">
                                 <div class="equip-img-wrapper">
-                                    <img src="{{asset('img/statis/oct.png')}}"
-                                        class="equip-img" alt="OCT">
+                                    <img src="{{ asset('img/statis/oct.png') }}" class="equip-img" alt="OCT">
                                 </div>
                                 <div class="equip-body">
                                     <h5 class="equip-title">Optical Coherence Tomography (OCT)</h5>
@@ -936,10 +1046,10 @@
                     </div>
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
-                       <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                class="fas fa-chevron-left"></i></button>
-                        <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                class="fas fa-chevron-right"></i></button> -->
+                        <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                    class="fas fa-chevron-left"></i></button>
+                                                                                                                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                    class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -958,10 +1068,10 @@
                         khusus untuk kebutuhan Anda
                     </p>
 
-                   <div class="swiper promoSwiper">
+                    <div class="swiper promoSwiper">
                         <div class="swiper-wrapper">
-                          @forelse($promos as $promo)
-                             <div class="swiper-slide">
+                            @forelse($promos as $promo)
+                                <div class="swiper-slide">
                                     <div class="promo-card text-start">
                                         <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
                                             class="promo-img" alt="{{ $promo->title }}">
@@ -984,7 +1094,7 @@
                                 </div>
                             @endforelse
                         </div>
-                           
+
                     </div>
                 </div>
             </section>
@@ -1286,57 +1396,77 @@
             <section class="asuransi-section container" style="">
                 <div class="container text-center">
                     <h3 class="fw-bold mb-5">Pilihan Asuransi</h3>
-                   <div class="swiper asuransiSwiper">
-                        <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="{{ asset('img/pilihan-asuransi/bpjs-kesehatan.png') }}" height="120" alt="BPJS">
-                        </div>
+                    <div class="">
+                        <div class="splide asuransiSwiper">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                                    <li class="splide__slide">
+                                        <div class="text-center">
+                                            <img src="{{ asset('img/pilihan-asuransi/bpjs-kesehatan.png') }}"
+                                                height="120" alt="BPJS">
+                                        </div>
+                                    </li>
 
-                        <div class="swiper-slide">
-                            <img src="{{ asset('img/pilihan-asuransi/bri-life.png') }}" height="120" alt="BRI Life">
-                        </div>
+                                    <li class="splide__slide">
+                                        <div class="text-center">
+                                            <img src="{{ asset('img/pilihan-asuransi/bri-life.png') }}" height="120"
+                                                alt="BRI Life">
+                                        </div>
+                                    </li>
 
-                        <div class="swiper-slide">
-                            <img src="{{ asset('img/pilihan-asuransi/bni-life.png') }}" height="120" alt="BNI Life">
-                        </div>
+                                    <li class="splide__slide">
+                                        <div class="text-center">
+                                            <img src="{{ asset('img/pilihan-asuransi/bni-life.png') }}" height="120"
+                                                alt="BNI Life">
+                                        </div>
+                                    </li>
 
-                        <div class="swiper-slide">
-                            <img src="{{ asset('img/pilihan-asuransi/admedika.png') }}" height="115" alt="AdMedika">
-                        </div>
+                                    <li class="splide__slide">
+                                        <div class="text-center">
+                                            <img src="{{ asset('img/pilihan-asuransi/admedika.png') }}" height="115"
+                                                alt="AdMedika">
+                                        </div>
+                                    </li>
 
-                        <div class="swiper-slide">
-                            <img src="{{ asset('img/pilihan-asuransi/pertamina.png') }}" height="125" alt="Pertamina">
-                        </div>
+                                    <li class="splide__slide">
+                                        <div class="text-center">
+                                            <img src="{{ asset('img/pilihan-asuransi/pertamina.png') }}" height="125"
+                                                alt="Pertamina">
+                                        </div>
+                                    </li>
 
-                        <div class="swiper-slide">
-                            <img src="{{ asset('img/pilihan-asuransi/bpjs-ketenagakerjaan.png') }}" height="120" alt="BPJS TK">
+                                    <li class="splide__slide">
+                                        <div class="text-center">
+                                            <img src="{{ asset('img/pilihan-asuransi/bpjs-ketenagakerjaan.png') }}"
+                                                height="120" alt="BPJS TK">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
 
             </section>
 
             <!-- 9. TESTIMONI (4 CARD VISIBLE) -->
             <section class="testi-section">
-                    <div class="container">
-                        <h2 class="fw-bold mb-5 text-center text-white">
-                            Dipercaya Banyak Orang
-                        </h2>
+                <div class="container">
+                    <h2 class="fw-bold mb-5 text-center text-white">
+                        Dipercaya Banyak Orang
+                    </h2>
 
-                        <div class="swiper testimonialSwiper">
-                            <div class="swiper-wrapper">
+                    <div class="swiper testimonialSwiper">
+                        <div class="swiper-wrapper">
 
-                                @foreach($testimonials as $t)
+                            @foreach ($testimonials as $t)
                                 <div class="swiper-slide">
                                     <div class="testi-bubble">
                                         "{{ $t->content }}"
                                     </div>
 
                                     <div class="testi-user">
-                                        <img src="{{ $t->avatar 
-                                            ? asset('storage/'.$t->avatar)
-                                            : asset('images/default-avatar.png') }}"
+                                        <img src="{{ $t->avatar ? asset('storage/' . $t->avatar) : asset('images/default-avatar.png') }}"
                                             class="testi-avatar me-3" alt="{{ $t->name }}">
 
                                         <div class="testi-info">
@@ -1345,12 +1475,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endforeach
+                            @endforeach
 
-                            </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
 
             <!-- 10. INSTAGRAM FEED -->
@@ -1360,55 +1490,40 @@
                         <h3 class="fw-bold">@klinikmatatritya.official</h3>
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-6 col-md-3">
-                            <div class="insta-img-wrapper">
-                                <img src="https://img.freepik.com/free-photo/female-doctor-holding-glasses_23-2148847823.jpg"
-                                    class="insta-img" alt="Insta">
+                    <div class="row g-4">
+                        @forelse($social_feeds as $feed)
+                            <div class="col-md-6 col-lg-3">
+                                <div class="social-card h-100 d-flex justify-content-center align-items-center p-2">
+                                    {!! $feed->embed_code !!}
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="insta-img-wrapper">
-                                <img src="https://img.freepik.com/free-photo/muslim-doctor-talking-patient_23-2148847863.jpg"
-                                    class="insta-img" alt="Insta">
+                        @empty
+                            <div class="col-12 text-center">
+                                <p class="text-muted">Belum ada feed terbaru.</p>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="insta-img-wrapper">
-                                <img src="https://img.freepik.com/free-photo/portrait-female-doctor_23-2148847822.jpg"
-                                    class="insta-img" alt="Insta">
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="insta-img-wrapper">
-                                <img src="https://img.freepik.com/free-photo/woman-looking-phone-car_23-2149026938.jpg"
-                                    class="insta-img" alt="Insta">
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </section>
         </div>
-
-        
-
     </div>
-
-
-
-
 @endsection
 
 @section('scripts')
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.js">
+    </script>
 
-
-   <script>
+    <script>
         const specSwiper = new Swiper('.specSwiper', {
-            slidesPerView: 'auto',   // ⬅️ PENTING
+            slidesPerView: 'auto', // ⬅️ PENTING
             spaceBetween: 20,
             loop: true,
+            observer: true,
+            observeParents: true,
             navigation: {
                 nextEl: '.spec-next',
                 prevEl: '.spec-prev',
@@ -1427,14 +1542,15 @@
             document.querySelectorAll('.specialist-card').forEach(card => {
                 card.classList.remove('active');
             });
-
-            const activeSlide = swiper.slides[swiper.activeIndex];
-            if (activeSlide) {
+            setTimeout(() => {
+                const activeSlide = swiper.slides[swiper.activeIndex];
                 const card = activeSlide.querySelector('.specialist-card');
-                if (card) card.classList.add('active');
-            }
+                card.classList.add('active');
+                swiper.update();
+                swiper.slideTo(swiper.activeIndex, 0);
+            }, 300);
         }
-        </script>
+    </script>
 
 
     <script>
@@ -1462,7 +1578,6 @@
     </script>
 
     <script>
-
         var swiper = new Swiper(".promoSwiper", {
             slidesPerView: 1.2,
             spaceBetween: 20,
@@ -1479,24 +1594,23 @@
             }
         });
 
-        var asuransiSwiper = new Swiper(".asuransiSwiper", {
-            slidesPerView: 2.5,
-            spaceBetween: 30,
-            loop: true,
-            centeredSlides: true,
-            grabCursor: true,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
+        const splide = new Splide('.asuransiSwiper', {
+            type: 'loop',
+            drag: 'free',
+            focus: 'center',
+            pagination: false,
+            perPage: 4,
+            autoScroll: {
+                speed: 1,
             },
-
             breakpoints: {
-                576: { slidesPerView: 3.5 },
-                768: { slidesPerView: 4.5 },
-                992: { slidesPerView: 5 },
-            },
-
+                640: {
+                    perPage: 1,
+                },
+            }
         });
+
+        splide.mount(window.splide.Extensions);
 
         // Init Swiper Testimoni (Menampilkan 4 Card)
         const testimonialSwiper = new Swiper('.testimonialSwiper', {

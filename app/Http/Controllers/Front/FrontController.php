@@ -24,7 +24,8 @@ class FrontController extends Controller
         $promos = Promo::latest()->get();
         $popup = PopupSetting::where('is_active',1)->first();
         $testimonials = Testimonial::latest()->take(6)->get();
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup'));
+         $social_feeds = SocialFeed::latest()->take(4)->get();
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup','social_feeds'));
     }
     public function services()
     {
