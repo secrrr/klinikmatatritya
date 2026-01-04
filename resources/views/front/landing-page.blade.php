@@ -6,6 +6,9 @@
     <!-- Google Fonts (Poppins) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Preload Images -->
+    <link rel="preload" as="image" href="{{ asset('img/bg-landing-pattern.webp') }}" type="image/webp">
+
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
@@ -30,7 +33,7 @@
             color: var(--text-dark);
             background-color: #fff;
             overflow-x: hidden;
-            background-image: url("{{ asset('img/bg-landing-pattern.png') }}");
+            background-image: url("{{ asset('img/bg-landing-pattern.webp') }}");
             /* image position: center top */
             background-position: center top;
             /* background-repeat: no-repeat; */
@@ -725,14 +728,14 @@
                         Kami percaya setiap orang berhak melihat dunia dengan pandangan yang jernih.
                         Tim dokter spesialis mata dan optometris kami siap memberikan perawatan mata terbaik.
                     </p>
-                    <a href="#" class="btn-navy">Selengkapnya</a>
+                    <a href="#detail-page" class="btn-navy">Selengkapnya</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- BG SKY BLUE -->
-    <div style=" padding-bottom: 80px;">
+    <div style=" padding-bottom: 80px;" id="detail-page">
         <!-- 2. FLOATING SEARCH BOX -->
         <div class="container" style="max-width:1000px;">
             <div class="search-box-wrapper">
@@ -1025,9 +1028,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                        <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                        <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -1701,8 +1704,15 @@
             testimonialSwiper.innerHTML = googleReviews.map(review => {
                 return `
                     <div class="swiper-slide">
-                        <div class="testi-bubble">
-                            <p>${review.text}</p>
+                        <div class="testi-bubble d-flex flex-column justify-content-center text-center">
+                            <p class="mb-3">${review.text}</p>
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
                         <div class="testimonial-info">
                             <div class="testi-user">

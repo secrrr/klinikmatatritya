@@ -15,6 +15,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Preload Images -->
+    <link rel="preload" as="image" href="{{ asset('img/bg-footer.webp') }}" type="image/webp">
+
     <style>
         :root {
             /* --primary-navy: #1D2088; */
@@ -109,7 +112,7 @@
             padding-top: 140px;
             padding-bottom: 30px;
             margin-top: -80px;
-            background-image: url('{{ asset('img/bg-footer.png') }}');
+            background-image: url('{{ asset('img/bg-footer.webp') }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
