@@ -201,14 +201,14 @@
 
 @section('content')
     <div class="container pt-5">
-        
+
         <section style="background: linear-gradient(to bottom, #e6f1ff, #bcd9ff, #6298df, #1c4dab); padding: 60px 0 80px 0;">
             <div class="container">
 
                 <div class="d-flex align-items-center justify-content-between mb-5" style="color:#1c4dab;">
-    
+
                     <div>
-                        <img src="{{ asset('img/logo.png') }}" 
+                        <img src="{{ asset('img/logo.png') }}"
                             style="width:500px;height:70px; width:auto; filter:drop-shadow(0 2px 5px rgba(0,0,0,0.15));">
                     </div>
 
@@ -217,7 +217,7 @@
                             Jadwal Praktek Dokter
                         </h1>
                         <div style="font-size: 20px; margin-top: -8px;">
-                            Klinik Mata Tritya | Periode: <span style="font-weight: 700;">Desember 2025</span>
+                            Klinik Mata Tritya | Periode: <span style="font-weight: 700;">{{ date('F Y') }}</span>
                         </div>
                     </div>
 
@@ -226,29 +226,27 @@
                 <div class="row" style="row-gap: 55px;">
 
                     @forelse($doctors as $doctor)
-                    <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center">
-                       @include('components.doctor-card', [
-                        'name' => $doctor->name,
-                        'photo' => $doctor->photo ? asset('storage/'.$doctor->photo) : null,
-                        'spec' => $doctor->specialty,
-                        'schedule' => $doctor->schedules
-                            ->pluck('hours','day')
-                            ->toArray()
-                    ])
-                    </div>
-                @empty
-                    <div class="col-12 text-center py-5">
-                        <p class="text-muted">Belum ada data dokter yang tersedia.</p>
-                    </div>
-                @endforelse
+                        <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center">
+                            @include('components.doctor-card', [
+                                'name' => $doctor->name,
+                                'photo' => $doctor->photo ? asset('storage/' . $doctor->photo) : null,
+                                'spec' => $doctor->specialty,
+                                'schedule' => $doctor->schedules->pluck('hours', 'day')->toArray(),
+                            ])
+                        </div>
+                    @empty
+                        <div class="col-12 py-5 text-center">
+                            <p class="text-muted">Belum ada data dokter yang tersedia.</p>
+                        </div>
+                    @endforelse
 
-                    
+
 
 
                 </div>
 
                 <!-- FOOTER -->
-                <div class="text-center text-white mt-5" style="font-size:17px; font-weight:600;">
+                <div class="mt-5 text-center text-white" style="font-size:17px; font-weight:600;">
                     LAYANAN PASIEN: 08211-211-0048 (WhatsApp) &nbsp; | &nbsp;
                     LAYANAN DARURAT: 08211-7777-048 (WhatsApp)
                 </div>

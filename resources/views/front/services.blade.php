@@ -3,6 +3,9 @@
 @section('title', 'Klinik Mata Tritya - Layanan')
 
 @section('styles')
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
     <style>
         /* --- Section Promo --- */
         .promo-section {
@@ -112,8 +115,8 @@
             transform: rotate(0deg);
             /* Panah ke bawah saat buka (atau bisa diset hidden jika desain meminta) */
             /* Sesuai gambar, panah hilang saat aktif diganti teks deskripsi.
-                                               Tapi untuk UX yang baik, kita biarkan icon rotate atau kita hide.
-                                               Di sini saya akan rotate agar user tau bisa ditutup. */
+                                                               Tapi untuk UX yang baik, kita biarkan icon rotate atau kita hide.
+                                                               Di sini saya akan rotate agar user tau bisa ditutup. */
         }
 
         .accordion-body {
@@ -293,10 +296,10 @@
                 khusus untuk kebutuhan Anda
             </p>
 
-            <div class="row justify-content-center g-4">
-                <div class="row justify-content-center g-4">
+            <div class="swiper promoSwiper">
+                <div class="swiper-wrapper">
                     @forelse($promos as $promo)
-                        <div class="col-md-6 col-lg-5">
+                        <div class="swiper-slide">
                             <div class="promo-card h-100 p-3 text-start">
                                 <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
                                     class="promo-img rounded-3 mb-3" alt="{{ $promo->title }}">
@@ -314,7 +317,7 @@
                             </div>
                         </div>
                     @empty
-                        <div class="col-12">
+                        <div class="swiper-slide">
                             <p class="text-muted">Belum ada promo saat ini.</p>
                         </div>
                     @endforelse
@@ -442,6 +445,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <!-- JS untuk mengganti Gambar Layanan -->
     <script>
         function changeImage(imageUrl) {
@@ -454,5 +458,21 @@
                 imgElement.style.opacity = 1;
             }, 300);
         }
+
+        var swiper = new Swiper(".promoSwiper", {
+            slidesPerView: 1.2,
+            spaceBetween: 20,
+            loop: true,
+            grabCursor: true,
+
+            breakpoints: {
+                768: {
+                    slidesPerView: 2.2
+                },
+                992: {
+                    slidesPerView: 3
+                }
+            }
+        });
     </script>
 @endsection

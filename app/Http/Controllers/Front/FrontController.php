@@ -30,7 +30,7 @@ class FrontController extends Controller
     public function services()
     {
         $services = Service::paginate(12);
-        $promos = Promo::latest()->take(2)->get();
+        $promos = Promo::latest()->get();
         return view('front.services', compact('services', 'promos'));
     }
     public function serviceShow($slug)

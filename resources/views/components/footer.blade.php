@@ -10,7 +10,8 @@
                 <div class="map-card h-100 d-flex flex-column justify-content-center">
                     <h4 class="fw-bold mb-4">Klinik Mata Tritya</h4>
                     <div class="d-flex mb-3"><i class="fas fa-map-marker-alt me-3 mt-1"></i>
-                        <p class="small mb-0">Ruko Bratang Plaza, Jl. Barata Jaya No.59 Blok A3, Baratajaya,
+                        <a href="https://maps.google.com/maps?ll=-7.298846,112.759968&z=16&t=m&hl=en&gl=ID&mapclient=embed&cid=10594106466771775890"
+                            class="small mb-0">Ruko Bratang Plaza, Jl. Barata Jaya No.59 Blok A3, Baratajaya,
                             Gubeng, Surabaya, East Java 60284</p>
                     </div>
                     <p class="small fw-bold mb-2">Ada pertanyaan? Hubungi kami.</p>
@@ -21,17 +22,19 @@
                                 fill="white" />
                         </svg>
 
-                        <p class="small mb-0">0821-1211-0048</p>
+                        <a href="https://wa.me/6282112110048" target="blank" class="small mb-0">0821-1211-0048</p>
                     </div>
                     <div class="d-flex mb-2">
                         <i class="fa-solid fa-envelope me-3 mt-1"></i>
-                        <p class="small mb-0">support@klinikmatatritya.co.id</p>
+                        <a href="mailto:support@klinikmatatritya.co.id"
+                            class="small mb-0">support@klinikmatatritya.co.id</a>
                     </div>
                     <div class="d-flex mb-2">
                         <i class="fa-solid fa-phone me-3 mt-1"></i>
                         <div>
-                            <p class="small mb-0">031-5022048</p>
-                            <p class="small mb-0">031-5022049</p>
+                            <a href="tel:0315022048" class="small mb-0">031-5022048</a>
+                            <br>
+                            <a href="tel:0315022049" class="small mb-0">031-5022049</a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +46,7 @@
             <div class="row">
                 <div class="col-lg-3 mb-4">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{{ asset('img/logo2.png') }}" alt="Logo" width="150">
+                        <img src="{{ asset('img/logo-footer.png') }}" alt="Logo" width="150">
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 mb-4">
@@ -103,6 +106,9 @@
                         </a>
                         <a href="https://youtube.com/@klinikmatatritya" class="fs-4 text-white">
                             <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@klinikmatatritya" class="fs-4 text-white">
+                            <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
                 </div>

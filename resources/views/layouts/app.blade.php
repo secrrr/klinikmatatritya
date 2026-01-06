@@ -40,6 +40,11 @@
             color: var(--text-dark);
         }
 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         /* --- Navbar --- */
         .navbar {
             background-color: white;
