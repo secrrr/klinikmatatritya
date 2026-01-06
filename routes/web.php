@@ -41,6 +41,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('promos', App\Http\Controllers\Admin\PromoController::class)->names('admin.promos');
         Route::resource('social-feeds', App\Http\Controllers\Admin\SocialFeedController::class)->names('admin.social-feeds');
         Route::resource('careers', App\Http\Controllers\Admin\CareerController::class)->names('admin.careers');
+        Route::resource('faqs', App\Http\Controllers\Admin\FaqController::class)->names('admin.faqs');
         Route::resource('job-applications', App\Http\Controllers\Admin\JobApplicationController::class)->except(['create', 'store', 'edit', 'update'])->names('admin.job-applications');
         Route::post('job-applications/{jobApplication}/reply', [App\Http\Controllers\Admin\JobApplicationController::class, 'reply'])->name('admin.job-applications.reply');
         Route::get('analytics', [App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.settings.analytics');

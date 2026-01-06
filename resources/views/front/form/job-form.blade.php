@@ -185,23 +185,23 @@
                 <img src="{{ asset('img/logo.png') }}" alt="" class="logo-img" width="100">
             </div>
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
 
-            @if($errors->any())
+            @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="mb-0">
-                        @foreach($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
             @endif
 
-            @if($career)
+            @if ($career)
                 <h1 class="job-title">{{ $career->title }}</h1>
                 <p class="job-type">{{ $career->type }}</p>
             @else
@@ -214,20 +214,21 @@
     <!-- 2. Form Section -->
     <main class="form-section">
         <div class="container">
-            <form id="applicationForm" action="{{ route('fe.job-application.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="applicationForm" action="{{ route('fe.job-application.store') }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
-                
-                @if($career)
+
+                @if ($career)
                     <input type="hidden" name="career_id" value="{{ $career->id }}">
                 @else
-                   <div class="row align-items-center row-mb">
+                    <div class="row align-items-center row-mb">
                         <div class="col-md-3">
                             <label for="career_id_select" class="form-label-custom">Posisi yang Dilamar</label>
                         </div>
                         <div class="col-md-9">
                             <select class="form-select" id="career_id_select" name="career_id" required>
                                 <option value="" selected disabled>Pilih Posisi</option>
-                                @foreach(\App\Models\Career::where('is_active', true)->get() as $c)
+                                @foreach (\App\Models\Career::where('is_active', true)->get() as $c)
                                     <option value="{{ $c->id }}">{{ $c->title }}</option>
                                 @endforeach
                             </select>
@@ -245,55 +246,68 @@
                             <label for="cv_upload" class="btn-upload-custom">
                                 <i class="fas fa-paperclip me-2"></i> ATTACH RESUME/CV
                             </label>
-                            <input type="file" name="cv_path" id="cv_upload" hidden accept=".pdf,.doc,.docx" required>
+                            <input type="file" name="cv_path" id="cv_upload" hidden accept=".pdf,.doc,.docx">
                             <span id="fileName" class="file-name-display"></span>
                         </div>
                         <div class="form-text small mt-1">Format: PDF, DOC, DOCX. Max: 2MB.</div>
+                        <div id="cvError" class="text-danger small mt-1" style="display: none;">Resume/CV wajib diisi!
+                        </div>
                     </div>
                 </div>
 
                 <!-- Nama Lengkap -->
                 <div class="row align-items-center row-mb">
                     <div class="col-md-3">
-                        <label for="nama" class="form-label-custom">Nama Lengkap <span class="text-danger">*</span></label>
+                        <label for="nama" class="form-label-custom">Nama Lengkap <span
+                                class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-9">
-                        <input type="text" name="name" class="form-control" id="nama" placeholder="Tulis nama lengkap Anda" required value="{{ old('name') }}">
+                        <input type="text" name="name" class="form-control" id="nama"
+                            placeholder="Tulis nama lengkap Anda" required value="{{ old('name') }}">
                     </div>
                 </div>
 
                 <!-- E-mail -->
                 <div class="row align-items-center row-mb">
                     <div class="col-md-3">
-                        <label for="email" class="form-label-custom">E-mail <span class="text-danger">*</span></label>
+                        <label for="email" class="form-label-custom">E-mail <span
+                                class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-9">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="contoh@email.com" required value="{{ old('email') }}">
+                        <input type="email" name="email" class="form-control" id="email"
+                            placeholder="contoh@email.com" required value="{{ old('email') }}">
                     </div>
                 </div>
 
                 <!-- Nomor HP -->
                 <div class="row align-items-center row-mb">
                     <div class="col-md-3">
-                        <label for="phone" class="form-label-custom">Nomor HP <span class="text-danger">*</span></label>
+                        <label for="phone" class="form-label-custom">Nomor HP <span
+                                class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-9">
-                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Contoh: 08123456789" required value="{{ old('phone') }}">
+                        <input type="tel" name="phone" class="form-control" id="phone"
+                            placeholder="Contoh: 08123456789" required value="{{ old('phone') }}">
                     </div>
                 </div>
 
                 <!-- Lokasi Saat Ini -->
                 <div class="row align-items-center row-mb">
                     <div class="col-md-3">
-                        <label for="lokasi" class="form-label-custom">Lokasi Saat Ini <span class="text-danger">*</span></label>
+                        <label for="lokasi" class="form-label-custom">Lokasi Saat Ini <span
+                                class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-9">
                         <select class="form-select" id="lokasi" name="location" required>
                             <option value="">Pilih Lokasi</option>
-                            <option value="Jakarta" {{ old('location') == 'Jakarta' ? 'selected' : '' }}>Jakarta</option>
-                            <option value="Surabaya" {{ old('location') == 'Surabaya' ? 'selected' : '' }}>Surabaya</option>
-                            <option value="Bandung" {{ old('location') == 'Bandung' ? 'selected' : '' }}>Bandung</option>
-                            <option value="Lainnya" {{ old('location') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            <option value="Jakarta" {{ old('location') == 'Jakarta' ? 'selected' : '' }}>Jakarta
+                            </option>
+                            <option value="Surabaya" {{ old('location') == 'Surabaya' ? 'selected' : '' }}>Surabaya
+                            </option>
+                            <option value="Bandung" {{ old('location') == 'Bandung' ? 'selected' : '' }}>Bandung
+                            </option>
+                            <option value="Lainnya" {{ old('location') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -306,11 +320,16 @@
                     <div class="col-md-9">
                         <select class="form-select" id="sumber" name="source" required>
                             <option value="">Pilih Sumber</option>
-                            <option value="LinkedIn" {{ old('source') == 'LinkedIn' ? 'selected' : '' }}>LinkedIn</option>
-                            <option value="Instagram" {{ old('source') == 'Instagram' ? 'selected' : '' }}>Instagram</option>
-                            <option value="Website" {{ old('source') == 'Website' ? 'selected' : '' }}>Website</option>
-                            <option value="Teman" {{ old('source') == 'Teman' ? 'selected' : '' }}>Teman / Kerabat</option>
-                            <option value="Lainnya" {{ old('source') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            <option value="LinkedIn" {{ old('source') == 'LinkedIn' ? 'selected' : '' }}>LinkedIn
+                            </option>
+                            <option value="Instagram" {{ old('source') == 'Instagram' ? 'selected' : '' }}>Instagram
+                            </option>
+                            <option value="Website" {{ old('source') == 'Website' ? 'selected' : '' }}>Website
+                            </option>
+                            <option value="Teman" {{ old('source') == 'Teman' ? 'selected' : '' }}>Teman / Kerabat
+                            </option>
+                            <option value="Lainnya" {{ old('source') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -342,12 +361,25 @@
         document.getElementById('cv_upload').addEventListener('change', function(event) {
             const input = event.target;
             const fileNameSpan = document.getElementById('fileName');
+            const errorDiv = document.getElementById('cvError');
 
             if (input.files && input.files.length > 0) {
                 fileNameSpan.textContent = input.files[0].name;
                 fileNameSpan.style.color = "#202c85"; // Ubah warna teks jadi biru saat file dipilih
+                errorDiv.style.display = 'none'; // Sembunyikan error jika user memilih file
             } else {
                 fileNameSpan.textContent = "";
+            }
+        });
+
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            const fileInput = document.getElementById('cv_upload');
+            const errorDiv = document.getElementById('cvError');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                event.preventDefault(); // Prevent submission
+                errorDiv.style.display = 'block'; // Tampilkan pesan error
+                // alert('Resume/Alert wajib diisi!'); 
             }
         });
     </script>

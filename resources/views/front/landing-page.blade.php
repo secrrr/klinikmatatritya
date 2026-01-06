@@ -1028,9 +1028,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                        <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -1160,211 +1160,40 @@
                     <!-- Right Side - Dynamic Content -->
                     <div class="col-lg-7">
                         <div class="faq-right-box">
-                            <!-- Content for "Layanan & Pemeriksaan Mata" -->
-                            <div class="faq-content-section active" id="content-layanan">
-                                <h5 class="fw-bold mb-4">Layanan & Pemeriksaan Mata</h5>
+                            @php
+                                $faqCategories = [
+                                    'layanan' => 'Layanan & Pemeriksaan Mata',
+                                    'pembiayaan' => 'Pembiayaan & Asuransi',
+                                    'tindakan' => 'Tindakan Medis & Operasi',
+                                    'reservasi' => 'Reservasi & Jadwal',
+                                ];
+                            @endphp
 
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#layanan1">
-                                        <span>Apa saja jenis pemeriksaan mata yang tersedia di Klinik Mata Tritya?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="layanan1" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Kami menyediakan berbagai jenis pemeriksaan mata seperti pemeriksaan refraksi,
-                                            tonometri (tekanan bola mata), pemeriksaan retina, dan pemeriksaan komprehensif
-                                            untuk mendeteksi berbagai gangguan mata.
-                                        </div>
-                                    </div>
+                            @foreach ($faqCategories as $key => $title)
+                                <div class="faq-content-section {{ $loop->first ? 'active' : '' }}"
+                                    id="content-{{ $key }}">
+                                    <h5 class="fw-bold mb-4">{{ $title }}</h5>
+
+                                    @if (isset($faqs[$key]))
+                                        @foreach ($faqs[$key] as $faq)
+                                            <div class="faq-accordion-item">
+                                                <button class="faq-accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#faq-{{ $faq->id }}">
+                                                    <span>{{ $faq->question }}</span>
+                                                    <i class="fas fa-chevron-down faq-icon"></i>
+                                                </button>
+                                                <div id="faq-{{ $faq->id }}" class="collapse">
+                                                    <div class="faq-accordion-body">
+                                                        {{ $faq->answer }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="text-muted">Belum ada FAQ untuk kategori ini.</p>
+                                    @endif
                                 </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#layanan2">
-                                        <span>Apa itu EMC dan siapa yang perlu melakukannya?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="layanan2" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            EMC (Eye Medical Check-up) adalah pemeriksaan mata menyeluruh yang
-                                            direkomendasikan untuk semua usia, terutama bagi yang mengalami gangguan
-                                            penglihatan atau memiliki riwayat penyakit mata dalam keluarga.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#layanan3">
-                                        <span>Apakah tersedia layanan pemeriksaan mata untuk anak-anak?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="layanan3" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Ya, kami memiliki layanan khusus untuk pemeriksaan mata anak dengan dokter
-                                            spesialis mata anak dan peralatan yang ramah anak.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#layanan4">
-                                        <span>Berapa frekuensi ideal untuk melakukan pemeriksaan mata rutin?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="layanan4" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Untuk orang dewasa normal, disarankan setiap 1-2 tahun sekali. Namun bagi yang
-                                            memiliki gangguan mata atau menggunakan kacamata/lensa kontak, sebaiknya 6 bulan
-                                            - 1 tahun sekali.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content for "Pembiayaan & Asuransi" -->
-                            <div class="faq-content-section" id="content-pembiayaan">
-                                <h5 class="fw-bold mb-4">Pembiayaan & Asuransi</h5>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#pembiayaan1">
-                                        <span>Metode pembayaran apa saja yang diterima?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="pembiayaan1" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Kami menerima pembayaran tunai, debit, kartu kredit, dan transfer bank. Tersedia
-                                            juga opsi cicilan untuk tindakan tertentu.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#pembiayaan2">
-                                        <span>Asuransi apa saja yang bekerja sama dengan klinik?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="pembiayaan2" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Kami bekerja sama dengan BPJS Kesehatan, BRI Life, BNI Life, AdMedika,
-                                            Pertamina, BPJS Ketenagakerjaan, dan berbagai asuransi swasta lainnya.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#pembiayaan3">
-                                        <span>Apakah bisa menggunakan BPJS untuk semua layanan?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="pembiayaan3" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Ya, BPJS dapat digunakan untuk berbagai layanan pemeriksaan dan tindakan mata
-                                            yang termasuk dalam cakupan BPJS. Silakan konfirmasi terlebih dahulu untuk
-                                            layanan tertentu.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content for "Tindakan Medis & Operasi" -->
-                            <div class="faq-content-section" id="content-tindakan">
-                                <h5 class="fw-bold mb-4">Tindakan Medis & Operasi</h5>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#tindakan1">
-                                        <span>Apakah klinik melayani operasi katarak?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="tindakan1" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Ya, kami melayani operasi katarak dengan teknologi phacoemulsification modern
-                                            dan dokter spesialis mata yang berpengalaman.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#tindakan2">
-                                        <span>Berapa lama waktu pemulihan setelah operasi LASIK?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="tindakan2" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Pemulihan LASIK umumnya cepat. Penglihatan mulai membaik dalam 24-48 jam, dan
-                                            aktivitas normal dapat dilakukan dalam 1-2 minggu dengan instruksi dokter.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#tindakan3">
-                                        <span>Apakah operasi mata aman untuk lansia?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="tindakan3" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Ya, operasi mata seperti katarak sangat aman untuk lansia. Dokter akan melakukan
-                                            pemeriksaan menyeluruh terlebih dahulu untuk memastikan kondisi pasien.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content for "Reservasi & Jadwal" -->
-                            <div class="faq-content-section" id="content-reservasi">
-                                <h5 class="fw-bold mb-4">Reservasi & Jadwal</h5>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#reservasi1">
-                                        <span>Bagaimana cara membuat janji temu?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="reservasi1" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Anda dapat membuat janji melalui website kami, telepon, WhatsApp, atau datang
-                                            langsung ke klinik. Reservasi online dapat dilakukan 24/7.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#reservasi2">
-                                        <span>Berapa lama waktu tunggu untuk pemeriksaan?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="reservasi2" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Dengan sistem reservasi, waktu tunggu minimal. Untuk pasien walk-in, waktu
-                                            tunggu tergantung antrian, biasanya 30-60 menit.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="faq-accordion-item">
-                                    <button class="faq-accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#reservasi3">
-                                        <span>Apakah bisa reschedule atau membatalkan janji?</span>
-                                        <i class="fas fa-chevron-down faq-icon"></i>
-                                    </button>
-                                    <div id="reservasi3" class="collapse">
-                                        <div class="faq-accordion-body">
-                                            Ya, Anda dapat melakukan reschedule atau pembatalan maksimal 24 jam sebelum
-                                            jadwal janji temu melalui telepon atau WhatsApp.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

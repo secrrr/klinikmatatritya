@@ -12,6 +12,7 @@ use App\Models\Doctor;
 use App\Models\Testimonial;
 use App\Models\SocialFeed;
 use App\Models\Career;
+use App\Models\Faq;
 use App\Models\JobApplication;
 
 class FrontController extends Controller
@@ -24,8 +25,9 @@ class FrontController extends Controller
         $promos = Promo::latest()->get();
         $popup = PopupSetting::where('is_active',1)->first();
         $testimonials = Testimonial::latest()->take(6)->get();
-         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup','social_feeds'));
+        $faqs = Faq::where('is_active', true)->get()->groupBy('category');
+        $social_feeds = SocialFeed::latest()->take(4)->get();
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup','social_feeds', 'faqs'));
     }
     public function services()
     {

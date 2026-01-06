@@ -195,6 +195,11 @@
                 <span>Layanan</span>
             </a>
 
+            <a href="{{ route('admin.faqs.index') }}" class="menu-item @if (request()->routeIs('admin.faqs.*')) active @endif">
+                <i class="fas fa-question-circle"></i>
+                <span>FAQ</span>
+            </a>
+
             <a href="{{ route('admin.promos.index') }}"
                 class="menu-item @if (request()->routeIs('admin.promos.*')) active @endif">
                 <i class="fas fa-tags"></i>
