@@ -205,11 +205,11 @@
                 <i class="fas fa-tags"></i>
                 <span>Promo</span>
             </a>
-            <a href="{{ route('admin.social-feeds.index') }}"
+            {{-- <a href="{{ route('admin.social-feeds.index') }}"
                 class="menu-item @if (request()->routeIs('admin.social-feeds.*')) active @endif">
                 <i class="fab fa-instagram"></i>
                 <span>Social Feed</span>
-            </a>
+            </a> --}}
 
             <a href="{{ route('admin.articles.index') }}"
                 class="menu-item @if (request()->routeIs('admin.articles.*')) active @endif">

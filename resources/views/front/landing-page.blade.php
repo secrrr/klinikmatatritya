@@ -701,6 +701,68 @@
             font-weight: bold;
         }
     </style>
+
+    <style>
+        .insta-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .insta-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            color: inherit;
+        }
+
+        .insta-media-wrapper {
+            position: relative;
+            padding-top: 100%;
+            /* 1:1 Aspect Ratio */
+            background-color: #f8f9fa;
+        }
+
+        .insta-media-wrapper img,
+        .insta-media-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .insta-card-body {
+            padding: 15px;
+        }
+
+        .insta-caption {
+            font-size: 0.9rem;
+            color: #555;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .insta-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -1028,9 +1090,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -1281,20 +1343,22 @@
                 <div class="container">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h3 class="fw-bold">@klinikmatatritya.official</h3>
+
+                        <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank"
+                            class="">Selengkapnya</a>
                     </div>
 
-                    <div class="row g-4">
-                        @forelse($social_feeds as $feed)
-                            <div class="col-md-6 col-lg-3">
-                                <div class="social-card h-100 d-flex justify-content-center align-items-center p-2">
-                                    {!! $feed->embed_code !!}
+                    <div class="swiper instagramSwiper">
+                        <div class="swiper-wrapper" id="insta-feed-container">
+                            <div class="swiper-slide">
+                                <div class="py-5 text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
                             </div>
-                        @empty
-                            <div class="col-12 text-center">
-                                <p class="text-muted">Belum ada feed terbaru.</p>
-                            </div>
-                        @endforelse
+                        </div>
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
             </section>
@@ -1303,6 +1367,8 @@
 @endsection
 
 @section('scripts')
+
+
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -1399,7 +1465,7 @@
             },
             breakpoints: {
                 640: {
-                    perPage: 1,
+                    perPage: 2,
                 },
             }
         });
@@ -1558,5 +1624,96 @@
         }
 
         getGoogleReviews();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('insta-feed-container');
+            const apiUrl =
+                "https://widget-data.service.elfsight.com/api/posts?sources[]=%7B%22pid%22%3A%22d29c8da0-df70-4b1e-9561-4ee1157bd84d%22%2C%22filters%22%3A%5B%5D%7D&sort=date&limit=12&offset=0";
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    container.innerHTML = ''; // Clear loading spinner
+
+                    if (data.code === 200 && data.payload && data.payload.length > 0) {
+                        data.payload.forEach(post => {
+                            // Extract Media (Prioritize thumbnail for videos)
+                            let mediaUrl = '';
+                            let isVideo = false;
+
+                            if (post.media && post.media.length > 0) {
+                                const mediaItem = post.media[0];
+                                if (mediaItem.type === 'video' || mediaItem.type === 'reel') {
+                                    isVideo = true;
+                                    mediaUrl = mediaItem.cover?.thumbnail?.url || mediaItem.url;
+                                } else {
+                                    mediaUrl = mediaItem.url;
+                                }
+                            }
+
+                            // Truncate Caption
+                            const caption = post.caption ? post.caption : '';
+
+                            // Build HTML
+                            const slide = document.createElement('div');
+                            slide.className = 'swiper-slide h-auto'; // h-auto for equal height cards
+                            slide.innerHTML = `
+                                <a href="${post.link}" target="_blank" class="insta-card h-100">
+                                    <div class="insta-media-wrapper">
+                                        <img src="${mediaUrl}" alt="Instagram Post" loading="lazy">
+                                        ${isVideo ? '<i class="fas fa-play insta-icon"></i>' : ''}
+                                    </div>
+                                    <div class="insta-card-body">
+                                        <p class="insta-caption">${caption}</p>
+                                    </div>
+                                </a>
+                            `;
+                            container.appendChild(slide);
+                        });
+
+                        // Initialize Swiper after content is loaded
+                        initInstagramSwiper();
+
+                    } else {
+                        container.innerHTML =
+                            '<div class="col-12 text-center text-muted">Gagal memuat feed instagram.</div>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching Instagram feed:', error);
+                    container.innerHTML =
+                        '<div class="col-12 text-center text-muted">Belum ada feed terbaru.</div>';
+                });
+        });
+
+        function initInstagramSwiper() {
+            new Swiper('.instagramSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                observer: true,
+                observeParents: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 25,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                    }
+                }
+            });
+        }
     </script>
 @endsection

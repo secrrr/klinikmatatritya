@@ -72,12 +72,20 @@
     .mobile-menu.show {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: start;
+    }
+
+    .mobile-menu-list {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
 
+
     .mobile-menu a.menu-mobile {
-        font-size: 18px;
+        font-size: 24px;
         margin-bottom: 24px;
         text-decoration: none;
         display: block;
@@ -85,11 +93,23 @@
     }
 
     .menu-close-btn {
-        margin-top: auto;
         font-size: 90px;
         text-align: center;
         cursor: pointer;
         color: #333;
+    }
+
+    /* if tablet */
+    @media (max-width: 768px) {
+        .mobile-menu-link {
+            margin-top: auto;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .mobile-menu a.menu-mobile {
+            text-align: center;
+        }
     }
 
     /* Navbar sticky adjustment */
@@ -285,13 +305,15 @@
         </div>
     </div>
 
-    <div style="padding-inline: 20px;">
-        <a class="menu-mobile" href="/">Beranda</a>
-        <a class="menu-mobile" href="/doctors">Jadwal Dokter</a>
-        <a class="menu-mobile" href="/services">Layanan</a>
-        <a class="menu-mobile" href="/careers">Kemitraan dan Karir</a>
-        <a class="menu-mobile" href="/news">Berita</a>
-        <a class="menu-mobile" href="/about">Tentang Kami</a>
+    <div style="padding-inline: 20px;" class="mobile-menu-list">
+        <div class="mobile-menu-link">
+            <a class="menu-mobile" href="/">Beranda</a>
+            <a class="menu-mobile" href="/doctors">Jadwal Dokter</a>
+            <a class="menu-mobile" href="/services">Layanan</a>
+            <a class="menu-mobile" href="/careers">Kemitraan dan Karir</a>
+            <a class="menu-mobile" href="/news">Berita</a>
+            <a class="menu-mobile" href="/about">Tentang Kami</a>
+        </div>
 
         <div class="menu-close-btn" id="closeMenu">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
