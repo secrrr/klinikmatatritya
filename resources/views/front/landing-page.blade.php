@@ -1028,9 +1028,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                                class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -1133,7 +1133,7 @@
 
 
         <!-- 7. F.A.Q -->
-        <section class="faq-section">
+        <section class="faq-section" id="faq">
             <div class="container">
                 <h2 class="section-title mb-5">F.A.Q</h2>
                 <div class="row">
@@ -1171,12 +1171,12 @@
 
                             @foreach ($faqCategories as $key => $title)
                                 <div class="faq-content-section {{ $loop->first ? 'active' : '' }}"
-                                    id="content-{{ $key }}">
+                                    id="faq-{{ $key }}">
                                     <h5 class="fw-bold mb-4">{{ $title }}</h5>
 
                                     @if (isset($faqs[$key]))
                                         @foreach ($faqs[$key] as $faq)
-                                            <div class="faq-accordion-item">
+                                            <div class="faq-accordion-item" id="faq-{{ $faq->id }}">
                                                 <button class="faq-accordion-button collapsed" type="button"
                                                     data-bs-toggle="collapse" data-bs-target="#faq-{{ $faq->id }}">
                                                     <span>{{ $faq->question }}</span>

@@ -107,6 +107,48 @@
             margin-top: 5px;
         }
     }
+
+    /* Search Dropdown Styles */
+    .search-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-height: 300px;
+        overflow-y: auto;
+        border-radius: 0 0 4px 4px;
+        display: none;
+        border: 1px solid #e0e0e0;
+    }
+
+    .search-result-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s;
+        text-decoration: none;
+        display: block;
+        color: #333;
+    }
+
+    .search-result-item:hover {
+        background-color: #f8f9fa;
+        color: var(--primary-navy, #202c85);
+        /* Use primary color if available */
+    }
+
+    .search-result-type {
+        font-size: 0.75rem;
+        color: #888;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 2px;
+        font-weight: 600;
+    }
 </style>
 
 <!-- Top Info Bar (Hidden on Mobile) -->
@@ -198,10 +240,12 @@
             </ul>
 
             <div class="d-flex align-items-center gap-2">
-                <div class="input-group input-group-sm d-none d-lg-flex" style="width: 200px;">
-                    <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group input-group-sm d-none d-lg-flex position-relative" style="width: 200px;">
+                    <input type="text" class="form-control" placeholder="Search" id="desktopSearchInput"
+                        autocomplete="off">
                     <button class="btn btn-outline-secondary border-start-0 border" type="button"><i
                             class="fas fa-search"></i></button>
+                    <div id="desktopSearchResults" class="search-dropdown"></div>
                 </div>
                 <button class="btn btn-janji btn-sm px-3 py-2"
                     onclick="window.location.href='http://tritya.id/DaftarOnline'">Buat Janji</button>
@@ -232,10 +276,12 @@
                 </svg>
             </button>
         </div>
-        <div class="input-group mb-4" style="padding-inline: 20px;">
-            <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group position-relative mb-4" style="padding-inline: 20px;">
+            <input type="text" class="form-control" placeholder="Search" id="mobileSearchInput"
+                autocomplete="off">
             <button class="btn btn-outline-secondary" style="border-color: #dee2e6"><i
                     class="fas fa-search"></i></button>
+            <div id="mobileSearchResults" class="search-dropdown" style="left: 20px; right: 20px;"></div>
         </div>
     </div>
 
@@ -289,5 +335,61 @@
     document.getElementById('closeMenu2').addEventListener('click', function() {
         document.body.style.overflow = '';
         document.getElementById('mobileMenu').classList.remove('show');
+    });
+
+    // Search Logic
+    function handleSearch(inputId, resultsId) {
+        const input = document.getElementById(inputId);
+        const results = document.getElementById(resultsId);
+
+        if (!input || !results) return;
+
+        let timeout = null;
+
+        input.addEventListener('input', function() {
+            clearTimeout(timeout);
+            const query = this.value;
+
+            if (query.length < 2) {
+                results.style.display = 'none';
+                return;
+            }
+
+            timeout = setTimeout(() => {
+                fetch(`{{ route('fe.search') }}?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        results.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'search-result-item';
+                                div.innerHTML =
+                                    `<span class="search-result-type">${item.type}</span>${item.title}`;
+                                div.onclick = () => window.location.href = item.url;
+                                results.appendChild(div);
+                            });
+                            results.style.display = 'block';
+                        } else {
+                            results.innerHTML =
+                                '<div class="search-result-item text-muted" style="cursor: default;">No results found</div>';
+                            results.style.display = 'block';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }, 300);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !results.contains(e.target)) {
+                results.style.display = 'none';
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        handleSearch('desktopSearchInput', 'desktopSearchResults');
+        handleSearch('mobileSearchInput', 'mobileSearchResults');
     });
 </script>
