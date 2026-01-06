@@ -1090,9 +1090,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -1272,47 +1272,14 @@
                         <div class="splide asuransiSwiper">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                    <li class="splide__slide">
-                                        <div class="text-center">
-                                            <img src="{{ asset('img/pilihan-asuransi/bpjs-kesehatan.png') }}"
-                                                height="120" alt="BPJS">
-                                        </div>
-                                    </li>
-
-                                    <li class="splide__slide">
-                                        <div class="text-center">
-                                            <img src="{{ asset('img/pilihan-asuransi/bri-life.png') }}" height="120"
-                                                alt="BRI Life">
-                                        </div>
-                                    </li>
-
-                                    <li class="splide__slide">
-                                        <div class="text-center">
-                                            <img src="{{ asset('img/pilihan-asuransi/bni-life.png') }}" height="120"
-                                                alt="BNI Life">
-                                        </div>
-                                    </li>
-
-                                    <li class="splide__slide">
-                                        <div class="text-center">
-                                            <img src="{{ asset('img/pilihan-asuransi/admedika.png') }}" height="115"
-                                                alt="AdMedika">
-                                        </div>
-                                    </li>
-
-                                    <li class="splide__slide">
-                                        <div class="text-center">
-                                            <img src="{{ asset('img/pilihan-asuransi/pertamina.png') }}" height="125"
-                                                alt="Pertamina">
-                                        </div>
-                                    </li>
-
-                                    <li class="splide__slide">
-                                        <div class="text-center">
-                                            <img src="{{ asset('img/pilihan-asuransi/bpjs-ketenagakerjaan.png') }}"
-                                                height="120" alt="BPJS TK">
-                                        </div>
-                                    </li>
+                                    @foreach ($insurances as $item)
+                                        <li class="splide__slide">
+                                            <div class="text-center">
+                                                <img src="{{ asset('storage/' . $item->logo) }}" height="120"
+                                                    alt="{{ $item->name }}">
+                                            </div>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -1649,7 +1616,7 @@
                                     isVideo = true;
                                     mediaUrl = mediaItem.cover?.thumbnail?.url || mediaItem.url;
                                 } else {
-                                    mediaUrl = mediaItem.url;
+                                    mediaUrl = mediaItem.thumbnail.url;
                                 }
                             }
 

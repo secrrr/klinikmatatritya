@@ -13,6 +13,7 @@ use App\Models\Testimonial;
 use App\Models\SocialFeed;
 use App\Models\Career;
 use App\Models\Faq;
+use App\Models\Insurance;
 use App\Models\JobApplication;
 
 class FrontController extends Controller
@@ -27,7 +28,8 @@ class FrontController extends Controller
         $testimonials = Testimonial::latest()->take(6)->get();
         $faqs = Faq::where('is_active', true)->get()->groupBy('category');
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup','social_feeds', 'faqs'));
+        $insurances = Insurance::latest()->get();
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup','social_feeds', 'faqs', 'insurances'));
     }
     public function services()
     {
