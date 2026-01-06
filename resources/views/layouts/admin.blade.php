@@ -205,13 +205,26 @@
                 <i class="fas fa-tags"></i>
                 <span>Promo</span>
             </a>
+
+            <a href="{{ route('admin.review-settings.index') }}"
+                class="menu-item @if (request()->routeIs('admin.review-settings.*')) active @endif">
+                <i class="fas fa-star"></i>
+                <span>Review Settings</span>
+            </a>
+
             <a href="{{ route('admin.insurances.index') }}"
                 class="menu-item @if (request()->routeIs('admin.insurances.*')) active @endif">
                 <i class="fas fa-hand-holding-heart"></i>
                 <span>Pilihan Asuransi</span>
             </a>
 
-            <a href="{{ route('admin.social-feeds.index') }}" <a href="{{ route('admin.articles.index') }}"
+            <a href="{{ route('admin.instagram-settings.index') }}"
+                class="menu-item @if (request()->routeIs('admin.instagram-settings.*')) active @endif">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram Settings</span>
+            </a>
+
+            <a href="{{ route('admin.articles.index') }}"
                 class="menu-item @if (request()->routeIs('admin.articles.*')) active @endif">
                 <i class="fas fa-newspaper"></i>
                 <span>Artikel</span>

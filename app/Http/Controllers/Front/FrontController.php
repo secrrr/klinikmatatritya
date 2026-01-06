@@ -16,6 +16,9 @@ use App\Models\Faq;
 use App\Models\Insurance;
 use App\Models\JobApplication;
 
+use App\Models\ReviewSetting;
+use App\Models\InstagramSetting;
+
 class FrontController extends Controller
 {
     public function landingPage()
@@ -25,11 +28,13 @@ class FrontController extends Controller
         $doctors = Doctor::with('schedules')->take(6)->get();
         $promos = Promo::latest()->get();
         $popup = PopupSetting::where('is_active',1)->first();
-        $testimonials = Testimonial::latest()->take(6)->get();
+        // $testimonials = Testimonial::latest()->take(6)->get();
+        $reviewSetting = ReviewSetting::first();
+        $instagramSetting = InstagramSetting::first();
         $faqs = Faq::where('is_active', true)->get()->groupBy('category');
         $social_feeds = SocialFeed::latest()->take(4)->get();
         $insurances = Insurance::latest()->get();
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','testimonials','popup','social_feeds', 'faqs', 'insurances'));
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds', 'faqs', 'insurances', 'reviewSetting', 'instagramSetting'));
     }
     public function services()
     {

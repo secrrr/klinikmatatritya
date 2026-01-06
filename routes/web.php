@@ -35,7 +35,12 @@ Route::prefix('admin')->group(function () {
         Route::post('popup', [PopupSettingController::class, 'update'])->name('popup.update');
             
         Route::resource('articles', App\Http\Controllers\Admin\ArticleController::class)->names('admin.articles');
-        Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');
+        // Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');
+        Route::get('review-settings', [App\Http\Controllers\Admin\ReviewSettingController::class, 'index'])->name('admin.review-settings.index');
+        Route::put('review-settings', [App\Http\Controllers\Admin\ReviewSettingController::class, 'update'])->name('admin.review-settings.update');
+        
+        Route::get('instagram-settings', [App\Http\Controllers\Admin\InstagramSettingController::class, 'index'])->name('admin.instagram-settings.index');
+        Route::put('instagram-settings', [App\Http\Controllers\Admin\InstagramSettingController::class, 'update'])->name('admin.instagram-settings.update');
         Route::resource('doctors', App\Http\Controllers\Admin\DoctorController::class)->names('admin.doctors');
         Route::resource('services', App\Http\Controllers\Admin\ServiceController::class)->names('admin.services');
         Route::resource('promos', App\Http\Controllers\Admin\PromoController::class)->names('admin.promos');
