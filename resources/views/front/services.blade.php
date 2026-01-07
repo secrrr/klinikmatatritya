@@ -115,8 +115,8 @@
             transform: rotate(0deg);
             /* Panah ke bawah saat buka (atau bisa diset hidden jika desain meminta) */
             /* Sesuai gambar, panah hilang saat aktif diganti teks deskripsi.
-                                                               Tapi untuk UX yang baik, kita biarkan icon rotate atau kita hide.
-                                                               Di sini saya akan rotate agar user tau bisa ditutup. */
+                                                                                   Tapi untuk UX yang baik, kita biarkan icon rotate atau kita hide.
+                                                                                   Di sini saya akan rotate agar user tau bisa ditutup. */
         }
 
         .accordion-body {
@@ -159,6 +159,26 @@
             opacity: 0.15;
             object-fit: cover;
             z-index: 0;
+        }
+
+        /* Navigasi Bulat Biru Muda */
+        .nav-circle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #dbeafe;
+            color: var(--tritya-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .nav-circle-btn:hover {
+            background-color: var(--tritya-navy);
+            color: white;
         }
 
         .care-content {
@@ -296,32 +316,59 @@
                 khusus untuk kebutuhan Anda
             </p>
 
-            <div class="swiper promoSwiper">
-                <div class="swiper-wrapper">
-                    @forelse($promos as $promo)
-                        <div class="swiper-slide">
-                            <div class="promo-card h-100 p-3 text-start">
-                                <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
-                                    class="promo-img rounded-3 mb-3" alt="{{ $promo->title }}">
-                                <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
-                                <span class="price-badge">
-                                    @if ($promo->price)
-                                        Rp {{ number_format($promo->price, 0, ',', '.') }}
-                                    @else
-                                        Gratis / TBD
-                                    @endif
-                                </span>
-                                <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn btn-promo">
-                                    Ambil Sekarang <i class="fas fa-chevron-right"></i>
-                                </a>
+            <div class="position-relative px-4">
+                <div class="swiper promoSwiper">
+                    <div class="swiper-wrapper">
+                        @forelse($promos as $promo)
+                            <div class="swiper-slide">
+                                <div class="promo-card h-100 p-3 text-start">
+                                    <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
+                                        class="promo-img rounded-3 mb-3" alt="{{ $promo->title }}">
+                                    <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
+                                    <span class="price-badge">
+                                        @if ($promo->price)
+                                            Rp {{ number_format($promo->price, 0, ',', '.') }}
+                                        @else
+                                            Gratis / TBD
+                                        @endif
+                                    </span>
+                                    <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn btn-promo">
+                                        Ambil Sekarang <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    @empty
-                        <div class="swiper-slide">
-                            <p class="text-muted">Belum ada promo saat ini.</p>
-                        </div>
-                    @endforelse
+                        @empty
+                            <div class="swiper-slide">
+                                <p class="text-muted">Belum ada promo saat ini.</p>
+                            </div>
+                        @endforelse
+                        @forelse($promos as $promo)
+                            <div class="swiper-slide">
+                                <div class="promo-card h-100 p-3 text-start">
+                                    <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
+                                        class="promo-img rounded-3 mb-3" alt="{{ $promo->title }}">
+                                    <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
+                                    <span class="price-badge">
+                                        @if ($promo->price)
+                                            Rp {{ number_format($promo->price, 0, ',', '.') }}
+                                        @else
+                                            Gratis / TBD
+                                        @endif
+                                    </span>
+                                    <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn btn-promo">
+                                        Ambil Sekarang <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        @empty
+                        @endforelse
+                    </div>
                 </div>
+
+                <button class="nav-circle-btn promo-prev position-absolute top-50 translate-middle-y start-0 z-10 shadow"
+                    style="z-index: 10; left: -10px !important;"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-circle-btn promo-next position-absolute top-50 translate-middle-y end-0 z-10 shadow"
+                    style="z-index: 10; right: -10px !important;"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
@@ -464,6 +511,10 @@
             spaceBetween: 20,
             loop: true,
             grabCursor: true,
+            navigation: {
+                nextEl: '.promo-next',
+                prevEl: '.promo-prev',
+            },
 
             breakpoints: {
                 768: {
