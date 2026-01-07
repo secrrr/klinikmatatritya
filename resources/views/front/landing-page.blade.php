@@ -1090,9 +1090,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -1111,33 +1111,61 @@
                         khusus untuk kebutuhan Anda
                     </p>
 
-                    <div class="swiper promoSwiper">
-                        <div class="swiper-wrapper">
-                            @forelse($promos as $promo)
-                                <div class="swiper-slide">
-                                    <div class="promo-card text-start">
-                                        <img src="{{ asset('storage/' . $promo->image) }}" class="promo-img"
-                                            alt="{{ $promo->title }}">
-                                        <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
-                                        <div class="promo-price-tag">
-                                            @if ($promo->price)
-                                                Rp {{ number_format($promo->price, 0, ',', '.') }}
-                                            @else
-                                                Gratis / TBD
-                                            @endif
+                    <div class="position-relative px-4">
+                        <div class="swiper promoSwiper">
+                            <div class="swiper-wrapper">
+                                @forelse($promos as $promo)
+                                    <div class="swiper-slide">
+                                        <div class="promo-card text-start">
+                                            <img src="{{ asset('storage/' . $promo->image) }}" class="promo-img"
+                                                alt="{{ $promo->title }}">
+                                            <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
+                                            <div class="promo-price-tag">
+                                                @if ($promo->price)
+                                                    Rp {{ number_format($promo->price, 0, ',', '.') }}
+                                                @else
+                                                    Gratis / TBD
+                                                @endif
+                                            </div>
+                                            <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn-promo">
+                                                Ambil Sekarang <i class="fas fa-chevron-right"></i>
+                                            </a>
                                         </div>
-                                        <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn-promo">
-                                            Ambil Sekarang <i class="fas fa-chevron-right"></i>
-                                        </a>
                                     </div>
-                                </div>
-                            @empty
-                                <div class="col-12">
-                                    <p class="text-muted">Belum ada promo saat ini.</p>
-                                </div>
-                            @endforelse
+                                @empty
+                                    <div class="col-12">
+                                        <p class="text-muted">Belum ada promo saat ini.</p>
+                                    </div>
+                                @endforelse
+                                @forelse($promos as $promo)
+                                    <div class="swiper-slide">
+                                        <div class="promo-card text-start">
+                                            <img src="{{ asset('storage/' . $promo->image) }}" class="promo-img"
+                                                alt="{{ $promo->title }}">
+                                            <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
+                                            <div class="promo-price-tag">
+                                                @if ($promo->price)
+                                                    Rp {{ number_format($promo->price, 0, ',', '.') }}
+                                                @else
+                                                    Gratis / TBD
+                                                @endif
+                                            </div>
+                                            <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn-promo">
+                                                Ambil Sekarang <i class="fas fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            </div>
                         </div>
 
+                        <button
+                            class="nav-circle-btn promo-prev position-absolute top-50 translate-middle-y start-0 z-10 shadow"
+                            style="z-index: 10; left: -10px !important;"><i class="fas fa-chevron-left"></i></button>
+                        <button
+                            class="nav-circle-btn promo-next position-absolute top-50 translate-middle-y end-0 z-10 shadow"
+                            style="z-index: 10; right: -10px !important;"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
             </section>
@@ -1409,6 +1437,10 @@
             spaceBetween: 20,
             loop: true,
             grabCursor: true,
+            navigation: {
+                nextEl: '.promo-next',
+                prevEl: '.promo-prev',
+            },
 
             breakpoints: {
                 768: {
