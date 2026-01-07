@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Admin\PopupSettingController;
+use App\Http\Controllers\Admin\AnalyticsController;
 
 use App\Models\Analytics;
 
@@ -30,6 +31,10 @@ Route::prefix('admin')->group(function () {
        
          Route::get('dashboard', [DashboardController::class, 'index'])
             ->name('admin.dashboard');
+
+            Route::get('/admin/analytics/export-csv',
+                    [AnalyticsController::class, 'exportCsv']
+                )->name('admin.analytics.export.csv');
 
        Route::get('popup', [PopupSettingController::class, 'edit'])->name('popup.edit');
         Route::post('popup', [PopupSettingController::class, 'update'])->name('popup.update');
