@@ -24,7 +24,7 @@ Route::prefix('admin')->group(function () {
     // Auth Routes
     Route::get('/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'login']);
-    Route::post('/logout', [App\Http\Controllers\Admin\AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [App\Http\Controllers\Admin\AdminAuthController::class, 'logout'])->name('admin.logout');
 
     // Protected Routes
     Route::middleware('auth.admin')->group(function () {
