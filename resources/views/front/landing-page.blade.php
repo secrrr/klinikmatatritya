@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('title', 'Klinik Mata Tritya - Beranda')
-
+@php
+    $hero = \App\Models\Hero::where('is_active', 1)->first();
+@endphp
 @section('styles')
     <!-- Google Fonts (Poppins) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -46,7 +48,7 @@
             position: relative;
             height: 650px;
             /* Gambar Background Wanita dengan Phoropter */
-            background-image: url("{{ asset('img/hero-background.jpg') }}");
+            background-image: url("{{ asset('storage/'.$hero->background) }}");
             background-size: cover;
             background-position: center;
             display: flex;
@@ -785,12 +787,11 @@
         <div class="hero-content container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h1 class="hero-title">Lihat Dunia dengan <br>Lebih Jelas</h1>
+                    <h1 class="hero-title">{!! nl2br(e($hero->title)) !!}</h1>
                     <p class="hero-desc">
-                        Kami percaya setiap orang berhak melihat dunia dengan pandangan yang jernih.
-                        Tim dokter spesialis mata dan optometris kami siap memberikan perawatan mata terbaik.
+                         {{ $hero->description }}
                     </p>
-                    <a href="#detail-page" class="btn-navy">Selengkapnya</a>
+                    <a href="{{ $hero->button_link }}" class="btn-navy">{{ $hero->button_text }}</a>
                 </div>
             </div>
         </div>

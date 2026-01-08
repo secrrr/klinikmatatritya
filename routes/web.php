@@ -38,6 +38,12 @@ Route::prefix('admin')->group(function () {
 
        Route::get('popup', [PopupSettingController::class, 'edit'])->name('popup.edit');
         Route::post('popup', [PopupSettingController::class, 'update'])->name('popup.update');
+
+        Route::get('hero', [App\Http\Controllers\Admin\HeroController::class, 'edit'])
+        ->name('admin.hero.edit');
+
+    Route::put('hero', [App\Http\Controllers\Admin\HeroController::class, 'update'])
+        ->name('admin.hero.update');
             
         Route::resource('articles', App\Http\Controllers\Admin\ArticleController::class)->names('admin.articles');
         // Route::resource('testimonials', App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');

@@ -190,6 +190,12 @@
                 <span>Dashboard</span>
             </a>
 
+            <a href="{{ route('admin.hero.edit') }}"
+                class="menu-item @if (request()->routeIs('admin.hero.*')) active @endif">
+                <i class="fas fa-user-md"></i>
+                <span>Hero</span>
+            </a>
+
             <a href="{{ route('popup.edit') }}" class="menu-item @if (request()->routeIs('admin.popup.*')) active @endif">
                 <i class="fas fa-user-md"></i>
                 <span>Main Popup Home</span>
