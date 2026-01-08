@@ -81,6 +81,10 @@ Route::get('/run-migrate/{table}', function ($table) {
     Artisan::call('migrate', ['--path' => "database/migrations/{$table}.php"]);
     return "DONE";
 });
+Route::get('/run-seed/{table}', function ($table) {
+    Artisan::call('db:seed', ['--class' => "{$table}"]);
+    return "DONE";
+});
 Route::get('/run-migrate/rollback/{table}', function ($table) {
     Artisan::call('migrate:rollback', ['--path' => "database/migrations/{$table}.php"]);
     return "DONE";

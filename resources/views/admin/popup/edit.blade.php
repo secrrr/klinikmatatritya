@@ -28,7 +28,7 @@
 
                     
                     <div class="d-flex gap-2 justify-content-end">
-                        <a href="{{ route('admin.testimonials.index') }}" class="btn btn-light">Batal</a>
+                        <a href="{{ route('popup.edit') }}" class="btn btn-light">Batal</a>
                         <button type="submit" class="btn btn-primary px-4">Simpan Perubahan</button>
                     </div>
                 </form>

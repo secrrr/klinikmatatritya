@@ -19,7 +19,7 @@
         @endif
 
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table id="doctorsTable" class="table table-striped table-hover align-middle mb-0 nowrap">
                 <thead class="bg-light">
                     <tr>
                         <th class="border-0 py-3 ps-4" style="width: 50px;">No</th>
@@ -72,8 +72,28 @@
             </table>
         </div>
     </div>
-    <div class="card-footer bg-white border-0 py-3">
-        {{ $doctors->links() }}
-    </div>
+   
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#doctorsTable').DataTable({
+        responsive: true,
+        pageLength: 10,
+        lengthChange: true,
+        autoWidth: false,
+        language: {
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ data",
+            info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+            zeroRecords: "Tidak ada data ditemukan",
+            paginate: {
+                previous: "←",
+                next: "→"
+            }
+        }
+    });
+});
+</script>
+
 @endsection
