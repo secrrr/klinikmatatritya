@@ -66,6 +66,9 @@ Route::prefix('admin')->group(function () {
         // Settings Routes
         Route::get('settings/mail', [App\Http\Controllers\Admin\SettingsController::class, 'mail'])->name('admin.settings.mail');
         Route::post('settings/mail', [App\Http\Controllers\Admin\SettingsController::class, 'updateMail'])->name('admin.settings.update-mail');
+        
+        Route::get('settings/general', [App\Http\Controllers\Admin\SettingsController::class, 'general'])->name('admin.settings.general');
+        Route::post('settings/general', [App\Http\Controllers\Admin\SettingsController::class, 'updateGeneral'])->name('admin.settings.update-general');
     });
 });
 

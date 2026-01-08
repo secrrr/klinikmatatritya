@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-94NDTFH6KV"></script>
     <script>
@@ -169,7 +170,7 @@
     </style>
     @yield('styles')
 
-   
+
 
 </head>
 
@@ -190,8 +191,7 @@
                 <span>Dashboard</span>
             </a>
 
-            <a href="{{ route('admin.hero.edit') }}"
-                class="menu-item @if (request()->routeIs('admin.hero.*')) active @endif">
+            <a href="{{ route('admin.hero.edit') }}" class="menu-item @if (request()->routeIs('admin.hero.*')) active @endif">
                 <i class="fas fa-user-md"></i>
                 <span>Hero</span>
             </a>
@@ -277,6 +277,11 @@
                 <i class="fas fa-envelope"></i>
                 <span>Mail Settings</span>
             </a>
+            <a href="{{ route('admin.settings.general') }}"
+                class="menu-item @if (request()->routeIs('admin.settings.general')) active @endif">
+                <i class="fas fa-cogs"></i>
+                <span>General Settings</span>
+            </a>
         </nav>
 
         <div class="border-top p-3">
@@ -311,7 +316,7 @@
                     </div>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                     <li>
+                    <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li><a class="dropdown-item text-danger" href="{{ route('admin.logout') }}">Logout</a></li>

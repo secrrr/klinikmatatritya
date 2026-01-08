@@ -81,4 +81,19 @@ class SettingsController extends Controller
 
         return back()->with('success', 'Mail settings updated successfully!');
     }
+    public function general()
+    {
+        $maintenance_mode = Settings::where('key', 'maintenance_mode')->value('value');
+        return view('admin.settings.general', compact('maintenance_mode'));
+    }
+
+    public function updateGeneral(Request $request)
+    {
+        Settings::updateOrCreate(
+            ['key' => 'maintenance_mode'],
+            ['value' => $request->has('maintenance_mode') ? 'true' : 'false']
+        );
+
+        return back()->with('success', 'Pengaturan umum berhasil diperbarui!');
+    }
 }
