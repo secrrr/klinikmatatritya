@@ -280,7 +280,7 @@
                             <span class="d-block text-muted small">Tipe Pekerjaan:</span>
                             <span class="fw-bold">{{ $career->type }}</span>
                         </div>
-                         <div class="mb-3">
+                        <div class="mb-3">
                             <span class="d-block text-muted small">Ringkasan:</span>
                             <span class="text-gray">{{ $career->short_description }}</span>
                         </div>
@@ -288,7 +288,8 @@
                             <i class="fas fa-map-marker-alt text-primary me-3 mt-1"></i>
                             <span class="small text-gray">{{ $career->location }}</span>
                         </div>
-                        <a href="{{ route('fe.job-form', ['career_id' => $career->id]) }}" class="btn-lamar-full text-center text-decoration-none">Lamar Sekarang</a>
+                        <a href="{{ route('fe.job-form', ['career_id' => $career->id]) }}"
+                            class="btn-lamar-full text-decoration-none text-center">Lamar Sekarang</a>
                     </div>
 
                     <!-- Pekerjaan Lainnya -->
@@ -296,12 +297,13 @@
                         <h5 class="fw-bold mb-3"><i class="fas fa-briefcase text-muted me-2"></i>Pekerjaan Lainnya</h5>
 
                         @forelse($other_jobs as $other)
-                        <div class="other-job-item">
-                            <a href="{{ route('fe.carier.show', $other->slug) }}" class="other-job-title text-decoration-none">{{ $other->title }}</a>
-                            <span class="other-job-type">{{ $other->type }}</span>
-                        </div>
+                            <div class="other-job-item">
+                                <a href="{{ route('fe.carier.show', $other->slug) }}"
+                                    class="other-job-title text-decoration-none">{{ $other->title }}</a>
+                                <span class="other-job-type">{{ $other->type }}</span>
+                            </div>
                         @empty
-                        <div class="text-muted small">Tidak ada lowongan lain.</div>
+                            <div class="text-muted small">Tidak ada lowongan lain.</div>
                         @endforelse
 
                         <a href="{{ route('fe.cariers.index') }}" class="link-selengkapnya">Selengkapnya <i
@@ -324,71 +326,21 @@
             <!-- Swiper Container -->
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="https://img.freepik.com/free-photo/modern-hospital-room_23-2148847819.jpg"
-                                class="news-card-img" alt="Berita">
-                            <div class="news-card-body">
-                                <span class="news-card-date">30 Februari 2077</span>
-                                <h5 class="news-card-title">Jangan Remehkan! 5 Tanda Gangguan</h5>
-                                <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                        class="fas fa-chevron-right"></i></a>
+                    @forelse ($posts as $article)
+                        <div class="swiper-slide">
+                            <div class="news-card">
+                                <img src="{{ asset('storage/' . $article->image) }}" class="news-card-img"
+                                    alt="{{ $article->title }}">
+                                <div class="news-card-body">
+                                    <span class="news-card-date">{{ $article->created_at->format('d F Y') }}</span>
+                                    <h5 class="news-card-title">{{ Str::limit($article->title, 50) }}</h5>
+                                    <a href="{{ route('fe.news.detail', $article->slug) }}" class="btn-full-width">Baca
+                                        selengkapnya <i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="https://img.freepik.com/free-vector/health-logo-template-design_23-2150316492.jpg"
-                                class="news-card-img" alt="Berita">
-                            <div class="news-card-body">
-                                <span class="news-card-date">30 Februari 2077</span>
-                                <h5 class="news-card-title">Kunci Mata Sehat di Usia Lanjut</h5>
-                                <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="https://img.freepik.com/free-photo/scientist-using-microscope_23-2148847831.jpg"
-                                class="news-card-img" alt="Berita">
-                            <div class="news-card-body">
-                                <span class="news-card-date">30 Februari 2077</span>
-                                <h5 class="news-card-title">Solusi Tuntas Mata Kering</h5>
-                                <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 4 -->
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="https://img.freepik.com/free-photo/modern-hospital-room_23-2148847819.jpg"
-                                class="news-card-img" alt="Berita">
-                            <div class="news-card-body">
-                                <span class="news-card-date">30 Februari 2077</span>
-                                <h5 class="news-card-title">Bahaya Kebutaan Karena Gadget</h5>
-                                <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 5 -->
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="https://img.freepik.com/free-photo/senior-patient-hospital_23-2148962451.jpg"
-                                class="news-card-img" alt="Berita">
-                            <div class="news-card-body">
-                                <span class="news-card-date">30 Februari 2077</span>
-                                <h5 class="news-card-title">Cara Menggunakan BPJS Kesehatan</h5>
-                                <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                        class="fas fa-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    @empty
+                    @endforelse
                 </div>
             </div>
         </div>

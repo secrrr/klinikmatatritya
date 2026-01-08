@@ -213,77 +213,79 @@
 @endsection
 
 @section('content')
-    <!-- Hero Section -->
-    <div class="promo-detail-hero"
-        style="background-image: url('{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/1200x600' }}');">
-        <div class="promo-hero-overlay"></div>
-        <div class="promo-hero-content container">
-            <h1 class="fw-bold display-5">{{ $promo->title }}</h1>
+    <div>
+        <!-- Hero Section -->
+        <div class="promo-detail-hero"
+            style="background-image: url('{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/1200x600' }}');">
+            <div class="promo-hero-overlay"></div>
+            <div class="promo-hero-content container">
+                <h1 class="fw-bold display-5">{{ $promo->title }}</h1>
+            </div>
         </div>
-    </div>
 
-    <!-- Main Content & Sidebar -->
-    <div class="container pb-5">
-        <div class="row">
-            <!-- Left: Main Content Detail -->
-            <div class="col-lg-8">
-                <div class="content-card promo-content">
-                    {!! $promo->content !!}
+        <!-- Main Content & Sidebar -->
+        <div class="container pb-5">
+            <div class="row">
+                <!-- Left: Main Content Detail -->
+                <div class="col-lg-8">
+                    <div class="content-card promo-content">
+                        {!! $promo->content !!}
+                    </div>
+                </div>
+
+                <!-- Right: Sidebar Action -->
+                <div class="col-lg-4">
+                    <div class="sidebar-promo-card">
+                        <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
+                            alt="Promo Thumbnail" class="promo-sidebar-img">
+                        <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
+                        <span class="price-tag">
+                            @if ($promo->price)
+                                Rp {{ number_format($promo->price, 0, ',', '.') }}
+                            @else
+                                Gratis / TBD
+                            @endif
+                        </span>
+                        <a href="https://wa.me/6282112110048?text=Halo%20saya%20ingin%20mendaftar%20paket%20*{{ $promo->title }}*%20seharga%20*{{ $promo->price ? 'Rp ' . number_format($promo->price, 0, ',', '.') : 'Gratis' }}*"
+                            class="btn-ambil-promo">Ambil Sekarang <i class="fas fa-chevron-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Postingan Terbaru (Slider) -->
+        <div class="container py-5">
+            <div class="section-header d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold">Postingan Terbaru</h2>
+                <div class="nav-arrows">
+                    <button class="btn-arrow news-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn-arrow news-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
 
-            <!-- Right: Sidebar Action -->
-            <div class="col-lg-4">
-                <div class="sidebar-promo-card">
-                    <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
-                        alt="Promo Thumbnail" class="promo-sidebar-img">
-                    <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
-                    <span class="price-tag">
-                        @if ($promo->price)
-                            Rp {{ number_format($promo->price, 0, ',', '.') }}
-                        @else
-                            Gratis / TBD
-                        @endif
-                    </span>
-                    <a href="https://wa.me/6282112110048?text=Halo%20saya%20ingin%20mendaftar%20paket%20*{{ $promo->title }}*%20seharga%20*{{ $promo->price ? 'Rp ' . number_format($promo->price, 0, ',', '.') : 'Gratis' }}*"
-                        class="btn-ambil-promo">Ambil Sekarang <i class="fas fa-chevron-right ms-2"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section: Postingan Terbaru (Slider) -->
-    <div class="container py-5">
-        <div class="section-header d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">Postingan Terbaru</h2>
-            <div class="nav-arrows">
-                <button class="btn-arrow news-prev"><i class="fas fa-chevron-left"></i></button>
-                <button class="btn-arrow news-next"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-
-        <!-- Swiper Container -->
-        <div class="swiper newsSwiper">
-            <div class="swiper-wrapper">
-                @forelse($recent_articles as $article)
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="{{ $article->image ? asset('storage/' . $article->image) : 'https://via.placeholder.com/600x400' }}"
-                                class="news-card-img" alt="{{ $article->title }}">
-                            <div class="news-card-body">
-                                <span class="news-card-date">{{ $article->created_at->format('d F Y') }}</span>
-                                <h5 class="news-card-title">{{ Str::limit($article->title, 40) }}</h5>
-                                <a href="{{ route('fe.news.detail', $article->slug) }}" class="btn-full-width">
-                                    Baca selengkapnya <i class="fas fa-chevron-right"></i>
-                                </a>
+            <!-- Swiper Container -->
+            <div class="swiper newsSwiper">
+                <div class="swiper-wrapper">
+                    @forelse($recent_articles as $article)
+                        <div class="swiper-slide">
+                            <div class="news-card">
+                                <img src="{{ $article->image ? asset('storage/' . $article->image) : 'https://via.placeholder.com/600x400' }}"
+                                    class="news-card-img" alt="{{ $article->title }}">
+                                <div class="news-card-body">
+                                    <span class="news-card-date">{{ $article->created_at->format('d F Y') }}</span>
+                                    <h5 class="news-card-title">{{ Str::limit($article->title, 40) }}</h5>
+                                    <a href="{{ route('fe.news.detail', $article->slug) }}" class="btn-full-width">
+                                        Baca selengkapnya <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @empty
-                    <div class="swiper-slide">
-                        <div class="p-4 text-center">Belum ada postingan terbaru.</div>
-                    </div>
-                @endforelse
+                    @empty
+                        <div class="swiper-slide">
+                            <div class="p-4 text-center">Belum ada postingan terbaru.</div>
+                        </div>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>

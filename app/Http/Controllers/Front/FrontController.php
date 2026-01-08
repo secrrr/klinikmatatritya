@@ -89,7 +89,8 @@ class FrontController extends Controller
             ->where('is_active', true)
             ->take(5)
             ->get();
-        return view('front.carier', compact('career', 'other_jobs'));
+        $posts = Article::latest()->take(5)->get();
+        return view('front.carier', compact('career', 'other_jobs', 'posts'));
     }
 
     public function jobForm(Request $request)

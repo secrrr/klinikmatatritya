@@ -196,6 +196,10 @@
             border: 1px solid #ced4da;
             border-left: none;
         }
+
+        /* .search-dropdown {
+                position: relative !important;
+            } */
     </style>
 @endsection
 
@@ -241,8 +245,6 @@
                     @endforelse
 
 
-
-
                 </div>
 
                 <!-- FOOTER -->
@@ -262,25 +264,27 @@
                     <img src="{{ asset('img/anatomi-mata.png') }}" class="img-fluid" style="max-height: 400px;"
                         alt="Anatomi Mata">
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5" style="position: relative">
                     <h2 class="fw-bold mb-3">Tidak tahu mulai dari mana?</h2>
                     <p class="text-muted mb-4">Cukup klik bagian mata mana yang menjadi permasalahan anda atau cari di
                         bawah ini</p>
 
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search" id="issueSearchInput">
                         <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
                     </div>
 
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Conjunctiva</li>
-                        <li class="list-group-item">Cornea</li>
-                        <li class="list-group-item">Vitreous</li>
-                        <li class="list-group-item">Cornea</li>
-                        <li class="list-group-item">Vitreous</li>
-                    </ul>
+                    <div id="issueSearchResults" class="search-dropdown"></div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            handleSearch('issueSearchInput', 'issueSearchResults');
+        });
+    </script>
 @endsection
