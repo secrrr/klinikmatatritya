@@ -10,14 +10,12 @@ class Faq extends Model
     protected $fillable = [
         'question',
         'answer',
-        'category',
+        'faq_category_id',
         'is_active',
     ];
 
-    public const CATEGORIES = [
-        'layanan' => 'Layanan & Pemeriksaan Mata',
-        'pembiayaan' => 'Pembiayaan & Asuransi',
-        'tindakan' => 'Tindakan Medis & Operasi',
-        'reservasi' => 'Reservasi & Jadwal',
-    ];
+    public function faqCategory()
+    {
+        return $this->belongsTo(FaqCategory::class);
+    }
 }

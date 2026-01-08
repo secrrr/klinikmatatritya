@@ -13,14 +13,16 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Kategori <span class="text-danger">*</span></label>
-                            <select name="category" class="form-select @error('category') is-invalid @enderror" required>
+                            <select name="faq_category_id" class="form-select @error('faq_category_id') is-invalid @enderror"
+                                required>
                                 <option value="">Pilih Kategori</option>
-                                @foreach (\App\Models\Faq::CATEGORIES as $key => $label)
-                                    <option value="{{ $key }}" {{ old('category') == $key ? 'selected' : '' }}>
-                                        {{ $label }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('faq_category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}</option>
                                 @endforeach
                             </select>
-                            @error('category')
+                            @error('faq_category_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

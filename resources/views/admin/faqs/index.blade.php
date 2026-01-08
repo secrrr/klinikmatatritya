@@ -7,9 +7,14 @@
     <div class="card border-0 shadow-sm">
         <div class="card-header d-flex align-items-center justify-content-between bg-white py-3">
             <h6 class="fw-bold mb-0">Daftar FAQ</h6>
-            <a href="{{ route('admin.faqs.create') }}" class="btn btn-sm btn-primary">
-                <i class="fas fa-plus me-1"></i> Tambah Baru
-            </a>
+            <div>
+                <a href="{{ route('admin.faq-categories.index') }}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-edit me-1"></i> Edit Kategori
+                </a>
+                <a href="{{ route('admin.faqs.create') }}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus me-1"></i> Tambah Baru
+                </a>
+            </div>
         </div>
         <div class="card-body p-0">
             @if (session('success'))
@@ -37,7 +42,7 @@
                                 </td>
                                 <td>
                                     <span class="badge bg-secondary text-light">
-                                        {{ \App\Models\Faq::CATEGORIES[$faq->category] ?? ucfirst($faq->category) }}
+                                        {{ $faq->faqCategory->name ?? 'Uncategorized' }}
                                     </span>
                                 </td>
                                 <td>
