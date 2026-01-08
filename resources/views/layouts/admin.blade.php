@@ -280,7 +280,7 @@
         </nav>
 
         <div class="border-top p-3">
-            <a href="#"
+            <a href="{{ route('admin.logout') }}"
                 class="d-flex align-items-center text-decoration-none text-danger hover-bg-light rounded px-3 py-2">
                 <i class="fas fa-sign-out-alt me-2"></i>
                 <span>Logout</span>
@@ -311,11 +311,10 @@
                     </div>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
+                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+                    <li><a class="dropdown-item text-danger" href="{{ route('admin.logout') }}">Logout</a></li>
                 </ul>
             </div>
         </header>
