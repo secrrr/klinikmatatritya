@@ -13,6 +13,7 @@ use App\Models\Testimonial;
 use App\Models\SocialFeed;
 use App\Models\Career;
 use App\Models\Faq;
+use App\Models\FaqCategory;
 use App\Models\Insurance;
 use App\Models\JobApplication;
 
@@ -31,10 +32,12 @@ class FrontController extends Controller
         // $testimonials = Testimonial::latest()->take(6)->get();
         $reviewSetting = ReviewSetting::first();
         $instagramSetting = InstagramSetting::first();
-        $faqs = Faq::where('is_active', true)->get()->groupBy('category');
         $social_feeds = SocialFeed::latest()->take(4)->get();
         $insurances = Insurance::latest()->get();
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds', 'faqs', 'insurances', 'reviewSetting', 'instagramSetting'));
+        $faqCategories = FaqCategory::with(['faqs' => function ($query) {
+            $query->where('is_active', true);
+        }])->get(); 
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds',   'insurances', 'reviewSetting', 'instagramSetting', 'faqCategories'));
     }
     public function services()
     {

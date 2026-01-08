@@ -5,7 +5,7 @@
     $hero = \App\Models\Hero::where('is_active', 1)->first();
 @endphp
 @section('styles')
-   
+
 @endsection
 
 @section('content')
@@ -30,7 +30,7 @@
                 <div class="col-lg-6">
                     <h1 class="hero-title">{!! nl2br(e($hero->title)) !!}</h1>
                     <p class="hero-desc">
-                         {{ $hero->description }}
+                        {{ $hero->description }}
                     </p>
                     <a href="{{ $hero->button_link }}" class="btn-navy">{{ $hero->button_text }}</a>
                 </div>
@@ -38,16 +38,16 @@
         </div>
     </section>
 
-        <div style=" padding-bottom: 80px;" id="detail-page">
-            <div class="container" style="max-width:1000px;">
-                <div class="search-box-wrapper">
-                    <div class="search-box">
-                        <div class="mb-4 text-center">
-                            <h4 class="search-title">Biarkan Kami Membantu Anda</h4>
-                            <p class="text-muted small">Cukup beritahu kami siapa dan apa kebutuhan anda.</p>
-                        </div>
+    <div style=" padding-bottom: 80px;" id="detail-page">
+        <div class="container" style="max-width:1000px;">
+            <div class="search-box-wrapper">
+                <div class="search-box">
+                    <div class="mb-4 text-center">
+                        <h4 class="search-title">Biarkan Kami Membantu Anda</h4>
+                        <p class="text-muted small">Cukup beritahu kami siapa dan apa kebutuhan anda.</p>
+                    </div>
 
-                        <form onsubmit="return false;">
+                    <form onsubmit="return false;">
                         <div class="row g-3 align-items-end justify-content-center">
                             <div class="col-md-auto d-flex align-items-center mb-2">
                                 <span class="fw-semibold me-2">Saya seorang</span>
@@ -336,9 +336,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            class="fas fa-chevron-right"></i></button> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-left"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -475,59 +475,38 @@
                 <div class="row">
                     <!-- Left Side - Topic Tabs -->
                     <div class="col-lg-5 mb-lg-0 mb-4">
-                        <div class="faq-topic-item active" data-topic="layanan">
-                            <span>Layanan & Pemeriksaan Mata</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                        <div class="faq-topic-item" data-topic="pembiayaan">
-                            <span>Pembiayaan & Asuransi</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                        <div class="faq-topic-item" data-topic="tindakan">
-                            <span>Tindakan Medis & Operasi</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                        <div class="faq-topic-item" data-topic="reservasi">
-                            <span>Reservasi & Jadwal</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
+                        @foreach ($faqCategories as $faqCategory)
+                            <div class="faq-topic-item" data-topic="{{ $faqCategory->slug }}">
+                                <span>{{ $faqCategory->name }}</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        @endforeach
                     </div>
 
                     <!-- Right Side - Dynamic Content -->
                     <div class="col-lg-7">
                         <div class="faq-right-box">
-                            @php
-                                $faqCategories = [
-                                    'layanan' => 'Layanan & Pemeriksaan Mata',
-                                    'pembiayaan' => 'Pembiayaan & Asuransi',
-                                    'tindakan' => 'Tindakan Medis & Operasi',
-                                    'reservasi' => 'Reservasi & Jadwal',
-                                ];
-                            @endphp
-
-                            @foreach ($faqCategories as $key => $title)
+                            @foreach ($faqCategories as $faqCategory)
                                 <div class="faq-content-section {{ $loop->first ? 'active' : '' }}"
-                                    id="faq-{{ $key }}">
-                                    <h5 class="fw-bold mb-4">{{ $title }}</h5>
+                                    id="faq-{{ $faqCategory->slug }}">
+                                    <h5 class="fw-bold mb-4">{{ $faqCategory->name }}</h5>
 
-                                    @if (isset($faqs[$key]))
-                                        @foreach ($faqs[$key] as $faq)
-                                            <div class="faq-accordion-item" id="faq-{{ $faq->id }}">
-                                                <button class="faq-accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#faq-{{ $faq->id }}">
-                                                    <span>{{ $faq->question }}</span>
-                                                    <i class="fas fa-chevron-down faq-icon"></i>
-                                                </button>
-                                                <div id="faq-{{ $faq->id }}" class="collapse">
-                                                    <div class="faq-accordion-body">
-                                                        {{ $faq->answer }}
-                                                    </div>
+                                    @foreach ($faqCategory->faqs as $faq)
+                                        <div class="faq-accordion-item"
+                                            id="faq-{{ $faqCategory->slug }}-{{ $faq->id }}">
+                                            <button class="faq-accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq-{{ $faqCategory->slug }}-{{ $faq->id }}">
+                                                <span>{{ $faq->question }}</span>
+                                                <i class="fas fa-chevron-down faq-icon"></i>
+                                            </button>
+                                            <div id="faq-{{ $faqCategory->slug }}-{{ $faq->id }}" class="collapse">
+                                                <div class="faq-accordion-body">
+                                                    {{ $faq->answer }}
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    @else
-                                        <p class="text-muted">Belum ada FAQ untuk kategori ini.</p>
-                                    @endif
+                                        </div>
+                                    @endforeach
                                 </div>
                             @endforeach
                         </div>
@@ -608,19 +587,19 @@
 
 @section('scripts')
 
-<script>
-function redirectToWhatsapp() {
-    const role = document.getElementById('roleSelect').value;
-    const search = document.getElementById('searchSelect').value;
+    <script>
+        function redirectToWhatsapp() {
+            const role = document.getElementById('roleSelect').value;
+            const search = document.getElementById('searchSelect').value;
 
-    const message = `Halo, saya seorang ${role} sedang mencari informasi ${search}.`;
+            const message = `Halo, saya seorang ${role} sedang mencari informasi ${search}.`;
 
-    const phoneNumber = '6282112110048'; 
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            const phoneNumber = '6282112110048';
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-    window.open(whatsappURL, '_blank');
-}
-</script>
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
 
-    
+
 @endsection
