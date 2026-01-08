@@ -197,24 +197,47 @@
         }
 
         @media (max-width: 768px) {
-            .maintenance-container {
-                overflow-y: auto;
+            body {
+                overflow: auto;
                 height: auto;
+                display: block;
+            }
+
+            .maintenance-container {
+                height: auto;
+                min-height: 100vh;
             }
 
             .banner-section {
-                padding: 4rem 1rem;
-                min-height: 400px;
+                padding: 3rem 1.5rem;
+                min-height: auto;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+            }
+
+            .banner-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .banner-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
             }
 
             .actions-section {
                 flex-direction: column;
-                padding: 3rem 1rem;
-                flex: auto;
+                padding: 2rem 1rem;
+                gap: 1.5rem;
             }
 
-            .banner-title {
-                font-size: 2rem;
+            .action-card {
+                padding: 1.5rem;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .construction-icon {
+                font-size: 4rem;
             }
         }
     </style>
@@ -231,8 +254,9 @@
                     <!-- <img src="path_to_logo" height="50"> -->
                 </div>
                 <h1 class="banner-title">Kami Sedang Renovasi Rumah!</h1>
-                <p class="banner-subtitle">Kepada Host Saya, Website sedang maintenance mohon jangan akses IP ini
-                    kembali</p>
+                <p class="banner-subtitle">
+                    Saat ini website sedang dalam mode maintenance.
+                </p>
             </div>
         </div>
 
@@ -254,8 +278,8 @@
                     <i class="far fa-question-circle"></i>
                 </div>
                 <h3 class="action-title">Bantuan Teknis Profesional</h3>
-                <p class="action-text">Hubungi kami CS Tritya profesional corporate@tritya.co.id</p>
-                <a href="mailto:corporate@tritya.co.id" class="action-btn btn-contact">Hubungi Kami</a>
+                <p class="action-text">Hubungi kami CS Tritya profesional support@klinikmatatritya.co.id</p>
+                <a href="mailto:support@klinikmatatritya.co.id" class="action-btn btn-contact">Hubungi Kami</a>
             </div>
         </div>
     </div>
