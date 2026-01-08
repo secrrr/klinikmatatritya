@@ -482,19 +482,18 @@
                 <h2 class="fw-bold mb-0">@klinikmatatritya.official</h2>
                 <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank" class="social-header-link">Selengkapnya</a>
             </div>
-            <div class="row g-4">
-                @forelse($social_feeds as $feed)
-                <div class="col-md-6 col-lg-3">
-                    <div class="social-card h-100 d-flex justify-content-center align-items-center bg-white p-2">
-                        {!! $feed->embed_code !!}
+            <div class="swiper instagramSwiper">
+                        <div class="swiper-wrapper" id="insta-feed-container">
+                            <div class="swiper-slide">
+                                <div class="py-5 text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
                     </div>
-                </div>
-                @empty
-                <div class="col-12 text-center">
-                    <p class="text-muted">Belum ada feed terbaru.</p>
-                </div>
-                @endforelse
-            </div>
         </div>
     </div>
 @endsection
