@@ -38,44 +38,48 @@
         </div>
     </section>
 
-    <!-- BG SKY BLUE -->
-    <div style=" padding-bottom: 80px;" id="detail-page">
-        <!-- 2. FLOATING SEARCH BOX -->
-        <div class="container" style="max-width:1000px;">
-            <div class="search-box-wrapper">
-                <div class="search-box">
-                    <div class="mb-4 text-center">
-                        <h4 class="search-title">Biarkan Kami Membantu Anda</h4>
-                        <p class="text-muted small">Cukup beritahu kami siapa dan apa kebutuhan anda.</p>
-                    </div>
+        <div style=" padding-bottom: 80px;" id="detail-page">
+            <div class="container" style="max-width:1000px;">
+                <div class="search-box-wrapper">
+                    <div class="search-box">
+                        <div class="mb-4 text-center">
+                            <h4 class="search-title">Biarkan Kami Membantu Anda</h4>
+                            <p class="text-muted small">Cukup beritahu kami siapa dan apa kebutuhan anda.</p>
+                        </div>
 
-                    <form>
+                        <form onsubmit="return false;">
                         <div class="row g-3 align-items-end justify-content-center">
                             <div class="col-md-auto d-flex align-items-center mb-2">
                                 <span class="fw-semibold me-2">Saya seorang</span>
                             </div>
+
                             <div class="col-md-3">
-                                <select class="form-select form-select-custom">
-                                    <option selected>Pasien</option>
-                                    <option>Keluarga Pasien</option>
+                                <select class="form-select form-select-custom" id="roleSelect">
+                                    <option value="pasien" selected>Pasien</option>
+                                    <option value="keluarga pasien">Keluarga Pasien</option>
                                 </select>
                             </div>
+
                             <div class="col-md-auto d-flex align-items-center mb-2">
                                 <span class="fw-semibold mx-2">sedang mencari</span>
                             </div>
+
                             <div class="col-md-3">
-                                <select class="form-select form-select-custom">
-                                    <option selected>Dokter</option>
-                                    <option>Layanan</option>
-                                    <option>Jadwal</option>
+                                <select class="form-select form-select-custom" id="searchSelect">
+                                    <option value="Dokter" selected>Dokter</option>
+                                    <option value="Layanan">Layanan</option>
+                                    <option value="Jadwal">Jadwal</option>
                                 </select>
                             </div>
+
                             <div class="col-md-2">
-                                <button type="button" class="btn-search-blue"
-                                    onclick="window.location.href='http://tritya.id/DaftarOnline'">Buat Janji</button>
+                                <button type="button" class="btn-search-blue" onclick="redirectToWhatsapp()">
+                                    Cari
+                                </button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -604,6 +608,19 @@
 
 @section('scripts')
 
+<script>
+function redirectToWhatsapp() {
+    const role = document.getElementById('roleSelect').value;
+    const search = document.getElementById('searchSelect').value;
+
+    const message = `Halo, saya seorang ${role} sedang mencari informasi ${search}.`;
+
+    const phoneNumber = '6282112110048'; 
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, '_blank');
+}
+</script>
 
     
 @endsection
