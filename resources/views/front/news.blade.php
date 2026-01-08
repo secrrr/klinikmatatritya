@@ -301,11 +301,15 @@
 @section('content')
     <div class="container pt-4">
         <!-- Header Title & Search -->
+
+    
+
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
             <h1 class="fw-bold mb-md-0 mb-3">Berita</h1>
             <div class="search-container" style="width: 100%; max-width: 400px;">
-                <input type="text" class="form-control search-input" placeholder="Search">
+                <input type="text" class="form-control search-input" placeholder="Search" id="desktopNewsSearchInput">
                 <button class="search-icon-btn"><i class="fas fa-search"></i></button>
+                <div id="desktopNewsSearchResults" class="search-dropdown"></div>
             </div>
         </div>
 
@@ -449,4 +453,60 @@
             },
         });
     </script>
+
+    <script>function handleSearch(inputId, resultsId) {
+        const input = document.getElementById(inputId);
+        const results = document.getElementById(resultsId);
+
+        if (!input || !results) return;
+
+        let timeout = null;
+
+        input.addEventListener('input', function() {
+            clearTimeout(timeout);
+            const query = this.value;
+
+            if (query.length < 2) {
+                results.style.display = 'none';
+                return;
+            }
+
+            timeout = setTimeout(() => {
+                fetch(`{{ route('fe.search_news') }}?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        results.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'search-result-item';
+                                div.innerHTML =
+                                    `<span class="search-result-type">${item.type}</span>${item.title}`;
+                                div.onclick = () => window.location.href = item.url;
+                                results.appendChild(div);
+                            });
+                            results.style.display = 'block';
+                        } else {
+                            results.innerHTML =
+                                '<div class="search-result-item text-muted" style="cursor: default;">No results found</div>';
+                            results.style.display = 'block';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }, 300);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !results.contains(e.target)) {
+                results.style.display = 'none';
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        handleSearch('desktopNewsSearchInput', 'desktopNewsSearchResults');
+        handleSearch('mobileSearchInput', 'mobileSearchResults');
+    });
+</script>
 @endsection

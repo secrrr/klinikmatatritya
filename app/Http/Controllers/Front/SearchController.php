@@ -102,4 +102,48 @@ class SearchController extends Controller
 
         return response()->json($results);
     }
+
+    public function search_news(Request $request)
+    {
+        $query = $request->input('query');
+        if (!$query) {
+            return response()->json([]);
+        }
+
+        $results = [];
+
+        // Static Pages
+        $staticPages = [
+            ['title' => 'Beranda', 'url' => url('/'), 'type' => 'Page'],
+            ['title' => 'Jadwal Dokter', 'url' => url('/doctors'), 'type' => 'Page'],
+            ['title' => 'Layanan', 'url' => url('/services'), 'type' => 'Page'],
+            ['title' => 'Kemitraan dan Karir', 'url' => url('/careers'), 'type' => 'Page'],
+            ['title' => 'Berita', 'url' => url('/news'), 'type' => 'Page'],
+            ['title' => 'Tentang Kami', 'url' => url('/about'), 'type' => 'Page'],
+            ['title' => 'Buat Janji', 'url' => 'http://tritya.id/DaftarOnline', 'type' => 'External Link'],
+        ];
+
+        foreach ($staticPages as $page) {
+            if (stripos($page['title'], $query) !== false) {
+                $results[] = $page;
+            }
+        }
+
+    
+        // Articles
+        $articles = Article::where('title', 'like', "%{$query}%")
+                           ->orWhere('excerpt', 'like', "%{$query}%")
+                           ->limit(5)->get();
+        foreach ($articles as $article) {
+            $results[] = [
+                'title' => $article->title,
+                'url' => route('fe.news.detail', $article->slug),
+                'type' => 'Berita'
+            ];
+        }
+
+        
+
+        return response()->json($results);
+    }
 }

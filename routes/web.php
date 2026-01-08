@@ -119,6 +119,7 @@ Route::post('/job-form', [FrontController::class, 'storeJobApplication'])->name(
 Route::get('/news', [FrontController::class, 'news'])->name('fe.news.index');
 Route::get('/news/{slug}', [FrontController::class, 'articleDetail'])->name('fe.news.detail');
 Route::get('/search', [App\Http\Controllers\Front\SearchController::class, 'search'])->name('fe.search');
+Route::get('/search_news', [App\Http\Controllers\Front\SearchController::class, 'search_news'])->name('fe.search_news');
 // Route::get('/articles', [FrontController::class, 'articles'])->name('fe.articles.index'); // Deprecated
 Route::get('/doctors', [FrontController::class, 'doctors'])->name('fe.doctors.index');
 Route::get('/doctor', [FrontController::class, 'doctor'])->name('fe.doctors.detail');
