@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Panel - Klinik Mata Tritya')</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon/favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/favicon/favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ asset('img/favicon/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ asset('img/favicon/site.webmanifest') }}" />
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -213,7 +219,8 @@
                 <span>Layanan</span>
             </a>
 
-            <a href="{{ route('admin.faqs.index') }}" class="menu-item @if (request()->routeIs('admin.faqs.*')) active @endif">
+            <a href="{{ route('admin.faqs.index') }}"
+                class="menu-item @if (request()->routeIs('admin.faqs.*')) active @endif">
                 <i class="fas fa-question-circle"></i>
                 <span>FAQ</span>
             </a>

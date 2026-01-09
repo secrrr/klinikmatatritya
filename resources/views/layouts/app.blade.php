@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Klinik Mata Tritya')</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon/favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/favicon/favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ asset('img/favicon/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ asset('img/favicon/site.webmanifest') }}" />
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -13,11 +19,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Preload Images -->
     <link rel="preload" as="image" href="{{ asset('img/bg-footer.webp') }}" type="image/webp">
-    
+
     <style>
         :root {
             /* --primary-navy: #1D2088; */
@@ -64,7 +71,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }        /* --- Navbar --- */
+        }
+
+        /* --- Navbar --- */
         .navbar {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -204,8 +213,9 @@
         }
     </style>
 
-     <!-- Google Fonts (Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Preload Images -->
     <link rel="preload" as="image" href="{{ asset('img/bg-landing-pattern.webp') }}" type="image/webp">
@@ -243,15 +253,14 @@
         }
 
         /* --- 1. HERO SECTION (REVISI TOTAL) --- */
-        @php
-    $hero = \App\Models\Hero::where('is_active', 1)->first();
-@endphp
+        @php $hero =\App\Models\Hero::where('is_active', 1)->first();
+        @endphp
 
         .hero-section {
             position: relative;
             height: 650px;
             /* Gambar Background Wanita dengan Phoropter */
-            background-image: url("{{ asset('storage/'.$hero->background) }}");
+            background-image: url("{{ asset('storage/' . $hero->background) }}");
             background-size: cover;
             background-position: center;
             display: flex;
@@ -837,7 +846,7 @@
             color: #ccc;
         }
 
-        
+
 
         .popup-overlay {
             position: fixed;
@@ -1077,7 +1086,7 @@
         }
     </script>
 
-    
+
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -1228,12 +1237,12 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const topicItems = document.querySelectorAll('.faq-topic-item');
             const contentSections = document.querySelectorAll('.faq-content-section');
 
             topicItems.forEach(item => {
-                item.addEventListener('click', function () {
+                item.addEventListener('click', function() {
 
                     topicItems.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
@@ -1265,19 +1274,21 @@
             // Accordion toggle
             const accordionButtons = document.querySelectorAll('.faq-accordion-button');
             accordionButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const target = this.getAttribute('data-bs-target');
                     const collapseElement = document.querySelector(target);
 
                     if (collapseElement) {
-                        new bootstrap.Collapse(collapseElement, { toggle: true });
+                        new bootstrap.Collapse(collapseElement, {
+                            toggle: true
+                        });
                     }
 
                     this.classList.toggle('collapsed');
                 });
             });
         });
-        </script>
+    </script>
 
     <script>
         let googleReviews = [];
@@ -1334,7 +1345,7 @@
 
     @yield('scripts')
 
-    
+
 </body>
 
 </html>

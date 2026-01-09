@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>General Practitioner - Apply</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon/favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/favicon/favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ asset('img/favicon/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ asset('img/favicon/site.webmanifest') }}" />
+
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -13,7 +19,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Fonts (Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -193,7 +200,7 @@
     <!-- 2. Form Section -->
     <main class="form-section">
         <div class="container">
-            <form id="appointmentForm"> 
+            <form id="appointmentForm">
 
                 <!-- Nama Lengkap -->
                 <div class="row align-items-center row-mb">
@@ -233,7 +240,7 @@
                     <div class="col-md-9">
                         <input type="datetime-local" class="form-control" id="jadwal">
                     </div>
-                </div>  
+                </div>
 
                 <!-- Keluhan -->
                 <div class="row row-mb">
@@ -266,7 +273,7 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
+
 </body>
 
 </html>
