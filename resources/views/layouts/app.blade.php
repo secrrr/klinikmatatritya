@@ -1,3 +1,8 @@
+@php
+    $instagramSetting = \App\Models\InstagramSetting::first();
+    $reviewSetting = \App\Models\ReviewSetting::first();
+@endphp
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -999,7 +1004,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('insta-feed-container');
             const apiUrl =
-                "https://widget-data.service.elfsight.com/api/posts?sources[]=%7B%22pid%22%3A%22d29c8da0-df70-4b1e-9561-4ee1157bd84d%22%2C%22filters%22%3A%5B%5D%7D&sort={{ $instagramSetting->sort ?? 'date' }}&limit={{ $instagramSetting->limit ?? 6 }}&offset=0";
+                "https://widget-data.service.elfsight.com/api/posts?sources[]=%7B%22pid%22%3A%22d29c8da0-df70-4b1e-9561-4ee1157bd84d%22%2C%22filters%22%3A%5B%5D%7D&sort={{ $instagramSetting->sort }}&limit={{ $instagramSetting->limit }}&offset=0";
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -1296,7 +1301,7 @@
         const getGoogleReviews = async () => {
             try {
                 const response = await fetch(
-                    `https://service-reviews-ultimate.elfsight.com/data/reviews?uris%5B%5D=ChIJm1WZ_6z71y0RkrGZmLPTBZM&filter_content=text_required&min_rating={{ $reviewSetting->min_rating ?? 5 }}&page_length={{ $reviewSetting->limit ?? 10 }}&order={{ $reviewSetting->sort_order ?? 'date' }}&order_seed=1767543630397`, {
+                    `https://service-reviews-ultimate.elfsight.com/data/reviews?uris%5B%5D=ChIJm1WZ_6z71y0RkrGZmLPTBZM&filter_content=text_required&min_rating={{ $reviewSetting->min_rating }}&page_length={{ $reviewSetting->limit }}&order={{ $reviewSetting->sort_order }}&order_seed=1767543630397`, {
                         "headers": {
                             "accept": "application/json",
                         },

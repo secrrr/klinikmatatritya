@@ -28,16 +28,13 @@ class FrontController extends Controller
         $articles = Article::latest()->take(6)->get();
         $doctors = Doctor::with('schedules')->take(6)->get();
         $promos = Promo::latest()->get();
-        $popup = PopupSetting::where('is_active',1)->first();
-        // $testimonials = Testimonial::latest()->take(6)->get();
-        $reviewSetting = ReviewSetting::first();
-        $instagramSetting = InstagramSetting::first();
+        $popup = PopupSetting::where('is_active',1)->first();  
         $social_feeds = SocialFeed::latest()->take(4)->get();
         $insurances = Insurance::latest()->get();
         $faqCategories = FaqCategory::with(['faqs' => function ($query) {
             $query->where('is_active', true);
         }])->get(); 
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds',   'insurances', 'reviewSetting', 'instagramSetting', 'faqCategories'));
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds',   'insurances', 'faqCategories'));
     }
     public function services()
     {

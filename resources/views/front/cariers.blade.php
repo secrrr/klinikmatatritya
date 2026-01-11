@@ -312,9 +312,11 @@
             <!-- Header Karir -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
                 <h1 class="fw-bold mb-md-0 mb-3" style="color: #333;">Karir</h1>
-                <div class="input-group" style="max-width: 300px;">
-                    <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group" style="max-width: 300px;position: relative;">
+                    <input type="text" class="form-control" placeholder="Search" id="careerSearchInput">
                     <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+
+                    <div id="careerSearchResults" class="search-dropdown"></div>
                 </div>
             </div>
 
@@ -356,4 +358,12 @@
 
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            handleSearch('careerSearchInput', 'careerSearchResults');
+        });
+    </script>
 @endsection

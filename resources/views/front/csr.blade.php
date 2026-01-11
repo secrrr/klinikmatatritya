@@ -131,7 +131,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70%;
+
             background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             z-index: 1;
         }
@@ -487,22 +487,24 @@
 
         <!-- Social Feed Section -->
         <div class="social-section">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+
                 <h2 class="fw-bold mb-0">@klinikmatatritya.official</h2>
-                <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank" class="social-header-link">Selengkapnya</a>
+                <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank"
+                    class="social-header-link">Selengkapnya</a>
             </div>
             <div class="swiper instagramSwiper">
-                        <div class="swiper-wrapper" id="insta-feed-container">
-                            <div class="swiper-slide">
-                                <div class="py-5 text-center">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
+                <div class="swiper-wrapper" id="insta-feed-container">
+                    <div class="swiper-slide">
+                        <div class="py-5 text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <div class="swiper-pagination"></div>
                     </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 @endsection

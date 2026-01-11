@@ -7,71 +7,72 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
-.article-hero {
-    position: relative;
-    height: 420px;
-    border-radius: 0;
-    overflow: visible; 
-    margin-bottom: 160px;
-    background: #000;
-}
+        .article-hero {
+            position: relative;
+            height: 420px;
+            border-radius: 0;
+            overflow: visible;
+            margin-bottom: 160px;
+            background: #000;
+        }
 
-.article-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    filter: blur(4px);
-    transform: scale(1.1);
-    opacity: 0.6;
-}
+        .article-hero-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px);
+            transform: scale(1.1);
+            opacity: 0.6;
+        }
 
-.article-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-}
+        .article-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
 
-.article-hero-title {
-    position: relative;
-    z-index: 3;
-    padding: 130px 80px 0 80px;
-    color: #fff;
-    font-size: 2.2rem;
-    font-weight: bold;
-}
+        .article-hero-title {
+            position: relative;
+            z-index: 3;
+            padding: 130px 80px 0 80px;
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
 
-.article-hero-image {
-    position: relative;
-    z-index: 4;
-    width: 90%;
-    height: 90%;        
-    margin: 50px auto 0 auto;
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-}
+        .article-hero-image {
+            position: relative;
+            z-index: 4;
+            width: 90%;
+            height: 90%;
+            margin: 50px auto 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
 
-.article-hero-image img {
-    width: 100%;
-    height: auto;    
-    display: block;
-}
+        .article-hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-.article-card {
-    position: relative;
-    z-index: 5;
-    margin-top: -60px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 40px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-}
+        .article-card {
+            position: relative;
+            z-index: 5;
+            margin-top: -60px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
         /* Search & Hero Styles (Sama seperti sebelumnya) */
         .search-container {
             position: relative;
@@ -122,7 +123,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70%;
+
             background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             z-index: 1;
         }
@@ -365,78 +366,78 @@
 
 @section('content')
 
-        <div class="article-hero">
+    <div class="article-hero">
 
-            <!-- Background Blur -->
-            <div class="article-hero-bg" 
-                style="background-image: url('{{ asset('img/background.jpg') }}');">
-            </div>
-
-            <!-- Title -->
-            <div class="article-hero-title">
-                Investor Relations Klinik Mata Tritya
-            </div>
-
-            <!-- Foreground Image (gambar jabatan tangan) -->
-            <div class="article-hero-image">
-                <img src="{{ asset('img/bg_jabat.png') }}" alt="CSR Partnership">
-            </div>
-
-
-                
-
-       
-
+        <!-- Background Blur -->
+        <div class="article-hero-bg" style="background-image: url('{{ asset('img/background.jpg') }}');">
         </div>
-        <br><br><br><br>
-        <div class="article-card">
-            <p>Klinik Mata Tritya membuka peluang kerja sama bagi perusahaan, institusi, dan komunitas yang ingin menjalankan
-                program CSR di bidang kesehatan mata. Kami siap menjadi mitra medis terpecaya untuk mendukung Kegiatan sosial yang berdampak
-                nyata bagi masyarakat.
-                <br><br>
-                <h3>Bentuk Kerja Sama Yang tersedia</h3>
-                <br>
 
-                <h3>Screening Mata Massal</h3>
-                <ul>
-                    <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
-                    <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
-                    <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
-                </ul>
-
-                <h3>Operasi Karatak Sosial</h3>
-                <ul>
-                    <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
-                    <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
-                    <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
-                </ul>
-
-                <h3>EMC Korporat & Edukasi Visual</h3>
-                <ul>
-                    <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
-                    <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
-                    <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
-                </ul>
-
-                <h3>Manfaat Bagi Mitra CSR</h3>
-                <ul>
-                    <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
-                    <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
-                    <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
-                </ul>
-
-                <h3>Ajukan Kemitraan CSR</h3>
-                <ul>
-                    <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
-                    <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
-                    <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
-                </ul>
-            </p>
+        <!-- Title -->
+        <div class="article-hero-title">
+            Investor Relations Klinik Mata Tritya
         </div>
-      
-        
+
+        <!-- Foreground Image (gambar jabatan tangan) -->
+        <div class="article-hero-image">
+            <img src="{{ asset('img/bg_jabat.png') }}" alt="CSR Partnership">
+        </div>
+
+
+
+
+
+
+    </div>
+    <br><br><br><br>
+    <div class="article-card">
+        <p>Klinik Mata Tritya membuka peluang kerja sama bagi perusahaan, institusi, dan komunitas yang ingin menjalankan
+            program CSR di bidang kesehatan mata. Kami siap menjadi mitra medis terpecaya untuk mendukung Kegiatan sosial
+            yang berdampak
+            nyata bagi masyarakat.
+            <br><br>
+        <h3>Bentuk Kerja Sama Yang tersedia</h3>
+        <br>
+
+        <h3>Screening Mata Massal</h3>
+        <ul>
+            <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
+            <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
+            <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
+        </ul>
+
+        <h3>Operasi Karatak Sosial</h3>
+        <ul>
+            <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
+            <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
+            <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
+        </ul>
+
+        <h3>EMC Korporat & Edukasi Visual</h3>
+        <ul>
+            <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
+            <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
+            <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
+        </ul>
+
+        <h3>Manfaat Bagi Mitra CSR</h3>
+        <ul>
+            <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
+            <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
+            <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
+        </ul>
+
+        <h3>Ajukan Kemitraan CSR</h3>
+        <ul>
+            <li>Pemeriksaan mata gratis untuk anak-anak,lansia, atau masyrakat umum</li>
+            <li>Bila dilakukan dilokasi mitra (sekolah,kantor,komunitas) atau diklinik.</li>
+            <li>Laporan hasil screening tersedia untuk dokumentasi CSR Perusahaan</li>
+        </ul>
+        </p>
+    </div>
+
+
     <div class="container pt-4">
-       
+
         <!-- [BARU] 2. Modifikasi Struktur HTML Slider -->
         <div class="position-relative mb-5">
             <div class="section-header">
@@ -452,23 +453,23 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     @forelse($recent_articles as $recent)
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="{{ $recent->image ? asset('storage/' . $recent->image) : 'https://via.placeholder.com/600x400' }}"
-                                class="news-card-img" alt="{{ $recent->title }}">
-                            <div class="news-card-body">
-                                <span class="news-card-date">{{ $recent->created_at->format('d F Y') }}</span>
-                                <h5 class="news-card-title">{{ Str::limit($recent->title, 40) }}</h5>
-                                <a href="{{ route('fe.news.detail', $recent->slug) }}" class="btn-full-width">
-                                    Baca selengkapnya <i class="fas fa-chevron-right"></i>
-                                </a>
+                        <div class="swiper-slide">
+                            <div class="news-card">
+                                <img src="{{ $recent->image ? asset('storage/' . $recent->image) : 'https://via.placeholder.com/600x400' }}"
+                                    class="news-card-img" alt="{{ $recent->title }}">
+                                <div class="news-card-body">
+                                    <span class="news-card-date">{{ $recent->created_at->format('d F Y') }}</span>
+                                    <h5 class="news-card-title">{{ Str::limit($recent->title, 40) }}</h5>
+                                    <a href="{{ route('fe.news.detail', $recent->slug) }}" class="btn-full-width">
+                                        Baca selengkapnya <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @empty
-                    <div class="swiper-slide">
-                        <div class="p-4 text-center">Belum ada postingan terbaru.</div>
-                    </div>
+                        <div class="swiper-slide">
+                            <div class="p-4 text-center">Belum ada postingan terbaru.</div>
+                        </div>
                     @endforelse
                 </div>
                 <!-- Pagination dots (Optional, disembunyikan jika tidak perlu) -->
@@ -478,22 +479,24 @@
 
         <!-- Social Feed Section -->
         <div class="social-section">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+
                 <h2 class="fw-bold mb-0">@klinikmatatritya.official</h2>
-                <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank" class="social-header-link">Selengkapnya</a>
+                <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank"
+                    class="social-header-link">Selengkapnya</a>
             </div>
             <div class="swiper instagramSwiper">
-                        <div class="swiper-wrapper" id="insta-feed-container">
-                            <div class="swiper-slide">
-                                <div class="py-5 text-center">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
+                <div class="swiper-wrapper" id="insta-feed-container">
+                    <div class="swiper-slide">
+                        <div class="py-5 text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <div class="swiper-pagination"></div>
                     </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 @endsection

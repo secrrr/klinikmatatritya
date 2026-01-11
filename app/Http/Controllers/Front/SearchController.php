@@ -110,26 +110,7 @@ class SearchController extends Controller
             return response()->json([]);
         }
 
-        $results = [];
-
-        // Static Pages
-        $staticPages = [
-            ['title' => 'Beranda', 'url' => url('/'), 'type' => 'Page'],
-            ['title' => 'Jadwal Dokter', 'url' => url('/doctors'), 'type' => 'Page'],
-            ['title' => 'Layanan', 'url' => url('/services'), 'type' => 'Page'],
-            ['title' => 'Kemitraan dan Karir', 'url' => url('/careers'), 'type' => 'Page'],
-            ['title' => 'Berita', 'url' => url('/news'), 'type' => 'Page'],
-            ['title' => 'Tentang Kami', 'url' => url('/about'), 'type' => 'Page'],
-            ['title' => 'Buat Janji', 'url' => 'http://tritya.id/DaftarOnline', 'type' => 'External Link'],
-        ];
-
-        foreach ($staticPages as $page) {
-            if (stripos($page['title'], $query) !== false) {
-                $results[] = $page;
-            }
-        }
-
-    
+        $results = []; 
         // Articles
         $articles = Article::where('title', 'like', "%{$query}%")
                            ->orWhere('excerpt', 'like', "%{$query}%")
@@ -141,8 +122,6 @@ class SearchController extends Controller
                 'type' => 'Berita'
             ];
         }
-
-        
 
         return response()->json($results);
     }

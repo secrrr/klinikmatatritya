@@ -57,7 +57,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70%;
+
             background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             z-index: 1;
         }
@@ -302,8 +302,6 @@
     <div class="container pt-4">
         <!-- Header Title & Search -->
 
-    
-
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
             <h1 class="fw-bold mb-md-0 mb-3">Berita</h1>
             <div class="search-container" style="width: 100%; max-width: 400px;">
@@ -316,40 +314,41 @@
         <!-- Hero News Section -->
         <div class="hero-news-container">
             <div class="row">
-                @if($articles->count() > 0)
-                <div class="col-lg-8">
-                    @php $hero = $articles->first(); @endphp
-                    <div class="hero-card">
-                        <img src="{{ $hero->image ? asset('storage/' . $hero->image) : 'https://via.placeholder.com/800x600' }}"
-                            alt="{{ $hero->title }}">
-                        <div class="hero-overlay"></div>
-                        <div class="hero-content">
-                            <span class="date-badge">{{ $hero->created_at->format('d F Y') }}</span>
-                            <h2 class="fw-bold mb-3">{{ Str::limit($hero->title, 60) }}</h2>
-                            <p class="d-none d-md-block mb-3" style="opacity: 0.9;">{{ Str::limit(strip_tags($hero->content), 150) }}</p>
-                            <a href="{{ route('fe.news.detail', $hero->slug) }}" class="btn-hero">Baca selengkapnya <i
-                                    class="fas fa-chevron-right ms-2"></i></a>
+                @if ($articles->count() > 0)
+                    <div class="col-lg-8">
+                        @php $hero = $articles->first(); @endphp
+                        <div class="hero-card">
+                            <img src="{{ $hero->image ? asset('storage/' . $hero->image) : 'https://via.placeholder.com/800x600' }}"
+                                alt="{{ $hero->title }}">
+                            <div class="hero-overlay"></div>
+                            <div class="hero-content">
+                                <span class="date-badge">{{ $hero->created_at->format('d F Y') }}</span>
+                                <h2 class="fw-bold mb-3">{{ Str::limit($hero->title, 60) }}</h2>
+                                <p class="d-none d-md-block mb-3" style="opacity: 0.9;">
+                                    {{ Str::limit(strip_tags($hero->content), 150) }}</p>
+                                <a href="{{ route('fe.news.detail', $hero->slug) }}" class="btn-hero">Baca selengkapnya <i
+                                        class="fas fa-chevron-right ms-2"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="d-flex flex-column h-100 justify-content-between">
-                        @foreach($articles->skip(1)->take(5) as $side)
-                        <a href="{{ route('fe.news.detail', $side->slug) }}" class="side-news-item">
-                            <img src="{{ $side->image ? asset('storage/' . $side->image) : 'https://via.placeholder.com/120x80' }}"
-                                class="side-news-img" alt="Thumb">
-                            <div class="side-news-info">
-                                <span class="side-news-date">{{ $side->created_at->format('d F Y') }}</span>
-                                <h6 class="side-news-title">{{ Str::limit($side->title, 40) }}</h6>
-                            </div>
-                        </a>
-                        @endforeach
+                    <div class="col-lg-4">
+                        <div class="d-flex flex-column h-100 justify-content-between">
+                            @foreach ($articles->skip(1)->take(5) as $side)
+                                <a href="{{ route('fe.news.detail', $side->slug) }}" class="side-news-item">
+                                    <img src="{{ $side->image ? asset('storage/' . $side->image) : 'https://via.placeholder.com/120x80' }}"
+                                        class="side-news-img" alt="Thumb">
+                                    <div class="side-news-info">
+                                        <span class="side-news-date">{{ $side->created_at->format('d F Y') }}</span>
+                                        <h6 class="side-news-title">{{ Str::limit($side->title, 40) }}</h6>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
                 @else
-                <div class="col-12 text-center py-5">
-                    <h3>Belum ada berita.</h3>
-                </div>
+                    <div class="col-12 py-5 text-center">
+                        <h3>Belum ada berita.</h3>
+                    </div>
                 @endif
             </div>
         </div>
@@ -369,23 +368,23 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     @forelse($recent_articles as $recent)
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <img src="{{ $recent->image ? asset('storage/' . $recent->image) : 'https://via.placeholder.com/600x400' }}"
-                                class="news-card-img" alt="{{ $recent->title }}">
-                            <div class="news-card-body">
-                                <span class="news-card-date">{{ $recent->created_at->format('d F Y') }}</span>
-                                <h5 class="news-card-title">{{ Str::limit($recent->title, 40) }}</h5>
-                                <a href="{{ route('fe.news.detail', $recent->slug) }}" class="btn-full-width">
-                                    Baca selengkapnya <i class="fas fa-chevron-right"></i>
-                                </a>
+                        <div class="swiper-slide">
+                            <div class="news-card">
+                                <img src="{{ $recent->image ? asset('storage/' . $recent->image) : 'https://via.placeholder.com/600x400' }}"
+                                    class="news-card-img" alt="{{ $recent->title }}">
+                                <div class="news-card-body">
+                                    <span class="news-card-date">{{ $recent->created_at->format('d F Y') }}</span>
+                                    <h5 class="news-card-title">{{ Str::limit($recent->title, 40) }}</h5>
+                                    <a href="{{ route('fe.news.detail', $recent->slug) }}" class="btn-full-width">
+                                        Baca selengkapnya <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @empty
-                    <div class="swiper-slide">
-                        <div class="p-4 text-center">Belum ada postingan terbaru.</div>
-                    </div>
+                        <div class="swiper-slide">
+                            <div class="p-4 text-center">Belum ada postingan terbaru.</div>
+                        </div>
                     @endforelse
                 </div>
                 <!-- Pagination dots (Optional, disembunyikan jika tidak perlu) -->
@@ -395,22 +394,24 @@
 
         <!-- Social Feed Section -->
         <div class="social-section">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+
                 <h2 class="fw-bold mb-0">@klinikmatatritya.official</h2>
-                <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank" class="social-header-link">Selengkapnya</a>
+                <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank"
+                    class="social-header-link">Selengkapnya</a>
             </div>
             <div class="swiper instagramSwiper">
-                        <div class="swiper-wrapper" id="insta-feed-container">
-                            <div class="swiper-slide">
-                                <div class="py-5 text-center">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
+                <div class="swiper-wrapper" id="insta-feed-container">
+                    <div class="swiper-slide">
+                        <div class="py-5 text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <div class="swiper-pagination"></div>
                     </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 @endsection
@@ -454,59 +455,60 @@
         });
     </script>
 
-    <script>function handleSearch(inputId, resultsId) {
-        const input = document.getElementById(inputId);
-        const results = document.getElementById(resultsId);
+    <script>
+        function handleSearchNews(inputId, resultsId) {
+            const input = document.getElementById(inputId);
+            const results = document.getElementById(resultsId);
 
-        if (!input || !results) return;
+            if (!input || !results) return;
 
-        let timeout = null;
+            let timeout = null;
 
-        input.addEventListener('input', function() {
-            clearTimeout(timeout);
-            const query = this.value;
+            input.addEventListener('input', function() {
+                clearTimeout(timeout);
+                const query = this.value;
 
-            if (query.length < 2) {
-                results.style.display = 'none';
-                return;
-            }
+                if (query.length < 2) {
+                    results.style.display = 'none';
+                    return;
+                }
 
-            timeout = setTimeout(() => {
-                fetch(`{{ route('fe.search_news') }}?query=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        results.innerHTML = '';
-                        if (data.length > 0) {
-                            data.forEach(item => {
-                                const div = document.createElement('div');
-                                div.className = 'search-result-item';
-                                div.innerHTML =
-                                    `<span class="search-result-type">${item.type}</span>${item.title}`;
-                                div.onclick = () => window.location.href = item.url;
-                                results.appendChild(div);
-                            });
-                            results.style.display = 'block';
-                        } else {
-                            results.innerHTML =
-                                '<div class="search-result-item text-muted" style="cursor: default;">No results found</div>';
-                            results.style.display = 'block';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }, 300);
+                timeout = setTimeout(() => {
+                    fetch(`{{ route('fe.search_news') }}?query=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            results.innerHTML = '';
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    const div = document.createElement('div');
+                                    div.className = 'search-result-item';
+                                    div.innerHTML =
+                                        `<span class="search-result-type">${item.type}</span>${item.title}`;
+                                    div.onclick = () => window.location.href = item.url;
+                                    results.appendChild(div);
+                                });
+                                results.style.display = 'block';
+                            } else {
+                                results.innerHTML =
+                                    '<div class="search-result-item text-muted" style="cursor: default;">No results found</div>';
+                                results.style.display = 'block';
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }, 300);
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !results.contains(e.target)) {
+                    results.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            handleSearchNews('desktopNewsSearchInput', 'desktopNewsSearchResults');
+            handleSearchNews('mobileSearchInput', 'mobileSearchResults');
         });
-
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!input.contains(e.target) && !results.contains(e.target)) {
-                results.style.display = 'none';
-            }
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        handleSearch('desktopNewsSearchInput', 'desktopNewsSearchResults');
-        handleSearch('mobileSearchInput', 'mobileSearchResults');
-    });
-</script>
+    </script>
 @endsection

@@ -167,7 +167,7 @@
         /* Anatomy Section */
         .anatomy-section {
             background-color: white;
-            padding: 60px 0;
+            padding: 60px 35px;
             margin-top: 50px;
             border-radius: 20px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
@@ -198,8 +198,8 @@
         }
 
         /* .search-dropdown {
-                position: relative !important;
-            } */
+                        position: relative !important;
+                    } */
     </style>
 @endsection
 

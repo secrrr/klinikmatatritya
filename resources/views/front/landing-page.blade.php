@@ -336,9 +336,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-left"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="fas fa-chevron-right"></i></button> -->
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                        class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -382,26 +382,6 @@
                                     <div class="col-12">
                                         <p class="text-muted">Belum ada promo saat ini.</p>
                                     </div>
-                                @endforelse
-                                @forelse($promos as $promo)
-                                    <div class="swiper-slide">
-                                        <div class="promo-card text-start">
-                                            <img src="{{ asset('storage/' . $promo->image) }}" class="promo-img"
-                                                alt="{{ $promo->title }}">
-                                            <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
-                                            <div class="promo-price-tag">
-                                                @if ($promo->price)
-                                                    Rp {{ number_format($promo->price, 0, ',', '.') }}
-                                                @else
-                                                    Gratis / TBD
-                                                @endif
-                                            </div>
-                                            <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn-promo">
-                                                Ambil Sekarang <i class="fas fa-chevron-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                @empty
                                 @endforelse
                             </div>
                         </div>
@@ -560,7 +540,8 @@
             <!-- 10. INSTAGRAM FEED -->
             <section class="insta-section">
                 <div class="container">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+
                         <h3 class="fw-bold">@klinikmatatritya.official</h3>
 
                         <a href="https://www.instagram.com/klinikmatatritya.official/" target="_blank"

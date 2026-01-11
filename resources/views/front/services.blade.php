@@ -115,8 +115,8 @@
             transform: rotate(0deg);
             /* Panah ke bawah saat buka (atau bisa diset hidden jika desain meminta) */
             /* Sesuai gambar, panah hilang saat aktif diganti teks deskripsi.
-                                                                                   Tapi untuk UX yang baik, kita biarkan icon rotate atau kita hide.
-                                                                                   Di sini saya akan rotate agar user tau bisa ditutup. */
+                                                                                       Tapi untuk UX yang baik, kita biarkan icon rotate atau kita hide.
+                                                                                       Di sini saya akan rotate agar user tau bisa ditutup. */
         }
 
         .accordion-body {
@@ -341,26 +341,6 @@
                             <div class="swiper-slide">
                                 <p class="text-muted">Belum ada promo saat ini.</p>
                             </div>
-                        @endforelse
-                        @forelse($promos as $promo)
-                            <div class="swiper-slide">
-                                <div class="promo-card h-100 p-3 text-start">
-                                    <img src="{{ $promo->image ? asset('storage/' . $promo->image) : 'https://via.placeholder.com/600x400' }}"
-                                        class="promo-img rounded-3 mb-3" alt="{{ $promo->title }}">
-                                    <h5 class="fw-bold mb-2">{{ $promo->title }}</h5>
-                                    <span class="price-badge">
-                                        @if ($promo->price)
-                                            Rp {{ number_format($promo->price, 0, ',', '.') }}
-                                        @else
-                                            Gratis / TBD
-                                        @endif
-                                    </span>
-                                    <a href="{{ route('fe.detail-promo', $promo->slug) }}" class="btn btn-promo">
-                                        Ambil Sekarang <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        @empty
                         @endforelse
                     </div>
                 </div>
