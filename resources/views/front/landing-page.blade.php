@@ -147,6 +147,22 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                @foreach ($specializations as $specialization)
+                                    <div class="swiper-slide">
+                                        <div class="specialist-card" data-title="{{ $specialization->title }}"
+                                            data-desc="{{ $specialization->description }}">
+                                            <!-- Icon -->
+                                            <div class="spec-icon">
+                                                <i class="{{ $specialization->icon }}"></i>
+                                            </div>
+
+                                            <div class="mt-auto">
+                                                <h4 class="spec-name">{{ $specialization->title }}</h4>
+                                                <p class="spec-desc">{{ $specialization->description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -224,9 +240,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                    class="fas fa-chevron-left"></i></button>
-                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                                    class="fas fa-chevron-right"></i></button> -->
+                                                            class="fas fa-chevron-left"></i></button>
+                                                    <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                            class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
