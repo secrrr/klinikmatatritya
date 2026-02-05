@@ -198,8 +198,8 @@
         }
 
         /* .search-dropdown {
-                        position: relative !important;
-                    } */
+                            position: relative !important;
+                        } */
     </style>
 @endsection
 
@@ -261,8 +261,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-lg-0 mb-4 text-center">
                     <!-- Placeholder for Eye Anatomy Illustration -->
-                    <img src="{{ asset('img/anatomi-mata.png') }}" class="img-fluid" style="max-height: 400px;"
-                        alt="Anatomi Mata">
+                    <img src="{{ $eye_anatomy_image ? asset($eye_anatomy_image) : asset('img/anatomi-mata.png') }}"
+                        class="img-fluid" style="max-height: 400px;" alt="Anatomi Mata">
                 </div>
                 <div class="col-lg-5" style="position: relative">
                     <h2 class="fw-bold mb-3">Tidak tahu mulai dari mana?</h2>

@@ -10,9 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class JobApplicationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $applications = JobApplication::with('career')->latest()->paginate(10);
+        $query = JobApplication::with('career');
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%");
+            });
+        }
+
+        $sort = $request->get('sort', 'desc');
+        $query->orderBy('created_at', $sort);
+
+        $applications = $query->paginate(10);
         return view('admin.job-applications.index', compact('applications'));
     }
 

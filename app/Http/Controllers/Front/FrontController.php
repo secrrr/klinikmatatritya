@@ -15,6 +15,7 @@ use App\Models\Career;
 use App\Models\Faq;
 use App\Models\FaqCategory;
 use App\Models\Insurance;
+use App\Models\Specialization;
 use App\Models\JobApplication;
 
 use App\Models\ReviewSetting;
@@ -33,8 +34,9 @@ class FrontController extends Controller
         $insurances = Insurance::latest()->get();
         $faqCategories = FaqCategory::with(['faqs' => function ($query) {
             $query->where('is_active', true);
-        }])->get(); 
-        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds',   'insurances', 'faqCategories'));
+        }])->get();
+        $specializations = Specialization::all();
+        return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds',   'insurances', 'faqCategories', 'specializations'));
     }
     public function services()
     {

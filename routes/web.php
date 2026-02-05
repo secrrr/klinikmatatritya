@@ -61,6 +61,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('faq-categories', App\Http\Controllers\Admin\FaqCategoryController::class)->names('admin.faq-categories');
         Route::resource('job-applications', App\Http\Controllers\Admin\JobApplicationController::class)->except(['create', 'store', 'edit', 'update'])->names('admin.job-applications');
         Route::resource('insurances', App\Http\Controllers\Admin\InsuranceController::class)->names('admin.insurances');
+        Route::resource('specializations', App\Http\Controllers\Admin\SpecializationController::class)->names('admin.specializations');
         Route::post('job-applications/{jobApplication}/reply', [App\Http\Controllers\Admin\JobApplicationController::class, 'reply'])->name('admin.job-applications.reply');
         Route::get('analytics', [App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('admin.settings.analytics');
         // Settings Routes

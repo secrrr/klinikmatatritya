@@ -7,35 +7,130 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white py-3">
-                    <h6 class="fw-bold text-primary mb-0">Konfigurasi Mode Perbaikan</h6>
+                    <h6 class="fw-bold text-primary mb-0">Konfigurasi Website</h6>
                 </div>
                 <div class="card-body p-4">
-                    <form action="{{ route('admin.settings.update-general') }}" method="POST">
+                    <form action="{{ route('admin.settings.update-general') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">Status Mode Perbaikan</label>
-                            <div class="form-check form-switch d-flex align-items-center ms-1 gap-3 px-0">
-                                <input class="form-check-input ms-0" type="checkbox" role="switch" id="maintenance_mode"
-                                    name="maintenance_mode" style="width: 3em; height: 1.5em;"
-                                    {{ $maintenance_mode === 'true' ? 'checked' : '' }}>
-                                <label class="form-check-label text-muted" for="maintenance_mode">
-                                    Aktifkan untuk menutup akses publik sementara
-                                </label>
+                        <div>
+                            <h6 class="fw-bold text-primary mb-3">Mode Perbaikan</h6>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Status Mode Perbaikan</label>
+                                <div class="form-check form-switch d-flex align-items-center ms-1 gap-3 px-0">
+                                    <input class="form-check-input ms-0" type="checkbox" role="switch"
+                                        id="maintenance_mode" name="maintenance_mode" style="width: 3em; height: 1.5em;"
+                                        {{ $maintenance_mode === 'true' ? 'checked' : '' }}>
+                                    <label class="form-check-label text-muted" for="maintenance_mode">
+                                        Aktifkan untuk menutup akses publik sementara
+                                    </label>
+                                </div>
+                                <div class="form-text text-muted small mt-2">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Jika diaktifkan, pengunjung akan melihat halaman "Sedang Renovasi". Admin tetap dapat
+                                    mengakses panel ini.
+                                </div>
                             </div>
-                            <div class="form-text text-muted small mt-2">
-                                <i class="fas fa-info-circle me-1"></i>
-                                Jika diaktifkan, pengunjung akan melihat halaman "Sedang Renovasi". Admin tetap dapat
-                                mengakses panel ini.
+                        </div>
+
+                        <hr>
+
+                        <div class="row align-items-center mb-4">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold text-primary mb-3">Informasi Kantor</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Nama Kantor (Google Maps)</label>
+                                    <input type="text" class="form-control" name="office_name" id="office_name"
+                                        value="{{ old('office_name', $office_name) }}">
+                                    <div class="form-text">Nama ini akan digunakan untuk pencarian di Google Maps Preview.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Alamat Lengkap</label>
+                                    <textarea class="form-control" name="office_address" rows="3">{{ old('office_address', $office_address) }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Nomor Telepon Kantor</label>
+                                    <input type="text" class="form-control" name="office_phone"
+                                        value="{{ old('office_phone', $office_phone) }}" placeholder="Contoh: 021-123456">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">WhatsApp</label>
+                                    <input type="text" class="form-control" name="office_wa"
+                                        value="{{ old('office_wa', $office_wa) }}" placeholder="Contoh: 08123456789">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email Kantor</label>
+                                    <input type="email" class="form-control" name="office_email"
+                                        value="{{ old('office_email', $office_email) }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label mb-2">Preview Lokasi</label>
+                                <div class="ratio ratio-1x1 overflow-hidden rounded border" style="max-height: 400px;">
+                                    <iframe id="map-preview" frameborder="0" style="border:0"
+                                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB2NIWI3Tv9iDPrlnowr_0ZqZWoAQydKJU&q={{ urlencode($office_name) }}"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row align-items-center mb-4">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold text-primary mb-3">Gambar Anatomi Mata (Front)</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Upload Gambar Baru</label>
+                                    <input type="file" class="form-control" name="eye_anatomy_image" accept="image/*">
+                                    <div class="form-text">Format: JPG, PNG, GIF. Max: 2MB.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label mb-2">Preview Gambar Saat Ini</label>
+                                <div
+                                    class="ratio ratio-16x9 bg-light d-flex align-items-center justify-content-center overflow-hidden rounded border">
+                                    @if (isset($eye_anatomy_image) && $eye_anatomy_image)
+                                        <img src="{{ asset($eye_anatomy_image) }}" class="img-fluid"
+                                            style="object-fit: contain; max-height: 100%;">
+                                    @else
+                                        <img src="{{ asset('img/anatomi-mata.png') }}" class="img-fluid"
+                                            style="object-fit: contain; max-height: 100%; opacity: 0.5;">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">Link Booking Online (Navbar)</h6>
+                            <div class="mb-3">
+                                <label class="form-label">URL Booking</label>
+                                <input type="url" class="form-control" name="booking_link"
+                                    value="{{ old('booking_link', $booking_link) }}"
+                                    placeholder="Contoh: http://tritya.id/DaftarOnline">
+                                <div class="form-text">Masukkan URL lengkap (termasuk http:// atau https://). Kosongkan
+                                    untuk menggunakan default.</div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row align-items-start mb-4">
+                            <h6 class="fw-bold text-primary mb-3">Menu "Biarkan Kami Membantu Anda"</h6>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Opsi Peran (Saya seorang...)</label>
+                                    <textarea class="form-control" name="help_menu_roles" rows="5" placeholder="Pasien&#10;Keluarga Pasien">{{ old('help_menu_roles', $help_menu_roles) }}</textarea>
+                                    <div class="form-text">Masukkan opsi satu per baris.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Opsi Kebutuhan (sedang mencari...)</label>
+                                    <textarea class="form-control" name="help_menu_needs" rows="5" placeholder="Dokter&#10;Layanan&#10;Jadwal">{{ old('help_menu_needs', $help_menu_needs) }}</textarea>
+                                    <div class="form-text">Masukkan opsi satu per baris.</div>
+                                </div>
                             </div>
                         </div>
 
@@ -52,3 +147,24 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const officeNameInput = document.getElementById('office_name');
+            const mapPreview = document.getElementById('map-preview');
+            const apiKey = 'AIzaSyB2NIWI3Tv9iDPrlnowr_0ZqZWoAQydKJU';
+
+            let timeout = null;
+
+            officeNameInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    const query = encodeURIComponent(officeNameInput.value);
+                    mapPreview.src =
+                        `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${query}`;
+                }, 1000); // Delay 1 second to avoid spamming calls
+            });
+        });
+    </script>
+@endpush

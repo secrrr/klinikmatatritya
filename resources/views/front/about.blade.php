@@ -385,9 +385,6 @@
                 <div class="vm-card">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="vm-title mb-0">Misi</div>
-                        <!-- Decorative arrows as per image -->
-                        <div class="text-muted small"><i class="fas fa-chevron-left"></i> <i
-                                class="fas fa-chevron-right"></i></div>
                     </div>
                     <p class="small text-muted mb-0">Menyediakan fasilitas dan pelayanan kesehatan mata paripurna dengan
                         mengedepankan kepuasan pelanggan.</p>
@@ -452,20 +449,17 @@
         <div class="d-flex justify-content-center">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-umum-tab" data-bs-toggle="pill" data-bs-target="#pills-umum"
-                        type="button" role="tab">Umum</button>
+                    <button class="nav-link" id="pills-umum-tab" type="button">Umum</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-asuransi-tab" data-bs-toggle="pill" data-bs-target="#pills-asuransi"
-                        type="button" role="tab">Asuransi</button>
+                    <button class="nav-link" id="pills-asuransi-tab" type="button">Asuransi</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-jkn-tab" data-bs-toggle="pill" data-bs-target="#pills-jkn"
-                        type="button" role="tab">JKN - BPJS Kesehatan</button>
+                    <button class="nav-link" id="pills-jkn-tab" type="button">JKN - BPJS Kesehatan</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-gratis-tab" data-bs-toggle="pill" data-bs-target="#pills-gratis"
-                        type="button" role="tab">Pasien tidak berbayar (GRATIS)</button>
+                    <button class="nav-link" id="pills-gratis-tab" type="button">Pasien tidak berbayar
+                        (GRATIS)</button>
                 </li>
             </ul>
         </div>

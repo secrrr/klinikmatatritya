@@ -5,7 +5,29 @@
     $hero = \App\Models\Hero::where('is_active', 1)->first();
 @endphp
 @section('styles')
+    <style>
+        .insurance-logo {
+            height: 80px;
+            /* Mobile default */
+            object-fit: contain;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
 
+        @media (min-width: 768px) {
+            .insurance-logo {
+                height: 120px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .insurance-logo {
+                height: 160px;
+                /* Desktop larger */
+                margin: 0 20px;
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -55,8 +77,9 @@
 
                             <div class="col-md-3">
                                 <select class="form-select form-select-custom" id="roleSelect">
-                                    <option value="pasien" selected>Pasien</option>
-                                    <option value="keluarga pasien">Keluarga Pasien</option>
+                                    @foreach ($help_menu_roles as $role)
+                                        <option value="{{ $role }}">{{ $role }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -66,9 +89,9 @@
 
                             <div class="col-md-3">
                                 <select class="form-select form-select-custom" id="searchSelect">
-                                    <option value="Dokter" selected>Dokter</option>
-                                    <option value="Layanan">Layanan</option>
-                                    <option value="Jadwal">Jadwal</option>
+                                    @foreach ($help_menu_needs as $need)
+                                        <option value="{{ $need }}">{{ $need }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -108,158 +131,22 @@
                     <div class="col-lg-7">
                         <div class="swiper specSwiper" style="padding-bottom: 20px;">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                @foreach ($specializations as $specialization)
+                                    <div class="swiper-slide">
+                                        <div class="specialist-card" data-title="{{ $specialization->title }}"
+                                            data-desc="{{ $specialization->description }}">
+                                            <!-- Icon -->
+                                            <div class="spec-icon">
+                                                <i class="{{ $specialization->icon }}"></i>
+                                            </div>
 
-                                    <div class="specialist-card" data-title="EMC"
-                                        data-desc="pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
-                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
-                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
-                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
-                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
-                                                kerusakan lebih lanjut.">
-                                        <!-- Icon -->
-                                        <div class="spec-icon">
-                                            <i class="far fa-eye"></i>
-                                        </div>
-
-                                        <div class="mt-auto">
-                                            <h4 class="spec-name">EMC</h4>
-                                            <p class="spec-desc">
-                                                pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
-                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
-                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
-                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
-                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
-                                                kerusakan lebih lanjut.
-                                            </p>
+                                            <div class="mt-auto">
+                                                <h4 class="spec-name">{{ $specialization->title }}</h4>
+                                                <p class="spec-desc">{{ $specialization->description }}</p>
+                                            </div>
                                         </div>
                                     </div>
-
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <div class="specialist-card" data-title="Cataract Surgery"
-                                        data-desc="Operasi Katarak adalah prosedur medis untuk mengangkat lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali. Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan jelas.">
-                                        <!-- Icon -->
-                                        <div class="spec-icon">
-                                            <i class="fas fa-glasses"></i>
-                                        </div>
-
-                                        <div class="mt-auto">
-                                            <h4 class="spec-name">Cataract Surgery</h4>
-                                            <p class="spec-desc">Operasi Katarak adalah prosedur medis untuk mengangkat
-                                                lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan
-                                                (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali.
-                                                Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu
-                                                rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai
-                                                menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan
-                                                jelas.</p>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <div class="specialist-card" data-title="Optical Refraction"
-                                        data-desc="
-                                    Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder, serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas penglihatan sehari-hari.
-                                    ">
-                                        <!-- Icon -->
-                                        <div class="spec-icon">
-                                            <i class="fas fa-low-vision"></i>
-                                        </div>
-
-                                        <div class="mt-auto">
-                                            <h4 class="spec-name">Optical Refraction</h4>
-                                            <p class="spec-desc">Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh
-                                                Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata
-                                                atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu
-                                                mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder,
-                                                serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas
-                                                penglihatan sehari-hari.</p>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <div class="specialist-card" data-title="EMC"
-                                        data-desc="pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
-                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
-                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
-                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
-                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
-                                                kerusakan lebih lanjut.">
-                                        <!-- Icon -->
-                                        <div class="spec-icon">
-                                            <i class="far fa-eye"></i>
-                                        </div>
-
-                                        <div class="mt-auto">
-                                            <h4 class="spec-name">EMC</h4>
-                                            <p class="spec-desc">
-                                                pemeriksaan menyeluruh oleh dokter mata untuk mendeteksi gangguan
-                                                penglihatan seperti minus, plus, silinder, serta penyakit mata serius
-                                                seperti glaukoma, katarak, dan retinopati. Pemeriksaan ini penting dilakukan
-                                                secara rutin, terutama bagi anak-anak, pengguna kacamata, lansia, serta
-                                                penderita diabetes atau hipertensi, guna menjaga kesehatan mata dan mencegah
-                                                kerusakan lebih lanjut.
-                                            </p>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <div class="specialist-card" data-title="Cataract Surgery"
-                                        data-desc="Operasi Katarak adalah prosedur medis untuk mengangkat lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali. Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan jelas.">
-                                        <!-- Icon -->
-                                        <div class="spec-icon">
-                                            <i class="fas fa-glasses"></i>
-                                        </div>
-
-                                        <div class="mt-auto">
-                                            <h4 class="spec-name">Cataract Surgery</h4>
-                                            <p class="spec-desc">Operasi Katarak adalah prosedur medis untuk mengangkat
-                                                lensa mata yang keruh akibat katarak dan menggantinya dengan lensa buatan
-                                                (intraocular lens/IOL), sehingga penglihatan menjadi jernih kembali.
-                                                Prosedur ini aman, cepat, dan efektif, serta umumnya dilakukan tanpa perlu
-                                                rawat inap. Operasi katarak disarankan saat gangguan penglihatan mulai
-                                                menghambat aktivitas harian seperti membaca, menyetir, atau melihat dengan
-                                                jelas.</p>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="swiper-slide">
-
-                                    <div class="specialist-card" data-title="Optical Refraction"
-                                        data-desc="
-                                    Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder, serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas penglihatan sehari-hari.
-                                    ">
-                                        <!-- Icon -->
-                                        <div class="spec-icon">
-                                            <i class="fas fa-low-vision"></i>
-                                        </div>
-
-                                        <div class="mt-auto">
-                                            <h4 class="spec-name">Optical Refraction</h4>
-                                            <p class="spec-desc">Refrakssi Optisi (RO) adalah layanan pemeriksaan mata oleh
-                                                Refraksionis Optisien, profesional yang berwenang menentukan resep kacamata
-                                                atau lensa kontak sesuai kebutuhan visual Anda. Pemeriksaan ini membantu
-                                                mendeteksi gangguan refraksi seperti rabun jauh, rabun dekat, dan silinder,
-                                                serta memberikan saran perawatan mata untuk menjaga kenyamanan dan kualitas
-                                                penglihatan sehari-hari.</p>
-                                        </div>
-                                    </div>
-
-
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -312,7 +199,8 @@
                         <div class="swiper-slide">
                             <div class="equip-card">
                                 <div class="equip-img-wrapper">
-                                    <img src="{{ asset('img/statis/slit-lamp.png') }}" class="equip-img" alt="Slit Lamp">
+                                    <img src="{{ asset('img/statis/slit-lamp.png') }}" class="equip-img"
+                                        alt="Slit Lamp">
                                 </div>
                                 <div class="equip-body">
                                     <h5 class="equip-title">Slit Lamp</h5>
@@ -336,9 +224,9 @@
                     <!-- Pagination -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <!--  <button class="nav-circle-btn equip-prev bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                        class="fas fa-chevron-left"></i></button>
-                                <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
-                                        class="fas fa-chevron-right"></i></button> -->
+                                                    class="fas fa-chevron-left"></i></button>
+                                            <button class="nav-circle-btn equip-next bg-white shadow-sm" style="width:40px;height:40px;"><i
+                                                    class="fas fa-chevron-right"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -508,7 +396,7 @@
                                     @foreach ($insurances as $item)
                                         <li class="splide__slide">
                                             <div class="text-center">
-                                                <img src="{{ asset('storage/' . $item->logo) }}" height="120"
+                                                <img src="{{ asset('storage/' . $item->logo) }}" class="insurance-logo"
                                                     alt="{{ $item->name }}">
                                             </div>
                                         </li>

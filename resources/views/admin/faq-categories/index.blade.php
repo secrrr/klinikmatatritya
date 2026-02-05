@@ -16,11 +16,6 @@
             </a>
         </div>
         <div class="card-body p-0">
-            @if (session('success'))
-                <div class="alert alert-success m-3">
-                    {{ session('success') }}
-                </div>
-            @endif
 
             <div class="table-responsive">
                 <table class="table-hover mb-0 table align-middle">

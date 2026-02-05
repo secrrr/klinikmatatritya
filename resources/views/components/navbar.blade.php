@@ -268,7 +268,8 @@
                     <div id="desktopSearchResults" class="search-dropdown"></div>
                 </div>
                 <button class="btn btn-janji btn-sm px-3 py-2"
-                    onclick="window.location.href='http://tritya.id/DaftarOnline'">Buat Janji</button>
+                    onclick="window.location.href='{{ $booking_link ?: 'http://tritya.id/DaftarOnline' }}'">Buat
+                    Janji</button>
             </div>
         </div>
     </div>

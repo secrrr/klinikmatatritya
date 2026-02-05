@@ -11,12 +11,7 @@
             <i class="fas fa-plus me-1"></i> Tambah Karir
         </a>
     </div>
-    <div class="card-body p-0">
-        @if(session('success'))
-            <div class="alert alert-success m-3">
-                {{ session('success') }}
-            </div>
-        @endif
+    <div class="card-body p-0"> 
 
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">

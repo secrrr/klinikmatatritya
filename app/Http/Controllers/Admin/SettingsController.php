@@ -83,16 +83,78 @@ class SettingsController extends Controller
     }
     public function general()
     {
-        $maintenance_mode = Settings::where('key', 'maintenance_mode')->value('value');
-        return view('admin.settings.general', compact('maintenance_mode'));
+        $settings = Settings::whereIn('key', ['maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs'])->pluck('value', 'key');
+        
+        $maintenance_mode = $settings['maintenance_mode'] ?? 'false';
+        $office_name = $settings['office_name'] ?? 'Klinik Mata Tritya';
+        $office_address = $settings['office_address'] ?? '';
+        $office_phone = $settings['office_phone'] ?? '';
+        $office_wa = $settings['office_wa'] ?? '';
+        $office_email = $settings['office_email'] ?? '';
+        $eye_anatomy_image = $settings['eye_anatomy_image'] ?? '';
+        $booking_link = $settings['booking_link'] ?? '';
+        
+        $help_menu_roles = isset($settings['help_menu_roles']) ? json_decode($settings['help_menu_roles'], true) : ['Pasien', 'Keluarga Pasien'];
+        $help_menu_needs = isset($settings['help_menu_needs']) ? json_decode($settings['help_menu_needs'], true) : ['Dokter', 'Layanan', 'Jadwal'];
+
+        // Convert arrays to newline-separated strings for textarea
+        $help_menu_roles = is_array($help_menu_roles) ? implode("\n", $help_menu_roles) : $help_menu_roles;
+        $help_menu_needs = is_array($help_menu_needs) ? implode("\n", $help_menu_needs) : $help_menu_needs;
+
+        return view('admin.settings.general', compact('maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs'));
     }
 
     public function updateGeneral(Request $request)
     {
+        // Update Maintenance Mode
         Settings::updateOrCreate(
             ['key' => 'maintenance_mode'],
             ['value' => $request->has('maintenance_mode') ? 'true' : 'false']
         );
+
+        // Update Office Info
+        $officeKeys = ['office_name', 'office_address', 'office_phone', 'office_wa', 'office_email'];
+        foreach ($officeKeys as $key) {
+             Settings::updateOrCreate(
+                ['key' => $key],
+                ['value' => $request->$key]
+            );
+        }
+
+        // Update Booking Link
+        Settings::updateOrCreate(
+            ['key' => 'booking_link'],
+            ['value' => $request->booking_link]
+        );
+
+        // Update Help Menu Options (Roles)
+        $roles = array_filter(array_map('trim', explode("\n", $request->help_menu_roles)));
+        Settings::updateOrCreate(
+            ['key' => 'help_menu_roles'],
+            ['value' => json_encode(array_values($roles))]
+        );
+
+        // Update Help Menu Options (Needs)
+        $needs = array_filter(array_map('trim', explode("\n", $request->help_menu_needs)));
+        Settings::updateOrCreate(
+            ['key' => 'help_menu_needs'],
+            ['value' => json_encode(array_values($needs))]
+        );
+
+        // Upload Eye Anatomy Image
+        if ($request->hasFile('eye_anatomy_image')) {
+            $request->validate([
+                'eye_anatomy_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            $path = $request->file('eye_anatomy_image')->store('public/img');
+            $url = str_replace('public/', 'storage/', $path);
+
+            Settings::updateOrCreate(
+                ['key' => 'eye_anatomy_image'],
+                ['value' => $url]
+            );
+        }
 
         return back()->with('success', 'Pengaturan umum berhasil diperbarui!');
     }

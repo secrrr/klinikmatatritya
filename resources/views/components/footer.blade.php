@@ -3,16 +3,15 @@
         <div class="row" style="justify-content: center">
             <div class="col-lg-8 pe-lg-0" style="max-width: 650px">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.488877823487!2d112.75739317527297!3d-7.29884047175015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbacff99559b%3A0x9305d3b39899b192!2sKlinik%20Mata%20Tritya%20%7C%20Dokter%20Spesialis%20Mata%20Surabaya!5e0!3m2!1sen!2sid!4v1766554452732!5m2!1sen!2sid"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB2NIWI3Tv9iDPrlnowr_0ZqZWoAQydKJU&q={{ urlencode($office_name) }}"
                     width="100%" height="100%" class="map-iframe" allowfullscreen="" loading="lazy"></iframe>
             </div>
             <div class="col-lg-4 ps-lg-0" style="max-width: 650px">
                 <div class="map-card h-100 d-flex flex-column justify-content-center">
-                    <h4 class="fw-bold mb-4">Klinik Mata Tritya</h4>
+                    <h4 class="fw-bold mb-4">{{ $office_name }}</h4>
                     <div class="d-flex mb-3"><i class="fas fa-map-marker-alt me-3 mt-1"></i>
-                        <a href="https://maps.google.com/maps?ll=-7.298846,112.759968&z=16&t=m&hl=en&gl=ID&mapclient=embed&cid=10594106466771775890"
-                            class="small mb-0">Ruko Bratang Plaza, Jl. Barata Jaya No.59 Blok A3, Baratajaya,
-                            Gubeng, Surabaya, East Java 60284</p>
+                        <a href="https://maps.google.com/?q={{ urlencode($office_address) }}"
+                            class="small mb-0">{{ $office_address }}</p>
                     </div>
                     <p class="small fw-bold mb-2">Ada pertanyaan? Hubungi kami.</p>
                     <div class="d-flex mb-2"><svg width="16" height="16" viewBox="0 0 23 23" fill="none"
@@ -22,19 +21,23 @@
                                 fill="white" />
                         </svg>
 
-                        <a href="https://wa.me/6282112110048" target="blank" class="small mb-0">0821-1211-0048</p>
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $office_wa) }}" target="blank"
+                            class="small mb-0">{{ $office_wa }}</p>
                     </div>
                     <div class="d-flex mb-2">
                         <i class="fa-solid fa-envelope me-3 mt-1"></i>
-                        <a href="mailto:support@klinikmatatritya.co.id"
-                            class="small mb-0">support@klinikmatatritya.co.id</a>
+                        <a href="mailto:{{ $office_email }}" class="small mb-0">{{ $office_email }}</a>
                     </div>
                     <div class="d-flex mb-2">
                         <i class="fa-solid fa-phone me-3 mt-1"></i>
                         <div>
-                            <a href="tel:0315022048" class="small mb-0">031-5022048</a>
-                            <br>
-                            <a href="tel:0315022049" class="small mb-0">031-5022049</a>
+                            @foreach (explode(',', $office_phone) as $phone)
+                                @php $cleanPhone = preg_replace('/[^0-9]/', '', $phone); @endphp
+                                <a href="tel:{{ $cleanPhone }}" class="small mb-0">{{ trim($phone) }}</a>
+                                @if (!$loop->last)
+                                    <br>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>

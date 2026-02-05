@@ -243,6 +243,12 @@
                 <span>Pilihan Asuransi</span>
             </a>
 
+            <a href="{{ route('admin.specializations.index') }}"
+                class="menu-item @if (request()->routeIs('admin.specializations.*')) active @endif">
+                <i class="fas fa-stethoscope"></i>
+                <span>Spesialisasi</span>
+            </a>
+
             <a href="{{ route('admin.instagram-settings.index') }}"
                 class="menu-item @if (request()->routeIs('admin.instagram-settings.*')) active @endif">
                 <i class="fab fa-instagram"></i>
@@ -333,6 +339,20 @@
 
         <!-- Page Content -->
         <div class="content-wrapper">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             @yield('content')
         </div>
     </main>
