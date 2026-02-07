@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\DoctorSchedule;
+
 class DoctorController extends Controller
 {
     public function index()
@@ -28,6 +29,11 @@ class DoctorController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone' => 'nullable|string|max:20',
             'bio' => 'nullable|string',
+            'education_level' => 'nullable|string|max:255',
+            'education_history' => 'nullable|string',
+            'special_training' => 'nullable|string',
+            'competence' => 'nullable|string',
+            'research_publications' => 'nullable|string',
         ]);
 
         $data = $request->all();
@@ -62,6 +68,11 @@ class DoctorController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone' => 'nullable|string|max:20',
             'bio' => 'nullable|string',
+            'education_level' => 'nullable|string|max:255',
+            'education_history' => 'nullable|string',
+            'special_training' => 'nullable|string',
+            'competence' => 'nullable|string',
+            'research_publications' => 'nullable|string',
         ]);
 
         $data = $request->all();

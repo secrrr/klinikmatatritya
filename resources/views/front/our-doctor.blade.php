@@ -196,10 +196,6 @@
             border: 1px solid #ced4da;
             border-left: none;
         }
-
-        /* .search-dropdown {
-                            position: relative !important;
-                        } */
     </style>
 @endsection
 
@@ -232,6 +228,7 @@
                     @forelse($doctors as $doctor)
                         <div class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center">
                             @include('components.doctor-card', [
+                                'id' => $doctor->id,
                                 'name' => $doctor->name,
                                 'photo' => $doctor->photo ? asset('storage/' . $doctor->photo) : null,
                                 'spec' => $doctor->specialty,

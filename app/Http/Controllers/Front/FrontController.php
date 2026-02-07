@@ -64,9 +64,11 @@ class FrontController extends Controller
         $doctors = Doctor::with('schedules')->get();
         return view('front.our-doctor', compact('doctors'));
     }
-    public function doctor()
+    public function doctor($id)
     {
-        return view('front.doctor');
+        $doctor = Doctor::with('schedules')->find($id);
+        $articles = Article::latest()->take(6)->get();
+        return view('front.doctor', compact('doctor', 'articles'));
     }
     public function contact()
     {

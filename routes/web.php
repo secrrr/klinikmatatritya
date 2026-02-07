@@ -42,7 +42,7 @@ Route::prefix('admin')->group(function () {
         Route::get('hero', [App\Http\Controllers\Admin\HeroController::class, 'edit'])
         ->name('admin.hero.edit');
 
-    Route::put('hero', [App\Http\Controllers\Admin\HeroController::class, 'update'])
+        Route::put('hero', [App\Http\Controllers\Admin\HeroController::class, 'update'])
         ->name('admin.hero.update');
             
         Route::resource('articles', App\Http\Controllers\Admin\ArticleController::class)->names('admin.articles');
@@ -127,7 +127,7 @@ Route::get('/search', [App\Http\Controllers\Front\SearchController::class, 'sear
 Route::get('/search_news', [App\Http\Controllers\Front\SearchController::class, 'search_news'])->name('fe.search_news');
 // Route::get('/articles', [FrontController::class, 'articles'])->name('fe.articles.index'); // Deprecated
 Route::get('/doctors', [FrontController::class, 'doctors'])->name('fe.doctors.index');
-Route::get('/doctor', [FrontController::class, 'doctor'])->name('fe.doctors.detail');
+Route::get('/doctor/{id}', [FrontController::class, 'doctor'])->name('fe.doctors.detail');
 Route::get('/about', [FrontController::class, 'about'])->name('fe.about');
 Route::get('/contact', [FrontController::class, 'contact'])->name('fe.contact');
 Route::get('/promo/{slug}', [FrontController::class, 'detailPromo'])->name('fe.detail-promo');

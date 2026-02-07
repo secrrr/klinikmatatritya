@@ -268,70 +268,72 @@
 
         <!-- Header Profile -->
         <div class="mb-5">
-            <h1 class="fw-bold mb-1">dr. Heni Riyanto, Sp.M (K)</h1>
-            <p class="text-muted fs-5 mb-4">Sub Spesialis/Konsultan Bidang Katarak dan Bedah Refraksi</p>
+            <h1 class="fw-bold mb-1">{{ $doctor->name }}</h1>
+            <p class="text-muted fs-5 mb-4">{{ $doctor->specialty }}</p>
 
             <div class="row g-5">
                 <!-- Image -->
                 <div class="col-lg-4">
-                    <img src="https://img.freepik.com/free-photo/portrait-smiling-handsome-male-doctor-man_171337-5055.jpg"
-                        alt="dr. Heni Riyanto" class="doctor-img-detail">
+                    <img src="{{ $doctor->photo ? asset('storage/' . $doctor->photo) : 'https://placehold.co/400' }}"
+                        alt="{{ $doctor->name }}" class="doctor-img-detail">
                 </div>
                 <!-- Education & Training -->
                 <div class="col-lg-8">
-                    <h3 class="fw-bold mb-3">Riwayat Pendidikan</h3>
-                    <ul class="profile-list">
-                        <li>Kedokteran Umum, FK, Universitas Airlangga</li>
-                        <li>Kedokteran Spesialis, FK, Universitas Airlangga</li>
-                        <li>Pasca Sarjana, FK, Universitas Airlangga</li>
-                        <li>Konsultan Kolegium Oftalmologi Indonesia bidang kornea, lensa dan bedah refraktif Jakarta
-                        </li>
-                        <li>Sub Spesialis Mata Bedah Katarak & Bedah Refraktif</li>
-                    </ul>
 
-                    <h3 class="fw-bold mb-3 mt-4">Pendidikan/Pelatihan Khusus</h3>
-                    <ul class="profile-list">
-                        <li>Fellowship Phacoemulsification 2010, Ahmedabad, India</li>
-                        <li>Hands-On Training Phakic & Aphakic IOL 2015, Jakarta</li>
-                        <li>Surgical Skill Training Course: Intraocular & Transcleral Suturing 2017, Lisbon, Portugal
-                        </li>
-                        <li>Internal Training Course: Femto-Lasik (Visumax-MEL90) 2022, NEC-Carl Zeiss, Surabaya</li>
-                        <li>Phakic IOL 2022, PMN Cicendo, Bandung</li>
-                        <li>Surgical Skill Training Course: Anterior Vitrectomy 2022, ESCRS, Milan, Italy</li>
-                        <li>SMILE Course 2024 di SNEC, Singapore</li>
-                    </ul>
+                    @if ($doctor->education_history)
+                        <h3 class="fw-bold mb-3">Riwayat Pendidikan</h3>
+                        <ul class="profile-list">
+                            @foreach (explode(PHP_EOL, $doctor->education_history) as $item)
+                                @if (trim($item))
+                                    <li>{{ $item }}</li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    @endif
+
+                    @if ($doctor->special_training)
+                        <h3 class="fw-bold mb-3 mt-4">Pendidikan/Pelatihan Khusus</h3>
+                        <ul class="profile-list">
+                            @foreach (explode(PHP_EOL, $doctor->special_training) as $item)
+                                @if (trim($item))
+                                    <li>{{ $item }}</li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
 
         <!-- Section: Kompetensi -->
-        <div class="content-card">
-            <h3 class="section-title">Kompetensi dan Keahlian Bidang</h3>
-            <p style="line-height: 1.8; color: #555;">
-                dr. Heni Riyanto, Sp.M(K) adalah dokter spesialis mata dengan subspesialisasi di bidang bedah katarak
-                dan bedah refraktif. Beliau memiliki kompetensi tinggi dalam prosedur seperti Phacoemulsification,
-                LASIK, SMILE, dan pemasangan lensa tanam (IOL), serta aktif mengikuti pelatihan internasional di India,
-                Austria, Portugal, Hong Kong, dan Singapura.
-            </p>
-        </div>
+        <!-- Section: Kompetensi -->
+        @if ($doctor->competence)
+            <div class="content-card">
+                <h3 class="section-title">Kompetensi dan Keahlian Bidang</h3>
+                <p style="line-height: 1.8; color: #555;">
+                    {!! nl2br(e($doctor->competence)) !!}
+                </p>
+            </div>
+        @endif
 
         <!-- Section: Penelitian -->
-        <div class="content-card">
-            <h3 class="section-title">Penelitian dan Publikasi</h3>
-            <ul class="list-unstyled">
-                <li class="mb-3">
-                    <strong>2023, Penulis,</strong> Comparative analysis of urothelial regeneration post-endoscopic
-                    intervention in chronic obstructive uropathy: a multicenter study in Southeast Asia, doi:
-                    https://doi.org/10.12688/f1000research.139876.1
-                </li>
-                <li class="mb-3">
-                    <strong>2023, Penulis,</strong> Comparative analysis of urothelial regeneration post-endoscopic
-                    intervention in chronic obstructive uropathy: a multicenter study in Southeast Asia.
-                </li>
-            </ul>
-        </div>
+        <!-- Section: Penelitian -->
+        @if ($doctor->research_publications)
+            <div class="content-card">
+                <h3 class="section-title">Penelitian dan Publikasi</h3>
+                <ul class="list-unstyled">
+                    @foreach (explode(PHP_EOL, $doctor->research_publications) as $item)
+                        @if (trim($item))
+                            <li class="mb-3">
+                                {{ $item }}
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <!-- Section: JADWAL DOKTER (Dynamic Ready) -->
+        {{-- <!-- Section: JADWAL DOKTER (Dynamic Ready) -->
         <div class="content-card">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="section-title mb-0">Jadwal Dokter</h3>
@@ -447,7 +449,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Section: Postingan Terbaru (Slider) -->
         <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
@@ -460,54 +462,23 @@
 
         <div class="swiper newsSwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="news-card">
-                        <img src="https://img.freepik.com/free-photo/modern-hospital-room_23-2148847819.jpg" alt="News">
-                        <div class="news-body">
-                            <small class="text-muted d-block mb-2">30 Februari 2077</small>
-                            <h5 class="fw-bold mb-3">Jangan Remehkan! 5 Tanda Gangguan</h5>
-                            <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                    class="fas fa-chevron-right"></i></a>
+                @foreach ($articles as $article)
+                    <div class="swiper-slide">
+                        <div class="news-card">
+                            <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}"
+                                style="height: 200px; object-fit: cover; width: 100%;">
+                            <div class="news-body">
+                                <small
+                                    class="text-muted d-block mb-2">{{ $article->created_at->isoFormat('D MMMM Y') }}</small>
+                                <h5 class="fw-bold mb-3"
+                                    style="min-height: 48px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                    {{ $article->title }}</h5>
+                                <a href="{{ route('fe.news.detail', $article->slug) }}" class="btn-full-width">Baca
+                                    selengkapnya <i class="fas fa-chevron-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Duplicate slides for demo -->
-                <div class="swiper-slide">
-                    <div class="news-card">
-                        <img src="https://img.freepik.com/free-vector/health-logo-template-design_23-2150316492.jpg"
-                            alt="News">
-                        <div class="news-body">
-                            <small class="text-muted d-block mb-2">30 Februari 2077</small>
-                            <h5 class="fw-bold mb-3">Kunci Mata Sehat di Usia Lanjut</h5>
-                            <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="news-card">
-                        <img src="https://img.freepik.com/free-photo/scientist-using-microscope_23-2148847831.jpg"
-                            alt="News">
-                        <div class="news-body">
-                            <small class="text-muted d-block mb-2">30 Februari 2077</small>
-                            <h5 class="fw-bold mb-3">Solusi Tuntas Mata Kering</h5>
-                            <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="news-card">
-                        <img src="https://img.freepik.com/free-photo/modern-hospital-room_23-2148847819.jpg"
-                            alt="News">
-                        <div class="news-body">
-                            <small class="text-muted d-block mb-2">30 Februari 2077</small>
-                            <h5 class="fw-bold mb-3">Jangan Remehkan! 5 Tanda Gangguan</h5>
-                            <a href="/new" class="btn-full-width">Baca selengkapnya <i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 
