@@ -38,6 +38,29 @@
 
                         <hr>
 
+                        <h6 class="fw-bold text-primary mb-3">Informasi Perusahaan</h6>
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Tentang Kami (About Us)</label>
+                            <textarea class="form-control" name="about_us" rows="6">{{ old('about_us', $about_us) }}</textarea>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Visi</label>
+                                <textarea class="form-control" name="vision" rows="4">{{ old('vision', $vision) }}</textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Misi</label>
+                                <textarea class="form-control" name="mission" rows="4">{{ old('mission', $mission) }}</textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Motto</label>
+                                <textarea class="form-control" name="motto" rows="4">{{ old('motto', $motto) }}</textarea>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
                         <div class="row align-items-center mb-4">
                             <div class="col-md-6">
                                 <h6 class="fw-bold text-primary mb-3">Informasi Kantor</h6>

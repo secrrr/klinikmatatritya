@@ -20,6 +20,7 @@ use App\Models\JobApplication;
 
 use App\Models\ReviewSetting;
 use App\Models\InstagramSetting;
+use App\Models\Settings;
 
 class FrontController extends Controller
 {
@@ -147,7 +148,13 @@ class FrontController extends Controller
             'data' => $educations->values(),
         ];
 
-        return view('front.about', compact('recent_articles', 'chartKompetensi', 'chartPendidikan'));
+        $settings = Settings::whereIn('key', ['about_us', 'vision', 'mission', 'motto'])->pluck('value', 'key');
+        $about_us = $settings['about_us'] ?? 'Klinik Mata Tritya (KMT) merupakan salah satu pelopor berdirinya klinik khusus mata...'; // Default fallback
+        $vision = $settings['vision'] ?? 'Layanan paripurna, sehat mata dan manfaat sesama.';
+        $mission = $settings['mission'] ?? 'Menyediakan fasilitas dan pelayanan kesehatan mata paripurna dengan mengedepankan kepuasan pelanggan.';
+        $motto = $settings['motto'] ?? 'Mari Melihat Kembali';
+
+        return view('front.about', compact('recent_articles', 'chartKompetensi', 'chartPendidikan', 'about_us', 'vision', 'mission', 'motto'));
     }
 
     public function news()

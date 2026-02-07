@@ -264,7 +264,7 @@
 
     <div class="container py-5">
         <!-- Back Button -->
-        <a href="#" class="back-link"><i class="fas fa-chevron-left me-2"></i> Kembali</a>
+        <a href="/doctors" class="back-link"><i class="fas fa-chevron-left me-2"></i> Kembali</a>
 
         <!-- Header Profile -->
         <div class="mb-5">

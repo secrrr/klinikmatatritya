@@ -355,16 +355,7 @@
     <div class="container mb-5">
         <div class="about-main-card">
             <p class="mb-0" style="line-height: 1.8;">
-                Klinik Mata Tritya (KMT) merupakan salah satu pelopor berdirinya klinik khusus mata. Berdiri sejak 04
-                Februari 2009.
-                Klinik Mata Tritya didedikasikan oleh dr. Armanto Sidohutomo, Sp.M agar menjadi manfaat sesama bagi
-                masyarakat.
-                Sesuai dengan visi Klinik Mata Tritya "layanan paripurna sehat mata manfaat sesama" (rahmatan lil 'alamin)
-                dan didukung oleh para dokter spesialis mata yang kompeten dibidangnya.
-                Klinik Mata Tritya fokus melayani kesehatan mata untuk seluruh bagian lapisan masyarakat yang membutuhkan.
-                Pemberantasan kebutaan mata di Indonesia melalui pelayanan operasi katarak baik menggunakan JKN, organisasi
-                sosial, dan Corporate Social Responsibility (CSR).
-                Klinik untuk pasien yang tidak mampu merupakan salah satu misi Klinik Mata Tritya.
+                {!! nl2br(e($about_us)) !!}
             </p>
         </div>
     </div>
@@ -378,7 +369,7 @@
             <div class="col-lg-3">
                 <div class="vm-card">
                     <div class="vm-title">Visi</div>
-                    <p class="small text-muted mb-0">Layanan paripurna, sehat mata dan manfaat sesama.</p>
+                    <p class="small text-muted mb-0">{!! nl2br(e($vision)) !!}</p>
                 </div>
             </div>
             <div class="col-lg-3">
@@ -386,14 +377,13 @@
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="vm-title mb-0">Misi</div>
                     </div>
-                    <p class="small text-muted mb-0">Menyediakan fasilitas dan pelayanan kesehatan mata paripurna dengan
-                        mengedepankan kepuasan pelanggan.</p>
+                    <p class="small text-muted mb-0">{!! nl2br(e($mission)) !!}</p>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="vm-card">
                     <div class="vm-title">Motto</div>
-                    <p class="small text-muted mb-0">Mari Melihat Kembali</p>
+                    <p class="small text-muted mb-0">{!! nl2br(e($motto)) !!}</p>
                 </div>
             </div>
         </div>

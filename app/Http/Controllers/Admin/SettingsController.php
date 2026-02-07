@@ -83,7 +83,11 @@ class SettingsController extends Controller
     }
     public function general()
     {
-        $settings = Settings::whereIn('key', ['maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs'])->pluck('value', 'key');
+        $settings = Settings::whereIn('key', [
+            'maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 
+            'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs',
+            'about_us', 'vision', 'mission', 'motto'
+        ])->pluck('value', 'key');
         
         $maintenance_mode = $settings['maintenance_mode'] ?? 'false';
         $office_name = $settings['office_name'] ?? 'Klinik Mata Tritya';
@@ -94,6 +98,11 @@ class SettingsController extends Controller
         $eye_anatomy_image = $settings['eye_anatomy_image'] ?? '';
         $booking_link = $settings['booking_link'] ?? '';
         
+        $about_us = $settings['about_us'] ?? '';
+        $vision = $settings['vision'] ?? '';
+        $mission = $settings['mission'] ?? '';
+        $motto = $settings['motto'] ?? '';
+
         $help_menu_roles = isset($settings['help_menu_roles']) ? json_decode($settings['help_menu_roles'], true) : ['Pasien', 'Keluarga Pasien'];
         $help_menu_needs = isset($settings['help_menu_needs']) ? json_decode($settings['help_menu_needs'], true) : ['Dokter', 'Layanan', 'Jadwal'];
 
@@ -101,7 +110,11 @@ class SettingsController extends Controller
         $help_menu_roles = is_array($help_menu_roles) ? implode("\n", $help_menu_roles) : $help_menu_roles;
         $help_menu_needs = is_array($help_menu_needs) ? implode("\n", $help_menu_needs) : $help_menu_needs;
 
-        return view('admin.settings.general', compact('maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs'));
+        return view('admin.settings.general', compact(
+            'maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 
+            'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs',
+            'about_us', 'vision', 'mission', 'motto'
+        ));
     }
 
     public function updateGeneral(Request $request)
@@ -112,9 +125,13 @@ class SettingsController extends Controller
             ['value' => $request->has('maintenance_mode') ? 'true' : 'false']
         );
 
-        // Update Office Info
-        $officeKeys = ['office_name', 'office_address', 'office_phone', 'office_wa', 'office_email'];
-        foreach ($officeKeys as $key) {
+        // Update Office Info & Company Info
+        $keys = [
+            'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email',
+            'about_us', 'vision', 'mission', 'motto'
+        ];
+        
+        foreach ($keys as $key) {
              Settings::updateOrCreate(
                 ['key' => $key],
                 ['value' => $request->$key]
