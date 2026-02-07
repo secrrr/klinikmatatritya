@@ -1036,7 +1036,7 @@
                             slide.innerHTML = `
                                 <a href="${post.link}" target="_blank" class="insta-card h-100">
                                     <div class="insta-media-wrapper">
-                                        <img src="${mediaUrl}" alt="Instagram Post" loading="lazy">
+                                        <img src="https://phosphor.utils.elfsightcdn.com/?url=${mediaUrl}" alt="Instagram Post" loading="lazy">
                                         ${isVideo ? '<i class="fas fa-play insta-icon"></i>' : ''}
                                     </div>
                                     <div class="insta-card-body">
