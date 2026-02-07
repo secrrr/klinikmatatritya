@@ -614,10 +614,10 @@
         new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: ['Dokter Spesialis Mata', 'Dokter Umum', 'Perawat', 'Optometri', 'Nakes Lain', 'Non-Nakes'],
+                labels: {!! json_encode($chartKompetensi['labels']) !!},
                 datasets: [{
                     label: 'Jumlah',
-                    data: [8, 2, 19, 3, 13, 27], // Data dummy sesuai grafik
+                    data: {!! json_encode($chartKompetensi['data']) !!},
                     backgroundColor: '#e91e63',
                     borderRadius: 5,
                     barThickness: 30
@@ -636,6 +636,9 @@
                         beginAtZero: true,
                         grid: {
                             drawBorder: false
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     },
                     x: {
@@ -652,10 +655,10 @@
         new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['Dokter Spesialis', 'Sarjana Strata 2', 'Sarjana Strata 1', 'Diploma 3', 'SLTA'],
+                labels: {!! json_encode($chartPendidikan['labels']) !!},
                 datasets: [{
                     label: 'Jumlah',
-                    data: [8, 8, 35, 24, 7], // Data dummy
+                    data: {!! json_encode($chartPendidikan['data']) !!},
                     backgroundColor: '#e91e63',
                     borderRadius: 5,
                     barThickness: 35
@@ -674,6 +677,9 @@
                         beginAtZero: true,
                         grid: {
                             drawBorder: false
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     },
                     x: {

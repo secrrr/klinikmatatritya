@@ -130,7 +130,24 @@ class FrontController extends Controller
     public function about()
     {
         $recent_articles = Article::latest()->take(5)->get();
-        return view('front.about', compact('recent_articles'));
+        
+        $doctors = Doctor::all();
+
+        // Chart Kompetensi (by Specialty)
+        $specialties = $doctors->groupBy('specialty')->map->count();
+        $chartKompetensi = [
+            'labels' => $specialties->keys(),
+            'data' => $specialties->values(),
+        ];
+
+        // Chart Pendidikan (by Education Level)
+        $educations = $doctors->whereNotNull('education_level')->groupBy('education_level')->map->count();
+        $chartPendidikan = [
+            'labels' => $educations->keys(),
+            'data' => $educations->values(),
+        ];
+
+        return view('front.about', compact('recent_articles', 'chartKompetensi', 'chartPendidikan'));
     }
 
     public function news()
