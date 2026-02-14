@@ -39,6 +39,38 @@ class FrontController extends Controller
         $specializations = Specialization::all();
         return view('front.landing-page', compact('services', 'articles', 'doctors', 'promos','popup','social_feeds',   'insurances', 'faqCategories', 'specializations'));
     }
+
+    public function faqSearch(Request $request)
+    {
+        $query = trim((string) $request->get('q', ''));
+        if (mb_strlen($query) < 2) {
+            return response()->json(['items' => []]);
+        }
+
+        $items = Faq::query()
+            ->with('faqCategory')
+            ->where('is_active', true)
+            ->where(function ($q) use ($query) {
+                $q->where('question', 'like', "%{$query}%");
+            })
+            ->orderBy('id', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($faq) {
+                $slug = $faq->faqCategory?->slug;
+
+                return [
+                    'id' => $faq->id,
+                    'question' => $faq->question,
+                    'category_slug' => $slug,
+                    'target' => $slug ? "faq-{$slug}-{$faq->id}" : null,
+                ];
+            })
+            ->values();
+
+        return response()->json(['items' => $items]);
+    }
+
     public function services()
     {
         $services = Service::paginate(12);
