@@ -377,6 +377,7 @@
         sidebarOverlay.addEventListener('click', toggleSidebar);
     </script>
     @yield('scripts')
+    @stack('scripts')
 </body>
 
 </html>
