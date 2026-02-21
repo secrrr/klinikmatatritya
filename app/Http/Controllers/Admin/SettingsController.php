@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Settings;
 use Illuminate\Support\Facades\Storage;
+use App\Models\FooterSection;
+use Illuminate\Support\Facades\Cache;
 
 class SettingsController extends Controller
 {
@@ -206,5 +208,69 @@ class SettingsController extends Controller
         }
 
         return back()->with('success', 'Pengaturan umum berhasil diperbarui!');
+    }
+    public function footerIndex(){
+        $sections = FooterSection::all();
+        return view('admin.settings.footer', compact('sections'));
+    }
+
+    public function updateFooterSection(Request $request, $id){
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'content' => 'nullable|string',
+                'image' => 'nullable|image|max:2048'
+            ]);
+
+            $section = FooterSection::findOrFail($id);
+            
+            $section->title = $request->title;
+            $section->content = $request->content;
+
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($section->image) {
+                    Storage::disk('public')->delete($section->image);
+                }
+                
+                // Get file extension
+                $extension = $request->file('image')->getClientOriginalExtension();
+                
+                // Create filename based on slug for easy management
+                $filename = $section->slug . '.' . $extension;
+                
+                // Store file with custom name
+                $imagePath = $request->file('image')->storeAs('footer', $filename, 'public');
+                $section->image = $imagePath;
+            }
+
+            $section->save();
+
+            // Clear cache untuk footer section
+            $cacheKeys = [
+                'footer_promosi',
+                'footer_csr',
+                'footer_investor',
+                'footer_emc',
+                'footer_charities',
+                'footer_privacy',
+                'footer_help_center'
+            ];
+            
+            foreach ($cacheKeys as $key) {
+                Cache::forget($key);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Footer section berhasil diperbarui!'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }
