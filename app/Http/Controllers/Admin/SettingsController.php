@@ -84,12 +84,18 @@ class SettingsController extends Controller
     public function general()
     {
         $settings = Settings::whereIn('key', [
-            'maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 
+            'maintenance_mode', 'website_font', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 
             'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs',
-            'about_us', 'vision', 'mission', 'motto'
+            'about_us', 'vision', 'mission', 'motto', 'facebook', 'instagram', 'youtube', 'tiktok'
         ])->pluck('value', 'key');
         
         $maintenance_mode = $settings['maintenance_mode'] ?? 'false';
+        $website_font = $settings['website_font'] ?? 'Poppins';
+
+        $systemfonts = config('fonts.system');
+        $googlefonts = config('fonts.google');
+        $isGoogleFont = in_array($website_font, $googlefonts);
+
         $office_name = $settings['office_name'] ?? 'Klinik Mata Tritya';
         $office_address = $settings['office_address'] ?? '';
         $office_phone = $settings['office_phone'] ?? '';
@@ -97,6 +103,11 @@ class SettingsController extends Controller
         $office_email = $settings['office_email'] ?? '';
         $eye_anatomy_image = $settings['eye_anatomy_image'] ?? '';
         $booking_link = $settings['booking_link'] ?? '';
+        
+        $facebook = $settings['facebook'] ?? 'https://facebook.com/klinikmatatrityasurabaya';
+        $instagram = $settings['instagram'] ?? 'https://instagram.com/klinikmatatritya.official';
+        $youtube = $settings['youtube'] ?? 'https://youtube.com/@klinikmatatritya';
+        $tiktok = $settings['tiktok'] ?? 'https://www.tiktok.com/@klinikmatatritya';
         
         $about_us = $settings['about_us'] ?? '';
         $vision = $settings['vision'] ?? '';
@@ -111,10 +122,12 @@ class SettingsController extends Controller
         $help_menu_needs = is_array($help_menu_needs) ? implode("\n", $help_menu_needs) : $help_menu_needs;
 
         return view('admin.settings.general', compact(
-            'maintenance_mode', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 
+            'maintenance_mode', 'website_font', 'office_name', 'office_address', 'office_phone', 'office_wa', 'office_email', 
             'eye_anatomy_image', 'booking_link', 'help_menu_roles', 'help_menu_needs',
-            'about_us', 'vision', 'mission', 'motto'
-        ));
+            'about_us', 'vision', 'mission', 'motto', 'facebook', 'instagram', 'youtube', 'tiktok'
+        ))->with('systemfonts', $systemfonts)
+          ->with('googlefonts', $googlefonts)
+          ->with('isGoogleFont', $isGoogleFont);
     }
 
     public function updateGeneral(Request $request)
@@ -123,6 +136,16 @@ class SettingsController extends Controller
         Settings::updateOrCreate(
             ['key' => 'maintenance_mode'],
             ['value' => $request->has('maintenance_mode') ? 'true' : 'false']
+        );
+
+        // Update Website Font
+        $allfonts = array_merge(config('fonts.system'), config('fonts.google'));
+        $request->validate([
+            'website_font' => 'required|in:' . implode(',', $allfonts),
+        ]);
+        Settings::updateOrCreate(
+            ['key' => 'website_font'],
+            ['value' => $request->website_font]
         );
 
         // Update Office Info & Company Info
@@ -143,6 +166,15 @@ class SettingsController extends Controller
             ['key' => 'booking_link'],
             ['value' => $request->booking_link]
         );
+
+        // Update Social Media Links
+        $socialKeys = ['facebook', 'instagram', 'youtube', 'tiktok'];
+        foreach ($socialKeys as $key) {
+            Settings::updateOrCreate(
+                ['key' => $key],
+                ['value' => $request->$key]
+            );
+        }
 
         // Update Help Menu Options (Roles)
         $roles = array_filter(array_map('trim', explode("\n", $request->help_menu_roles)));
