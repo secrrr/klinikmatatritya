@@ -72,6 +72,7 @@ Route::prefix('admin')->group(function () {
         Route::post('settings/general', [App\Http\Controllers\Admin\SettingsController::class, 'updateGeneral'])->name('admin.settings.update-general');
 
         Route::get('settings/footer', [App\Http\Controllers\Admin\SettingsController::class, 'footerIndex'])->name('admin.settings.footer');
+        Route::get('settings/footer/{id}/items', [App\Http\Controllers\Admin\SettingsController::class, 'getFooterItems'])->name('admin.settings.footer.items');
         Route::post('settings/footer/{id}', [App\Http\Controllers\Admin\SettingsController::class, 'updateFooterSection'])->name('admin.settings.footer.update');
     });
 });
