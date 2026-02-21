@@ -211,7 +211,22 @@ class SettingsController extends Controller
     }
     public function footerIndex(){
         $sections = FooterSection::all();
-        return view('admin.settings.footer', compact('sections'));
+        return view('admin.footer-management.footer', compact('sections'));
+    }
+
+    public function getFooterItems($id) {
+        try {
+            $section = FooterSection::with('items')->findOrFail($id);
+            return response()->json([
+                'success' => true,
+                'items' => $section->items
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function updateFooterSection(Request $request, $id){
@@ -219,7 +234,12 @@ class SettingsController extends Controller
             $request->validate([
                 'title' => 'required|string|max:255',
                 'content' => 'nullable|string',
-                'image' => 'nullable|image|max:2048'
+                'image' => 'nullable|image|max:2048',
+                'items' => 'nullable|array',
+                'items.*.pemeriksaan' => 'required|string|max:255',
+                'items.*.harga_normal' => 'required|numeric|min:0',
+                'items.*.harga_promo' => 'nullable|numeric|min:0',
+                'items.*.keterangan' => 'nullable|string'
             ]);
 
             $section = FooterSection::findOrFail($id);
@@ -245,6 +265,24 @@ class SettingsController extends Controller
             }
 
             $section->save();
+
+            // Handle items (update/create)
+            if ($request->has('items')) {
+                // Delete existing items
+                $section->items()->delete();
+                
+                // Create new items
+                foreach ($request->items as $item) {
+                    if (!empty($item['pemeriksaan'])) {
+                        $section->items()->create([
+                            'pemeriksaan' => $item['pemeriksaan'],
+                            'harga_normal' => $item['harga_normal'] ?? 0,
+                            'harga_promo' => $item['harga_promo'] ?? null,
+                            'keterangan' => $item['keterangan'] ?? null
+                        ]);
+                    }
+                }
+            }
 
             // Clear cache untuk footer section
             $cacheKeys = [
