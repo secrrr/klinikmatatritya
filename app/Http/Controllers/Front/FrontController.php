@@ -3,24 +3,26 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Promo;
-use App\Models\PopupSetting;
-use App\Models\Service;
 use App\Models\Article;
-use App\Models\Doctor;
-use App\Models\Testimonial;
-use App\Models\SocialFeed;
 use App\Models\Career;
+use App\Models\Doctor;
 use App\Models\Faq;
 use App\Models\FaqCategory;
-use App\Models\Insurance;
-use App\Models\Specialization;
-use App\Models\JobApplication;
-
-use App\Models\ReviewSetting;
+use App\Models\FooterSection;
 use App\Models\InstagramSetting;
+use App\Models\Insurance;
+use App\Models\JobApplication;
+use App\Models\PopupSetting;
+use App\Models\Promo;
+use App\Models\ReviewSetting;
+use App\Models\Service;
 use App\Models\Settings;
+use App\Models\SocialFeed;
+
+use App\Models\Specialization;
+use App\Models\Testimonial;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FrontController extends Controller
 {
@@ -217,58 +219,93 @@ class FrontController extends Controller
 
     public function csr()
     {
+        $section = Cache::remember('footer_csr', 3600, function () {
+            return FooterSection::with('items')
+            ->where('slug', 'csr')
+            ->firstOrFail();
+        });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.csr', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.csr', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function investor()
     {
+        $section = Cache::remember('footer_investor', 3600, function () {
+            return FooterSection::with('items')
+            ->where('slug', 'investor')
+            ->firstOrFail();
+        });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.investor', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.investor', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function emc()
     {
+            $section = Cache::remember('footer_emc', 3600, function () {
+                return FooterSection::with('items')
+                ->where('slug', 'emc')
+                ->firstOrFail();
+            });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.emc', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.emc', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function charities()
     {
+        $section = Cache::remember('footer_charities', 3600, function () {
+            return FooterSection::with('items')
+            ->where('slug', 'kegiatan-amal')
+            ->firstOrFail();
+        });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.charities', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.charities', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function privacy()
     {
+        $section = Cache::remember('footer_privacy', 3600, function () {
+            return FooterSection::with('items')
+            ->where('slug', 'kebijakan-privasi')
+            ->firstOrFail();
+        });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.privacy', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.privacy', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function help_center()
     {
+        $section = Cache::remember('footer_help_center', 3600, function () {
+            return FooterSection::with('items')
+            ->where('slug', 'pusat-bantuan')
+            ->firstOrFail();
+        });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.help_center', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.help_center', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function promosi()
     {
+        $section = Cache::remember('footer_promosi', 3600, function () {
+            return FooterSection::with('items')
+            ->where('slug', 'promo')
+            ->firstOrFail();
+        });
         $articles = Article::latest()->paginate(9);
         $recent_articles = Article::latest()->take(5)->get();
         $social_feeds = SocialFeed::latest()->take(4)->get();
-        return view('front.promosi', compact('articles', 'recent_articles', 'social_feeds'));
+        return view('front.promosi', compact('section', 'articles', 'recent_articles', 'social_feeds'));
     }
 
     public function hvf()
