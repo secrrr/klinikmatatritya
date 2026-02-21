@@ -36,7 +36,7 @@
 
 .sidebar-img {
     width: 100%;
-    height: 400px;
+    height: 150px;
     border-radius: 12px;
     margin-bottom: 15px;
     object-fit: cover;
@@ -178,7 +178,12 @@
         <!-- RIGHT SIDEBAR -->
         <div class="col-lg-4">
             <div class="sidebar-card">
-                <img src="{{ $section->image ? asset('storage/' . $section->image) : asset('img/bg_jabat.png') }}" class="sidebar-img" alt="{{ $section->title }}">
+                @php
+                    $sidebarImage = (!empty($section->image) && Storage::disk('public')->exists($section->image))
+                        ? asset('storage/' . $section->image)
+                        : asset('img/background.jpg');
+                @endphp
+                <img src="{{ $sidebarImage }}" class="sidebar-img" alt="{{ $section->title }}">
 
                 <h5 class="fw-bold">Paket Pemeriksaan Dasar Glaukoma</h5>
                 <p class="text-primary fw-bold" style="font-size: 1.3rem;">Rp 250.000</p>
