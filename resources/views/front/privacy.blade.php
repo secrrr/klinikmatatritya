@@ -61,7 +61,6 @@
             object-fit: cover;
             background: #fff;
         }
-        }
 
         .article-card {
             position: relative;

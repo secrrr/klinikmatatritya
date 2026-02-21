@@ -75,7 +75,8 @@
             <form id="footerForm" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" id="section_id" name="section_id">
-                <div class="modal-body px-4 py-4">
+                <input type="hidden" id="section_slug" name="section_slug">
+                <div class="modal-body px-4 py-4" style="max-height: 70vh; overflow-y: auto;">
                     <div class="mb-4">
                         <label for="section_name" class="form-label fw-semibold">
                             <i class="fas fa-tag me-1 text-muted"></i>Nama Section
@@ -97,7 +98,7 @@
                         <label for="content" class="form-label fw-semibold">
                             <i class="fas fa-align-left me-1 text-muted"></i>Content
                         </label>
-                        <textarea class="form-control" id="content" name="content" rows="4" 
+                        <textarea class="form-control" id="content" name="content" rows="3" 
                             placeholder="Masukkan konten footer section (opsional)"></textarea>
                         <div class="invalid-feedback" id="content-error"></div>
                     </div>
@@ -112,6 +113,37 @@
                         </small>
                         <div class="invalid-feedback" id="image-error"></div>
                         <div id="current-image" class="mt-3"></div>
+                    </div>
+
+                    <!-- Items Table Section (Promosi Only) -->
+                    <div id="itemsSection" class="card bg-light border-0 mt-4" style="display: none;">
+                        <div class="card-header bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0 fw-semibold">
+                                    <i class="fas fa-table me-2"></i>Data Promo
+                                </h6>
+                                <button type="button" class="btn btn-success btn-sm" id="addItemBtn">
+                                    <i class="fas fa-plus me-1"></i>Tambah Baris
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered mb-0" id="itemsTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 35%;">Pemeriksaan</th>
+                                            <th style="width: 20%;">Harga Normal</th>
+                                            <th style="width: 20%;">Harga Promo</th>
+                                            <th style="width: 15%;">Keterangan</th>
+                                            <th style="width: 10%;" class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="itemsBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
@@ -154,6 +186,7 @@ $(document).ready(function() {
 
         // Set data ke modal
         $('#section_id').val(id);
+        $('#section_slug').val(slug);
         $('#section_name').val(slug ? slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : '');
         $('#title').val(title || '');
         $('#content').val(content || '');
@@ -175,8 +208,14 @@ $(document).ready(function() {
         } else {
             $('#current-image').empty();
         }
-
-        // Show modal menggunakan Bootstrap 5 API
+        
+        // Load items only for promosi section
+        if (slug === 'promo') {
+            $('#itemsSection').show();
+            loadItems(id);
+        } else {
+            $('#itemsSection').hide();
+        }
         const modalElement = document.getElementById('footerModal');
         const footerModal = new bootstrap.Modal(modalElement);
         footerModal.show();
@@ -184,12 +223,88 @@ $(document).ready(function() {
         console.log('Modal shown'); // Debug log
     });
 
+    // Function to load items
+    function loadItems(sectionId) {
+        $.ajax({
+            url: `/admin/settings/footer/${sectionId}/items`,
+            type: 'GET',
+            success: function(data) {
+                const tbody = $('#itemsBody');
+                tbody.empty();
+                
+                if (data.items && data.items.length > 0) {
+                    data.items.forEach((item, index) => {
+                        addItemRow(item.pemeriksaan, item.harga_normal, item.harga_promo, item.keterangan);
+                    });
+                } else {
+                    addItemRow('', '', '', '');
+                }
+            }
+        });
+    }
+
+    // Function to add item row
+    function addItemRow(pemeriksaan = '', harga_normal = '', harga_promo = '', keterangan = '') {
+        const tbody = $('#itemsBody');
+        const rowHtml = `
+            <tr>
+                <td><input type="text" class="form-control form-control-sm" name="items[][pemeriksaan]" value="${pemeriksaan}" placeholder="Nama pemeriksaan"></td>
+                <td><input type="number" class="form-control form-control-sm" name="items[][harga_normal]" value="${harga_normal}" placeholder="0" step="0.01" min="0"></td>
+                <td><input type="number" class="form-control form-control-sm" name="items[][harga_promo]" value="${harga_promo}" placeholder="0" step="0.01" min="0"></td>
+                <td><input type="text" class="form-control form-control-sm" name="items[][keterangan]" value="${keterangan}" placeholder="Opsional"></td>
+                <td class="text-center"><button type="button" class="btn btn-danger btn-sm deleteItemBtn"><i class="fas fa-trash"></i></button></td>
+            </tr>
+        `;
+        tbody.append(rowHtml);
+    }
+
+    // Add item button click
+    $(document).on('click', '#addItemBtn', function() {
+        addItemRow();
+    });
+
+    // Delete item button click
+    $(document).on('click', '.deleteItemBtn', function() {
+        $(this).closest('tr').remove();
+    });
+
     // Handle form submit dengan AJAX
     $('#footerForm').on('submit', function(e) {
         e.preventDefault();
 
         const id = $('#section_id').val();
-        const formData = new FormData(this);
+        const form = this;
+        const formData = new FormData();
+        
+        // Add CSRF token
+        formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+        
+        // Add basic fields
+        formData.append('title', $('#title').val());
+        formData.append('content', $('#content').val());
+        
+        // Add image if selected
+        const imageFile = $('#image')[0].files[0];
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
+        
+        // Rebuild items array with sequential index
+        let itemIndex = 0;
+        $('#itemsBody tr').each(function() {
+            const pemeriksaan = $(this).find('input[name="items[][pemeriksaan]"]').val();
+            const harga_normal = $(this).find('input[name="items[][harga_normal]"]').val();
+            const harga_promo = $(this).find('input[name="items[][harga_promo]"]').val();
+            const keterangan = $(this).find('input[name="items[][keterangan]"]').val();
+            
+            if (pemeriksaan.trim() !== '') {
+                formData.append(`items[${itemIndex}][pemeriksaan]`, pemeriksaan);
+                formData.append(`items[${itemIndex}][harga_normal]`, harga_normal || 0);
+                formData.append(`items[${itemIndex}][harga_promo]`, harga_promo || '');
+                formData.append(`items[${itemIndex}][keterangan]`, keterangan || '');
+                itemIndex++;
+            }
+        });
         
         // Disable button dan show loading
         $('#saveBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-1"></i>Menyimpan...');
